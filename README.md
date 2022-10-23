@@ -176,6 +176,11 @@ you'll need to copy over based on your selections.
 
 <https://quasar.dev/start/vite-plugin>
 
+These following files will need to be updated based on the configurator tool.
+
+- `mains.ts`
+- `vite.config.ts`
+
 ## Package JSON Changes
 
 Updated or added lines for testing and deployment. The deployment script makes a copy of the
