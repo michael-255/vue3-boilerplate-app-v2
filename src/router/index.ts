@@ -38,11 +38,11 @@ const router = createRouter({
         tabs: [
           {
             name: 'Measurements',
-            icon: Icon.ACTIVITIES,
+            icon: Icon.MEASUREMENTS,
             table: AppTable.MEASUREMENTS,
           },
           {
-            name: 'Measurement Records',
+            name: 'Records',
             icon: Icon.RECORDS,
             table: AppTable.MEASUREMENT_RECORDS,
           },

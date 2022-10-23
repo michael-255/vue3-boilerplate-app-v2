@@ -2,6 +2,8 @@
 import { QToggle } from 'quasar'
 import useSettingsStore from '@/stores/settings'
 import { computed } from 'vue'
+import { DB } from '@/services/LocalDatabase'
+import { AppTable, SettingKey } from '@/constants/data-enums'
 
 const settings = useSettingsStore()
 
@@ -10,7 +12,8 @@ const DEBUG = computed({
     return settings.DEBUG
   },
   async set(bool: boolean) {
-    await settings.setDEBUG(bool)
+    await DB.updateById(AppTable.SETTINGS, SettingKey.DEBUG, { settingValue: bool })
+    settings.setDEBUG(bool)
   },
 })
 
@@ -19,7 +22,8 @@ const NOTIFY = computed({
     return settings.NOTIFY
   },
   async set(bool: boolean) {
-    await settings.setNOTIFY(bool)
+    await DB.updateById(AppTable.SETTINGS, SettingKey.NOTIFY, { settingValue: bool })
+    settings.setNOTIFY(bool)
   },
 })
 
@@ -28,7 +32,8 @@ const INFO = computed({
     return settings.INFO
   },
   async set(bool: boolean) {
-    await settings.setINFO(bool)
+    await DB.updateById(AppTable.SETTINGS, SettingKey.INFO, { settingValue: bool })
+    settings.setINFO(bool)
   },
 })
 </script>

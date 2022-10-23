@@ -24,31 +24,31 @@ export class MeasurementRecord extends Record {
     this.measurementValue = params.measurementValue
   }
 
-  // static async report(...params: any): Promise<void> {
-  //   console.error('params:', params)
-  //   throw new Error('Not Supported')
-  // }
+  static async report(...params: any): Promise<void> {
+    console.error('params:', params)
+    throw new Error('Not Supported')
+  }
 
-  // static async update(database: LocalDatabase, data: DatabaseObject): Promise<void> {
-  //   const { originalId, id, createdDate, parentId, measurementValue } = data
-  //   await database.updateById(
-  //     originalId,
-  //     AppTable.MEASUREMENT_RECORDS,
-  //     new MeasurementRecord({ id, createdDate, parentId, measurementValue })
-  //   )
-  // }
+  static async update(database: LocalDatabase, data: DatabaseObject): Promise<void> {
+    const { originalId, id, createdDate, parentId, measurementValue } = data
+    await database.updateById(
+      originalId,
+      AppTable.MEASUREMENT_RECORDS,
+      new MeasurementRecord({ id, createdDate, parentId, measurementValue })
+    )
+  }
 
-  // static async create(database: LocalDatabase, data: DatabaseObject): Promise<void> {
-  //   const { id, createdDate, parentId, measurementValue } = data
-  //   await database.add(
-  //     AppTable.MEASUREMENT_RECORDS,
-  //     new MeasurementRecord({ id, createdDate, parentId, measurementValue })
-  //   )
-  // }
+  static async create(database: LocalDatabase, data: DatabaseObject): Promise<void> {
+    const { id, createdDate, parentId, measurementValue } = data
+    await database.add(
+      AppTable.MEASUREMENT_RECORDS,
+      new MeasurementRecord({ id, createdDate, parentId, measurementValue })
+    )
+  }
 
-  // static async getAll(database: LocalDatabase): Promise<MeasurementRecord[]> {
-  //   return await database.getAll(AppTable.MEASUREMENT_RECORDS)
-  // }
+  static async getAll(database: LocalDatabase): Promise<MeasurementRecord[]> {
+    return await database.getAll(AppTable.MEASUREMENT_RECORDS)
+  }
 
   static getLabelSingular(): string {
     return 'Measurement Record'

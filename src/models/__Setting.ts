@@ -2,7 +2,7 @@ import type { DataTableProps, SettingValue } from '@/constants/types-interfaces'
 import { Entity, type IEntity } from '@/models/__Entity'
 import { Field } from '@/constants/data-enums'
 import { AppTable, Operation } from '@/constants/data-enums'
-// import type { LocalDatabase } from '@/services/LocalDatabase'
+import type { LocalDatabase } from '@/services/LocalDatabase'
 
 export interface ISetting extends IEntity {
   settingValue: SettingValue
@@ -20,24 +20,24 @@ export class Setting extends Entity {
     this.settingValue = params.settingValue
   }
 
-  // static async report(...params: any): Promise<void> {
-  //   console.error('params:', params)
-  //   throw new Error('Not Supported')
-  // }
+  static async report(...params: any): Promise<void> {
+    console.error('params:', params)
+    throw new Error('Not Supported')
+  }
 
-  // static async update(...params: any): Promise<void> {
-  //   console.error('params:', params)
-  //   throw new Error('Not Supported')
-  // }
+  static async update(...params: any): Promise<void> {
+    console.error('params:', params)
+    throw new Error('Not Supported')
+  }
 
-  // static async create(...params: any): Promise<void> {
-  //   console.error('params:', params)
-  //   throw new Error('Not Supported')
-  // }
+  static async create(...params: any): Promise<void> {
+    console.error('params:', params)
+    throw new Error('Not Supported')
+  }
 
-  // static async getAll(database: LocalDatabase): Promise<Setting[]> {
-  //   return await database.getAll(AppTable.SETTINGS)
-  // }
+  static async getAll(database: LocalDatabase): Promise<Setting[]> {
+    return await database.getAll(AppTable.SETTINGS)
+  }
 
   static getLabelSingular(): string {
     return 'Setting'
@@ -56,7 +56,7 @@ export class Setting extends Entity {
   }
 
   static getVisibleColumns(): Field[] {
-    return []
+    return [Field.SETTING_VALUE]
   }
 
   static getFields(): Field[] {

@@ -1,5 +1,5 @@
 import { defineStore, type StoreDefinition } from 'pinia'
-import { isoToDisplayDate } from '@/utils/luxon'
+import { isoToDisplayDate } from '@/utils/common'
 
 type ReportState = {
   options: ReportOptions

@@ -2,7 +2,7 @@ import { Activity, type IActivity } from '@/models/__Activity'
 import { AppTable, Operation, type MeasurementType } from '@/constants/data-enums'
 import { Field } from '@/constants/data-enums'
 import type { DataTableProps, DatabaseObject } from '@/constants/types-interfaces'
-// import type { LocalDatabase } from '@/services/LocalDatabase'
+import type { LocalDatabase } from '@/services/LocalDatabase'
 import type { MeasurementRecord } from '@/models/MeasurementRecord'
 import { isoToDisplayDate } from '@/utils/common'
 // import { defineAsyncComponent } from 'vue'
@@ -27,58 +27,63 @@ export class Measurement extends Activity {
     this.measurementType = params.measurementType
   }
 
-  // /**
-  //  * Creates the chart data and settings for the reports.
-  //  * @param database
-  //  * @param id
-  //  */
-  // static async report(database: LocalDatabase, id: string): Promise<any> {
-  //   const records = (await database.getByParentId(
-  //     AppTable.MEASUREMENT_RECORDS,
-  //     id
-  //   )) as MeasurementRecord[]
-  //   const parent = (await database.getById(AppTable.MEASUREMENTS, id)) as Measurement
+  /**
+   * Creates the chart data and settings for the reports.
+   * @param database
+   * @param id
+   */
+  static async report(database: LocalDatabase, id: string): Promise<any> {
+    const records = (await database.getFirstByField(
+      AppTable.MEASUREMENT_RECORDS,
+      Field.PARENT_ID,
+      id
+    )) as MeasurementRecord[]
+    const parent = (await database.getFirstByField(
+      AppTable.MEASUREMENTS,
+      Field.ID,
+      id
+    )) as Measurement
 
-  //   const measurementValues = records.map((r: MeasurementRecord) => r?.measurementValue)
+    const measurementValues = records.map((r: MeasurementRecord) => r?.measurementValue)
 
-  //   const datasets = []
-  //   datasets.push({
-  //     label: parent?.measurementType,
-  //     borderColor: '#1976D2',
-  //     data: measurementValues,
-  //   })
+    const datasets = []
+    datasets.push({
+      label: parent?.measurementType,
+      borderColor: '#1976D2',
+      data: measurementValues,
+    })
 
-  //   return {
-  //     title: parent?.name,
-  //     chartData: {
-  //       labels: records.map(() => ''),
-  //       datasets: datasets,
-  //     },
-  //     firstDate: isoToDisplayDate(records[0]?.createdDate),
-  //     lastDate: isoToDisplayDate(records[records.length - 1]?.createdDate),
-  //   }
-  // }
+    return {
+      title: parent?.name,
+      chartData: {
+        labels: records.map(() => ''),
+        datasets: datasets,
+      },
+      firstDate: isoToDisplayDate(records[0]?.createdDate),
+      lastDate: isoToDisplayDate(records[records.length - 1]?.createdDate),
+    }
+  }
 
-  // static async update(database: LocalDatabase, data: DatabaseObject): Promise<void> {
-  //   const { originalId, id, createdDate, name, measurementType } = data
-  //   await database.updateById(
-  //     AppTable.MEASUREMENTS,
-  //     originalId,
-  //     new Measurement({ id, createdDate, name, measurementType })
-  //   )
-  // }
+  static async update(database: LocalDatabase, data: DatabaseObject): Promise<void> {
+    const { originalId, id, createdDate, name, measurementType } = data
+    await database.updateById(
+      AppTable.MEASUREMENTS,
+      originalId,
+      new Measurement({ id, createdDate, name, measurementType })
+    )
+  }
 
-  // static async create(database: LocalDatabase, data: DatabaseObject): Promise<void> {
-  //   const { id, createdDate, name, measurementType } = data
-  //   await database.add(
-  //     AppTable.MEASUREMENTS,
-  //     new Measurement({ id, createdDate, name, measurementType })
-  //   )
-  // }
+  static async create(database: LocalDatabase, data: DatabaseObject): Promise<void> {
+    const { id, createdDate, name, measurementType } = data
+    await database.add(
+      AppTable.MEASUREMENTS,
+      new Measurement({ id, createdDate, name, measurementType })
+    )
+  }
 
-  // static async getAll(database: LocalDatabase): Promise<Measurement[]> {
-  //   return await database.getAll(AppTable.MEASUREMENTS)
-  // }
+  static async getAll(database: LocalDatabase): Promise<Measurement[]> {
+    return await database.getAll(AppTable.MEASUREMENTS)
+  }
 
   static getLabelSingular(): string {
     return 'Measurement'

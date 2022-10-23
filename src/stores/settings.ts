@@ -13,15 +13,15 @@ const useSettingsStore: StoreDefinition = defineStore({
   }),
 
   actions: {
-    async setDEBUG(bool: boolean): Promise<void> {
+    setDEBUG(bool: boolean): void {
       this.DEBUG = !!bool
     },
 
-    async setNOTIFY(bool: boolean): Promise<void> {
+    setNOTIFY(bool: boolean): void {
       this.NOTIFY = !!bool
     },
 
-    async setINFO(bool: boolean): Promise<void> {
+    setINFO(bool: boolean): void {
       this.INFO = !!bool
     },
   },

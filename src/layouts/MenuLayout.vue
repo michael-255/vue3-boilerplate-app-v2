@@ -29,13 +29,7 @@ const mainMenu = useMainMenuStore()
 
         <QToolbarTitle>{{ Strings.APP_NAME }}</QToolbarTitle>
 
-        <QBtn
-          flat
-          dense
-          label="Settings"
-          :to="{ name: RouteName.SETTINGS }"
-          :icon="Icon.SETTINGS"
-        />
+        <QBtn flat round :to="{ name: RouteName.SETTINGS }" :icon="Icon.SETTINGS" />
       </QToolbar>
     </QHeader>
 

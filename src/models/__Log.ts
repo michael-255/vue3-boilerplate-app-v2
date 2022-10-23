@@ -3,7 +3,7 @@ import { AppTable, Operation, type Severity } from '@/constants/data-enums'
 import type { DataTableProps } from '@/constants/types-interfaces'
 import { Field } from '@/constants/data-enums'
 import { truncateString, uuid } from '@/utils/common'
-// import type { LocalDatabase } from '@/services/LocalDatabase'
+import type { LocalDatabase } from '@/services/LocalDatabase'
 
 export interface ILog extends IActivity {
   severity: Severity
@@ -38,24 +38,24 @@ export class Log extends Activity {
     this.stack = params?.error?.stack
   }
 
-  // static async report(...params: any): Promise<void> {
-  //   console.error('params:', params)
-  //   throw new Error('Not Supported')
-  // }
+  static async report(...params: any): Promise<void> {
+    console.error('params:', params)
+    throw new Error('Not Supported')
+  }
 
-  // static async update(...params: any): Promise<void> {
-  //   console.error('params:', params)
-  //   throw new Error('Not Supported')
-  // }
+  static async update(...params: any): Promise<void> {
+    console.error('params:', params)
+    throw new Error('Not Supported')
+  }
 
-  // static async create(...params: any): Promise<void> {
-  //   console.error('params:', params)
-  //   throw new Error('Not Supported')
-  // }
+  static async create(...params: any): Promise<void> {
+    console.error('params:', params)
+    throw new Error('Not Supported')
+  }
 
-  // static async getAll(database: LocalDatabase): Promise<Log[]> {
-  //   return await database.getAll(AppTable.LOGS)
-  // }
+  static async getAll(database: LocalDatabase): Promise<Log[]> {
+    return await database.getAll(AppTable.LOGS)
+  }
 
   static getLabelSingular(): string {
     return 'Log'

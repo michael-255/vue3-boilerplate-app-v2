@@ -23,7 +23,10 @@ async function onClearAll(): Promise<void> {
     async (): Promise<void> => {
       try {
         await Promise.all(Object.values(AppTable).map((table) => DB.clear(table as AppTable)))
-        await settings.initSettings() // Default settings after clear finishes
+        await DB.initDatabaseSettings() // Default settings after clear finishes
+        settings.setDEBUG(false)
+        settings.setNOTIFY(false)
+        settings.setINFO(false)
       } catch (error) {
         log.error('onClearAll', error)
       }
