@@ -4,8 +4,8 @@ import { type Ref, ref } from 'vue'
 import { useLogger } from '@/use/useLogger'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import { AppTable } from '@/constants/data-enums'
-import { DB } from '@/services/LocalDatabase'
 import { Icon, NotifyColor } from '@/constants/ui-enums'
+import { DB } from '@/services/LocalDatabase'
 
 const { log, consoleDebug } = useLogger()
 const { confirmDialog } = useSimpleDialogs()
@@ -57,29 +57,23 @@ function onImport(): void {
 async function confirmedFileImport(): Promise<void> {
   const fileData = await file.value.text()
   const parsedFileData = JSON.parse(fileData)
-
-  const appData = {
-    exercises: parsedFileData?.exercises || [],
-    exerciseRecords: parsedFileData?.exerciseRecords || [],
-    measurements: parsedFileData?.measurements || [],
-    measurementRecords: parsedFileData?.measurementRecords || [],
-    workouts: parsedFileData?.workouts || [],
-    workoutRecords: parsedFileData?.workoutRecords || [],
-    logs: parsedFileData?.logs || [], // Included to view in the console
-    settings: parsedFileData?.settings || [], // Included to view in the console
-  }
+  // Using the table keys as a guide for what data can be imported from the JSON
+  const tableKeys = Object.values(AppTable)
+  const appData = tableKeys.reduce(
+    (o, key: AppTable) => ({ ...o, [key]: parsedFileData[key] || [] }),
+    {} as any
+  )
 
   consoleDebug(appData)
 
-  await Promise.all([
-    DB.bulkAdd(AppTable.EXERCISES, appData?.exercises),
-    DB.bulkAdd(AppTable.EXERCISE_RECORDS, appData?.exerciseRecords),
-    DB.bulkAdd(AppTable.MEASUREMENTS, appData?.measurements),
-    DB.bulkAdd(AppTable.MEASUREMENT_RECORDS, appData?.measurementRecords),
-    DB.bulkAdd(AppTable.WORKOUTS, appData?.workouts),
-    DB.bulkAdd(AppTable.WORKOUT_RECORDS, appData?.workoutRecords),
-    // Logs and Settings are NOT added
-  ])
+  await Promise.all(
+    tableKeys.map((table: AppTable) => {
+      // Logs and Settings are NOT imported
+      if (table !== AppTable.LOGS && table !== AppTable.SETTINGS) {
+        DB.bulkAdd(table, appData[table])
+      }
+    })
+  )
 }
 </script>
 

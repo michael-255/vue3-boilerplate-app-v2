@@ -1,36 +1,9 @@
 # Vue 3 Boilerplate App V2
 
-## Changes
+## Todos
 
-- Make a generic `isItemValid(fields)` getter for `validate-item.ts` store
-- Move DB calls out of `store` files and into `LocalDatabase`
-
-  - `settings = await DB.initSettings()`
-
-## Components
-
-- `/components/shared`
-
-  - `SimpleDialog.vue`
-
-- `/components/layout`
-
-  - `DrawerItem.vue`
-
-- `/components/data-table`
-
-  - `Create.vue`
-  - `Update.vue`
-  - `Inspect.vue`
-  - `Report.vue`
-  - `MainTable.vue`
-  - `MainTabs.vue`
-  - `DataTableDialog.vue`
-  - `... (Item*.vue)`
-
-- `/components/settings`
-
-  - `...`
+- [x] Fix `DefaultsButton`
+- [ ]
 
 ## Post Cloning Steps
 

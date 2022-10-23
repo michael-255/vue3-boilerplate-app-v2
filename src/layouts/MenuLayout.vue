@@ -39,6 +39,14 @@ const mainMenu = useMainMenuStore()
 
         <QSeparator />
 
+        <DrawerItem
+          :to="{ name: RouteName.MEASUREMENTS_DATA }"
+          :icon="Icon.MEASUREMENTS"
+          label="Measurements"
+        />
+
+        <QSeparator />
+
         <DrawerItem :to="{ name: RouteName.ABOUT }" :icon="Icon.INFO" label="About" />
       </QList>
     </QDrawer>

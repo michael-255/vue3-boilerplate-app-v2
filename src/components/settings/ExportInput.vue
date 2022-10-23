@@ -41,16 +41,10 @@ function onExport(): void {
  * @param filename
  */
 async function confirmedFileExport(filename: string): Promise<void> {
-  const appData = {
-    exercises: await DB.getAll(AppTable.EXERCISES),
-    exerciseRecords: await DB.getAll(AppTable.EXERCISE_RECORDS),
-    measurements: await DB.getAll(AppTable.MEASUREMENTS),
-    measurementRecords: await DB.getAll(AppTable.MEASUREMENT_RECORDS),
-    workouts: await DB.getAll(AppTable.WORKOUTS),
-    workoutRecords: await DB.getAll(AppTable.WORKOUT_RECORDS),
-    logs: await DB.getAll(AppTable.LOGS), // Included to view in the console
-    settings: await DB.getAll(AppTable.SETTINGS), // Included to view in the console
-  }
+  // Using the table keys as a guide for what data can be exported as JSON
+  const tableKeys = Object.values(AppTable)
+  const tableData = await Promise.all(tableKeys.map((table) => DB.getAll(table as AppTable)))
+  const appData = tableKeys.reduce((o, key, i) => ({ ...o, [key]: tableData[i] }), {})
 
   consoleDebug(appData)
 

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { QBtn } from 'quasar'
 import { useLogger } from '@/use/useLogger'
-import { DB } from '@/services/LocalDatabase'
 import { Icon, NotifyColor } from '@/constants/ui-enums'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
+import { DB } from '@/services/LocalDatabase'
 
 const { log } = useLogger()
 const { confirmDialog, dismissDialog } = useSimpleDialogs()
@@ -19,7 +19,7 @@ async function onDeleteDB(): Promise<void> {
     NotifyColor.ERROR,
     async (): Promise<void> => {
       try {
-        await DB.delete()
+        await DB.dexieWrapper.delete()
         reloadMessageDialog()
       } catch (error) {
         log.error('onDeleteDB', error)
