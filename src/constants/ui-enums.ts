@@ -59,9 +59,10 @@ export enum Icon {
  */
 export enum View {
   DASHBOARD = 'DashboardView',
-  MEASUREMENT_DATA = 'MeasurementDataView',
+  MEASUREMENTS_DATA = 'MeasurementsDataView',
   LOGS_DATA = 'LogsDataView',
   SETTINGS_DATA = 'SettingsDataView',
+  SETTINGS = 'SettingsView',
   ABOUT = 'AboutView',
   NOT_FOUND = 'NotFoundView',
 }
@@ -87,6 +88,6 @@ export enum Links {
  * Generic strings that could be used throughout the app.
  */
 export enum Strings {
-  APP_NAME = 'Fitness Tracker',
-  VERSION = '1',
+  APP_NAME = 'Vue 3 Boilerplate App',
+  VERSION = '2',
 }

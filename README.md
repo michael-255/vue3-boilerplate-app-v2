@@ -2,38 +2,10 @@
 
 ## Changes
 
-- Add `README.md` for folders with a `core` directory
-- Have seperate `__tests__` for `core` and `root` files
-- Convert `Setting` over to extending from `Entity` and having a `CreatedDate`
 - Make a generic `isItemValid(fields)` getter for `validate-item.ts` store
 - Move DB calls out of `store` files and into `LocalDatabase`
 
   - `settings = await DB.initSettings()`
-
-## Models
-
-- `/models/core`
-
-  - `Entity.ts`
-  - `Activity.ts`
-  - `Log.ts`
-  - `Setting.ts`
-
-- `/models`
-
-  - `Exercise.ts`
-  - `ExerciseRecord.ts`
-
-## Services
-
-- `/services/core`
-
-  - `PrettyLogger.ts`
-  - `DexieWrapper.ts`
-
-- `/services`
-
-  - `LocalDatabase.ts`
 
 ## Components
 
@@ -57,17 +29,6 @@
   - `... (Item*.vue)`
 
 - `/components/settings`
-
-  - `...`
-
-## Utils
-
-- `/utils/core`
-
-  - `common.ts`
-  - `validators.ts`
-
-- `/utils`
 
   - `...`
 
@@ -170,6 +131,7 @@ These are the general steps I took to create the initial project (vue3-boilerpla
 - `npm i @vueuse/core` (Vue component utilities)
 - `npm i chart.js vue-chart-3` (charts with a Vue wrapper)
 - `npm i quasar @quasar/extras` (Vue component framework)
+- `npm i -D @quasar/vite-plugin`
 
 Use the configurator tool to help setup Quasar for your specific project. It generates the files
 you'll need to copy over based on your selections.
