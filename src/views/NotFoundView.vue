@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QPage, QCard, QCardSection, QCardActions, QBtn } from 'quasar'
-import { Icon, View } from '@/constants/ui-enums'
+import { Icon, RouteName } from '@/constants/ui-enums'
 </script>
 
 <template>
@@ -13,7 +13,12 @@ import { Icon, View } from '@/constants/ui-enums'
         </QCardSection>
 
         <QCardActions align="left">
-          <QBtn flat :to="{ name: View.DASHBOARD }" :icon="Icon.UNDO" label="Return to Dashboard" />
+          <QBtn
+            flat
+            :to="{ name: RouteName.DASHBOARD }"
+            :icon="Icon.UNDO"
+            label="Return to Dashboard"
+          />
         </QCardActions>
       </QCard>
     </div>

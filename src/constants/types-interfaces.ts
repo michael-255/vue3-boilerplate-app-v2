@@ -1,4 +1,5 @@
-import type { Field } from './data-enums'
+import type { AppTable, Field } from './data-enums'
+import type { Icon } from './ui-enums'
 
 /**
  * Generic type for an object the string based keys storing any value.
@@ -42,4 +43,10 @@ export type ReportDataset = {
   label: string
   borderColor: string
   data: any[]
+}
+
+export type DataTab = {
+  name: string
+  icon: Icon
+  table: AppTable
 }

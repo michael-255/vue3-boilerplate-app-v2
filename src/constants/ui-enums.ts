@@ -36,7 +36,7 @@ export enum Icon {
   MEASUREMENTS = 'straighten',
   EXERCISES = 'fitness_center',
   WORKOUTS = 'assignment',
-  APPLOGS = 'plagiarism',
+  LOGS = 'plagiarism',
   // Misc
   CALENDAR_DATE = 'event',
   CALENDAR_CHECK = 'event_available',
@@ -55,25 +55,16 @@ export enum Icon {
 }
 
 /**
- * App views for the router.
+ * App route name used by Vue router.
  */
-export enum View {
-  DASHBOARD = 'DashboardView',
-  MEASUREMENTS_DATA = 'MeasurementsDataView',
-  LOGS_DATA = 'LogsDataView',
-  SETTINGS_DATA = 'SettingsDataView',
-  SETTINGS = 'SettingsView',
-  ABOUT = 'AboutView',
-  NOT_FOUND = 'NotFoundView',
-}
-
-/**
- * App layouts for the router.
- */
-export enum Layout {
-  DEFAULT = 'DefaultLayout',
-  ACTIVE = 'ActiveLayout',
-  MENU = 'MenuLayout',
+export enum RouteName {
+  DASHBOARD = 'Dashboard',
+  MEASUREMENTS = 'Measurements',
+  MEASUREMENTS_DATA = 'MeasurementsData',
+  LOGS_AND_SETTINGS_DATA = 'LogsAndSettingsData',
+  SETTINGS = 'Settings',
+  ABOUT = 'About',
+  NOT_FOUND = 'NotFound',
 }
 
 /**

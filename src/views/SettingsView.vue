@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QPage, QCard, QCardSection, QSeparator, QBtn } from 'quasar'
-import { View } from '@/constants/ui-enums'
+import { RouteName } from '@/constants/ui-enums'
 import SettingToggles from '@/components/settings/SettingToggles.vue'
 import TestLogsBtn from '@/components/settings/TestLogsBtn.vue'
 import DefaultsBtn from '@/components/settings/DefaultsBtn.vue'
@@ -64,7 +64,11 @@ import DeleteDBBtn from '@/components/settings/DeleteDBBtn.vue'
 
             <div class="q-mb-md">View your app logs to troubleshoot errors.</div>
 
-            <QBtn label="View Logs" color="primary" :to="{ name: View.LOGS }" />
+            <QBtn
+              label="View Logs & Settings"
+              color="primary"
+              :to="{ name: RouteName.LOGS_AND_SETTINGS_DATA }"
+            />
           </div>
         </QCardSection>
 

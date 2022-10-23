@@ -1,44 +1,80 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { View, Layout } from '@/constants/ui-enums'
+import { Icon, RouteName } from '@/constants/ui-enums'
+import type { DataTab } from '@/constants/types-interfaces'
+import { AppTable } from '@/constants/data-enums'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: View.DASHBOARD,
-      meta: { layout: Layout.MENU },
-      component: () => import(`../views/${View.DASHBOARD}.vue`),
-    },
-    {
-      path: '/measurements-data',
-      name: View.MEASUREMENTS_DATA,
-      meta: { layout: Layout.MENU },
-      component: () => import(`../views/${View.MEASUREMENTS_DATA}.vue`),
-    },
-    {
-      path: '/logs-data',
-      name: View.LOGS_DATA,
-      meta: { layout: Layout.MENU },
-      component: () => import(`../views/${View.LOGS_DATA}.vue`),
+      name: RouteName.DASHBOARD,
+      meta: { layout: 'MenuLayout' },
+      component: () => import(`../views/DashboardView.vue`),
     },
     {
       path: '/settings',
-      name: View.SETTINGS,
-      meta: { layout: Layout.MENU },
-      component: () => import(`../views/${View.SETTINGS}.vue`),
+      name: RouteName.SETTINGS,
+      meta: { layout: 'MenuLayout' },
+      component: () => import(`../views/SettingsView.vue`),
     },
     {
       path: '/about',
-      name: View.ABOUT,
-      meta: { layout: Layout.MENU },
-      component: () => import(`../views/${View.ABOUT}.vue`),
+      name: RouteName.ABOUT,
+      meta: { layout: 'MenuLayout' },
+      component: () => import(`../views/AboutView.vue`),
+    },
+    {
+      path: '/measurements',
+      name: RouteName.MEASUREMENTS,
+      meta: { layout: 'MenuLayout' },
+      component: () => import(`../views/MeasurementsView.vue`),
+    },
+    {
+      path: '/measurements-data',
+      name: RouteName.MEASUREMENTS_DATA,
+      meta: {
+        layout: 'MenuLayout',
+        tabs: [
+          {
+            name: 'Measurements',
+            icon: Icon.ACTIVITIES,
+            table: AppTable.MEASUREMENTS,
+          },
+          {
+            name: 'Measurement Records',
+            icon: Icon.RECORDS,
+            table: AppTable.MEASUREMENT_RECORDS,
+          },
+        ] as DataTab[],
+      },
+      component: () => import(`../components/data-tables/DataTabs.vue`),
+    },
+    {
+      path: '/logs-and-settings-data',
+      name: RouteName.LOGS_AND_SETTINGS_DATA,
+      meta: {
+        layout: 'MenuLayout',
+        tabs: [
+          {
+            name: 'Logs',
+            icon: Icon.LOGS,
+            table: AppTable.LOGS,
+          },
+          {
+            name: 'Settings',
+            icon: Icon.SETTINGS,
+            table: AppTable.SETTINGS,
+          },
+        ] as DataTab[],
+      },
+      component: () => import(`../components/data-tables/DataTabs.vue`),
     },
     {
       path: '/:pathMatch(.*)*', // 404 Not Found
-      name: View.NOT_FOUND,
-      meta: { layout: Layout.MENU },
-      component: () => import(`../views/${View.NOT_FOUND}.vue`),
+      name: RouteName.NOT_FOUND,
+      meta: { layout: 'MenuLayout' },
+      component: () => import(`../views/NotFoundView.vue`),
     },
   ],
 })
