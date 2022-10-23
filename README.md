@@ -7,13 +7,8 @@
 - Convert `Setting` over to extending from `Entity` and having a `CreatedDate`
 - Make a generic `isItemValid(fields)` getter for `validate-item.ts` store
 - Move DB calls out of `store` files and into `LocalDatabase`
+
   - `settings = await DB.initSettings()`
-
-## Table of Contents
-
-- [Usage](#usage)
-- [Project Information](#project-information)
-- [Additional Notes](#additional-notes)
 
 ## Models
 
@@ -76,24 +71,153 @@
 
   - `...`
 
-## Project Creation Details
+## Post Cloning Steps
+
+- [ ] Update `package.json`
+
+  - [ ] `name`
+  - [ ] `description`
+  - [ ] `version`
+  - [ ] `repository`
+  - [ ] `bugs`
+  - [ ] `homepage`
+
+- [ ] Update `base` in `vite.config.ts` to your repository name for deployments to work
+- [ ] Update `Strings` in `ui-enums.ts` to represent your app
+- [ ] Update `title` in `~/index.html` to reflect the app name you use in `ui-enums.ts`
+
+- [ ] Update `GitHub` repository settings
+
+  - [ ] Add a short Description
+  - [ ] Add the GitHub Pages website
+  - [ ] Add Topics
+  - [ ] Update the `Include in the home page` section
+
+    - [ ] Uncheck `Releases`
+    - [ ] Uncheck `Packages`
+    - [ ] Uncheck `Environments`
+
+- [ ] Update `README.md`
+
+  - [ ] Add detailed project description
+  - [ ] Remove unneeded sections (even this one)
+
+## Table of Contents
+
+- [Usage](#usage)
+- [Project Creation Steps](#project-creation-steps)
+- [Package JSON Changes](package-json-changes)
+- [ES2020 Support](#es2020-support)
+- [Misc Setup Notes](#misc-setup-notes)
+- [Additional Notes](#additional-notes)
+
+## Usage
+
+Install the project dependencies.
+
+```sh
+npm i
+```
+
+Launch the dev server site.
+
+```sh
+npm run dev
+```
+
+Build the project `dist` directory.
+
+```sh
+npm run build
+```
+
+Run tests and coverage report (press `q` to quit).
+
+```sh
+npm test
+```
+
+Build and deploy the `dist` directory.
+
+```sh
+npm run deploy
+```
+
+Check for outdated packages.
+
+```sh
+npm outdated
+```
+
+Update packages based on `package.json` version settings. Test updates to ensure they worked.
+
+```sh
+npm upgrade
+```
+
+## Project Creation Steps
+
+These are the general steps I took to create the initial project (vue3-boilerplate-app).
 
 - `npm init vue@latest` (selecting YES for most options)
-- ``
-- ``
-- ``
-- ``
-- ``
-- ``
-- ``
+- `npm i uuid` (random ids)
+- `npm i -D @types/uuid`
+- `npm i luxon` (Javascript date utilities)
+- `npm i -D @types/luxon`
+- `npm i dexie` (IndexedDB wrapper)
+- `npm i -D gh-pages` (GitHub Pages deployment)
+- `npm i -D @vitest/coverage-c8` (test coverage output)
+- `npm i @vueuse/core` (Vue component utilities)
+- `npm i chart.js vue-chart-3` (charts with a Vue wrapper)
+- `npm i quasar @quasar/extras` (Vue component framework)
 
-## Recommended IDE Setup
+Use the configurator tool to help setup Quasar for your specific project. It generates the files
+you'll need to copy over based on your selections.
+
+<https://quasar.dev/start/vite-plugin>
+
+## Package JSON Changes
+
+Updated or added lines for testing and deployment. The deployment script makes a copy of the
+`index.html` in `dist` as `404.html` to address complications related to routing. This let's you
+avoid using hash based routing.
+
+```json
+{
+  "scripts": {
+    "test": "vitest --environment jsdom",
+    "test:coverage": "vitest --environment jsdom --coverage",
+    "deploy": "npm run build && cd dist && cp index.html 404.html && cd .. && gh-pages -d dist -m Deployment"
+  }
+}
+```
+
+## ES2020 Support
+
+Support for ES2020 language features was achieved by adding `es2020` to the following files.
+
+- `tsconfig.vitest.json`
+- `tsconfig.app.json`
+
+## Misc Setup Notes
+
+Please note the setup of the following when using this project.
+
+- `.gitignore`
+- `.eslintrc.cjs`
+- `.prettierignore`
+- `.prettierre.json`
+- `/.vscode/extensions.json`
+
+## Additional Notes
+
+### Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) +
 [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) +
 [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-## Type Support for `.vue` Imports in TS
+### Type Support for `.vue` Imports in TS
 
 TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI
 with `vue-tsc` for type checking. In editors, we need
@@ -110,36 +234,6 @@ that is more performant. You can enable it by the following steps:
       `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
-## Customize configuration
+### Customize configuration
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
