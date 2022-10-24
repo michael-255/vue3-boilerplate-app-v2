@@ -6,7 +6,7 @@ import { type Ref, ref, onMounted, onUnmounted } from 'vue'
 import { DB } from '@/services/LocalDatabase'
 import { useLogger } from '@/use/useLogger'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
-import PageDialog from '@/components/dialogs/PageDialog.vue'
+import DataTableDialog from '@/components/dialogs/DataTableDialog.vue'
 // import Inspect from '@/components/data-tables/Inspect.vue'
 // import Create from '@/components/data-tables/Create.vue'
 // import Update from '@/components/data-tables/Update.vue'
@@ -292,7 +292,7 @@ async function onDelete(id: string): Promise<void> {
   </QTable>
 
   <!-- Fullscreen Dialog -->
-  <PageDialog @on-dialog-close="closeDialog()">
+  <DataTableDialog @on-dialog-close="closeDialog()">
     <!-- <Inspect v-if="dataTable.operation === Operation.INSPECT" :table="table" />
 
     <Create
@@ -310,5 +310,5 @@ async function onDelete(id: string): Promise<void> {
     <Report v-else-if="dataTable.operation === Operation.REPORT" :table="table" />
 
     <div v-else>Selected operation is not supported</div> -->
-  </PageDialog>
+  </DataTableDialog>
 </template>

@@ -4,16 +4,16 @@ import { Icon } from '@/constants/ui-enums'
 import useDataTableStore from '@/stores/data-table'
 
 /**
- * PageDialog is a fullscreen dialog for views that use the PageTable components. You load
+ * DataTableDialog is a fullscreen dialog for views that use the PageTable components. You load
  * components needed for operations like Create, Update, and Report inside of its slot.
  */
 const emits = defineEmits<{ (eventName: 'on-dialog-close'): void }>()
-const pageTable = useDataTableStore()
+const dataTable = useDataTableStore()
 </script>
 
 <template>
   <QDialog
-    v-model="pageTable.dialog"
+    v-model="dataTable.dialog"
     persistent
     maximized
     transition-show="slide-up"
@@ -22,7 +22,7 @@ const pageTable = useDataTableStore()
     <QCard>
       <QCardActions class="bg-primary text-white">
         <div class="q-table__title text-weight-bold q-ml-sm">
-          {{ pageTable.operation }} {{ pageTable.itemLabel }}
+          {{ dataTable.operation }} {{ dataTable.itemLabel }}
         </div>
         <QSpace />
         <QBtn flat round :icon="Icon.CLOSE" @click="emits('on-dialog-close')" />

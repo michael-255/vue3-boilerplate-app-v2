@@ -2,8 +2,33 @@
 
 ## Todos
 
-- [x] Fix `DefaultsButton`
-- [ ]
+- [x] Change `DataTableDialog` to `DataTableDialog`
+- [ ] Remove unneeded input components
+- [ ] Fix input components
+
+  - [ ] `id`
+  - [ ] `createdDate`
+  - [ ] `name`
+  - [ ] `parentId`
+  - [ ] `measurementType`
+  - [ ] `measurementValue`
+
+- [ ] Fix `getFieldComponents` in models
+- [ ] Fix defaulting function
+
+  - [ ] Generate randomized defaults for measurements
+
+- [ ] Fix table operations
+
+  - [ ] `Inspect`
+  - [ ] `Create`
+  - [ ] `Update`
+  - [ ] `Report`
+
+- [ ] Clean your legacy data
+- [ ] Rebuild tests for all files
+
+  - [ ] `...`
 
 ## Post Cloning Steps
 
