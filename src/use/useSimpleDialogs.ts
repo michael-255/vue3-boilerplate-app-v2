@@ -1,7 +1,7 @@
 import { useQuasar } from 'quasar'
 import { Icon } from '@/constants/ui/icon-enums'
 import { NotifyColor } from '@/constants/ui/color-enums'
-import SimpleDialog from '@/components/dialogs/SimpleDialog.vue'
+import SimpleDialog from '@/components/shared/SimpleDialog.vue'
 
 /**
  * Simple customizable dialogs.

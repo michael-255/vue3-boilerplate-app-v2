@@ -4,7 +4,7 @@ import { Icon } from '@/constants/ui/icon-enums'
 import useDataTableStore from '@/stores/data-table'
 
 /**
- * DataTableDialog is a fullscreen dialog for views that use the PageTable components. You load
+ * DataTableDialog is a fullscreen dialog for views that use the DataTable components. You load
  * components needed for operations like Create, Update, and Report inside of its slot.
  */
 const emits = defineEmits<{ (eventName: 'on-dialog-close'): void }>()

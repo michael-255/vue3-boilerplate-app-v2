@@ -20,7 +20,7 @@ async function onDeleteDB(): Promise<void> {
     NotifyColor.ERROR,
     async (): Promise<void> => {
       try {
-        await DB.dexieWrapper.delete()
+        await DB.deleteDatabase()
         reloadMessageDialog()
       } catch (error) {
         log.error('onDeleteDB', error)

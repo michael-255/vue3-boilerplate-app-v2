@@ -143,6 +143,14 @@ export class LocalDatabase {
     return await this.dexieWrapper.table(table).clear()
   }
 
+  /**
+   * Completely deletes the database and all of its data (must reload the app after).
+   * @returns undefined
+   */
+  async deleteDatabase(): Promise<void> {
+    return await this.dexieWrapper.delete()
+  }
+
   //
   // Initializers
   //

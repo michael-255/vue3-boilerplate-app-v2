@@ -9,7 +9,7 @@ import { DB } from '@/services/LocalDatabase'
 import { useLogger } from '@/use/useLogger'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import { TableHelper } from '@/services/TableHelper'
-import DataTableDialog from '@/components/dialogs/DataTableDialog.vue'
+import DataTableDialog from '@/components/data-tables/DataTableDialog.vue'
 import ItemInspect from '@/components/data-tables/ItemInspect.vue'
 // import ItemCreate from '@/components/data-tables/ItemCreate.vue'
 // import ItemUpdate from '@/components/data-tables/ItemUpdate.vue'
@@ -46,7 +46,7 @@ onMounted(async () => {
     dataTable.itemLabel = TableHelper.getLabelSingular(props.table)
     await updateRows()
   } catch (error) {
-    log.error('PageTable:onMounted', error)
+    log.error('DataTable:onMounted', error)
   }
 })
 
@@ -70,7 +70,7 @@ async function closeDialog(): Promise<void> {
     dataTable.operation = Operation.NOOP
     dataTable.dialog = false // Always last so everything else is updated before dialog changes
   } catch (error) {
-    log.error('PageTable:closeDialog', error)
+    log.error('DataTable:closeDialog', error)
   }
 }
 
@@ -79,7 +79,7 @@ async function onCreate(): Promise<void> {
     dataTable.operation = Operation.CREATE
     dataTable.dialog = true
   } catch (error) {
-    log.error('PageTable:onCreate', error)
+    log.error('DataTable:onCreate', error)
   }
 }
 
@@ -89,7 +89,7 @@ async function onUpdate(id: string): Promise<void> {
     dataTable.operation = Operation.UPDATE
     dataTable.dialog = true
   } catch (error) {
-    log.error('PageTable:onUpdate', error)
+    log.error('DataTable:onUpdate', error)
   }
 }
 
@@ -99,7 +99,7 @@ async function onReport(id: string): Promise<void> {
     dataTable.operation = Operation.REPORT
     dataTable.dialog = true
   } catch (error) {
-    log.error('PageTable:onReport', error)
+    log.error('DataTable:onReport', error)
   }
 }
 
@@ -109,7 +109,7 @@ async function onInspect(id: string): Promise<void> {
     dataTable.operation = Operation.INSPECT
     dataTable.dialog = true
   } catch (error) {
-    log.error('PageTable:onInspect', error)
+    log.error('DataTable:onInspect', error)
   }
 }
 
@@ -125,7 +125,7 @@ async function onClear(): Promise<void> {
           await DB.clear(props.table)
           await updateRows()
         } catch (error) {
-          log.error('PageTable:onClear', error)
+          log.error('DataTable:onClear', error)
         }
       }
     )
@@ -146,7 +146,7 @@ async function onDelete(id: string): Promise<void> {
           await DB.deleteById(props.table, id)
           await updateRows()
         } catch (error) {
-          log.error('PageTable:onDelete', error)
+          log.error('DataTable:onDelete', error)
         }
       }
     )
