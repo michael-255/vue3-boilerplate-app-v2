@@ -74,7 +74,7 @@ export class Log extends Activity {
   }
 
   static getVisibleColumns(): Field[] {
-    return [Field.CREATED_DATE, Field.SEVERITY, Field.DETAILS, Field.NAME]
+    return [Field.CREATED_DATE, Field.SEVERITY, Field.NAME]
   }
 
   static getFields() {

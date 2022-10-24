@@ -73,7 +73,7 @@ export class MeasurementRecord extends Record {
   }
 
   static getVisibleColumns(): Field[] {
-    return []
+    return [Field.MEASUREMENT_VALUE]
   }
 
   static getFields() {

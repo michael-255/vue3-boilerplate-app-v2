@@ -109,7 +109,7 @@ export class Measurement extends Activity {
   }
 
   static getVisibleColumns(): Field[] {
-    return [Field.NAME]
+    return [Field.NAME, Field.MEASUREMENT_TYPE]
   }
 
   static getFields(): Field[] {

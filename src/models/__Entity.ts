@@ -1,7 +1,7 @@
 // import { defineAsyncComponent } from 'vue'
 import { Field } from '@/constants/data-enums'
 import type { DataTableProps } from '@/constants/types-interfaces'
-import { isoToDisplayDate } from '@/utils/common'
+import { isoToDisplayDate, truncateString } from '@/utils/common'
 
 export interface IEntity {
   id: string
@@ -34,12 +34,22 @@ export class Entity {
 
   static getColumns(): DataTableProps[] {
     return [
+      // Used to make a shorter and more readable id in data table views
+      {
+        name: 'truncatedId' as Field,
+        label: 'Id*',
+        align: 'left',
+        sortable: true,
+        required: true,
+        field: (row: any) => row.id,
+        format: (val: string) => truncateString(val, 8, '*'),
+      },
       {
         name: Field.ID,
         label: 'Id',
         align: 'left',
         sortable: true,
-        required: true,
+        required: false,
         field: (row: any) => row[Field.ID],
         format: (val: string) => val,
       },

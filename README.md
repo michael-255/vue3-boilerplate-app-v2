@@ -25,7 +25,10 @@
   - [ ] `Update`
   - [ ] `Report`
 
+- [ ] Make sure operations work with `truncatedId` (should not use that field)
 - [ ] Clean your legacy data
+- [ ] Test deployment script (gh-pages website)
+- [ ] Go through post cloning task list
 - [ ] Rebuild tests for all files
 
   - [ ] `...`
