@@ -8,9 +8,9 @@ import { NotifyColor } from '@/constants/ui/color-enums'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import useSettingsStore from '@/stores/settings'
 
-const settings = useSettingsStore()
 const { log } = useLogger()
 const { confirmDialog } = useSimpleDialogs()
+const settingsStore = useSettingsStore()
 
 /**
  * Removes all data from all databases defined in the AppTable enum.
@@ -25,9 +25,9 @@ async function onClearAll(): Promise<void> {
       try {
         await Promise.all(Object.values(AppTable).map((table) => DB.clear(table as AppTable)))
         await DB.initDatabaseSettings() // Default settings after clear finishes
-        settings.setDEBUG(false)
-        settings.setNOTIFY(false)
-        settings.setINFO(false)
+        settingsStore.setDEBUG(false)
+        settingsStore.setNOTIFY(false)
+        settingsStore.setINFO(false)
       } catch (error) {
         log.error('onClearAll', error)
       }

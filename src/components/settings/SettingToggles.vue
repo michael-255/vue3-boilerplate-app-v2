@@ -1,39 +1,39 @@
 <script setup lang="ts">
 import { QToggle } from 'quasar'
-import useSettingsStore from '@/stores/settings'
 import { computed } from 'vue'
-import { DB } from '@/services/LocalDatabase'
 import { AppTable, SettingKey } from '@/constants/core/data-enums'
+import { DB } from '@/services/LocalDatabase'
+import useSettingsStore from '@/stores/settings'
 
-const settings = useSettingsStore()
+const settingsStore = useSettingsStore()
 
 const DEBUG = computed({
   get() {
-    return settings.DEBUG
+    return settingsStore.DEBUG
   },
   async set(bool: boolean) {
     await DB.updateById(AppTable.SETTINGS, SettingKey.DEBUG, { settingValue: bool })
-    settings.setDEBUG(bool)
+    settingsStore.setDEBUG(bool)
   },
 })
 
 const NOTIFY = computed({
   get() {
-    return settings.NOTIFY
+    return settingsStore.NOTIFY
   },
   async set(bool: boolean) {
     await DB.updateById(AppTable.SETTINGS, SettingKey.NOTIFY, { settingValue: bool })
-    settings.setNOTIFY(bool)
+    settingsStore.setNOTIFY(bool)
   },
 })
 
 const INFO = computed({
   get() {
-    return settings.INFO
+    return settingsStore.INFO
   },
   async set(bool: boolean) {
     await DB.updateById(AppTable.SETTINGS, SettingKey.INFO, { settingValue: bool })
-    settings.setINFO(bool)
+    settingsStore.setINFO(bool)
   },
 })
 </script>

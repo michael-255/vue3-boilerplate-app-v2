@@ -7,7 +7,7 @@ import useSettingsStore from '@/stores/settings'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 
 const { log } = useLogger()
-const settings = useSettingsStore()
+const settingsStore = useSettingsStore()
 const route = useRoute()
 
 const layout: Ref<any> = ref(null)
@@ -15,9 +15,9 @@ const layout: Ref<any> = ref(null)
 onMounted(async () => {
   // Should initialize app settings here.
   const initialSettings = await DB.initDatabaseSettings()
-  settings.setDEBUG(initialSettings?.DEBUG?.settingValue || false)
-  settings.setNOTIFY(initialSettings?.NOTIFY?.settingValue || false)
-  settings.setINFO(initialSettings?.INFO?.settingValue || false)
+  settingsStore.setDEBUG(initialSettings?.DEBUG?.settingValue || false)
+  settingsStore.setNOTIFY(initialSettings?.NOTIFY?.settingValue || false)
+  settingsStore.setINFO(initialSettings?.INFO?.settingValue || false)
 })
 
 /**

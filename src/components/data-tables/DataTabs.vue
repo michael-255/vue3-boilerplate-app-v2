@@ -3,12 +3,12 @@ import { QSeparator, QTabs, QTab, QTabPanels, QTabPanel } from 'quasar'
 import useDataTableStore from '@/stores/data-table'
 import DataTable from '@/components/data-tables/DataTable.vue'
 
-const dataTable = useDataTableStore()
+const dataTableStore = useDataTableStore()
 </script>
 
 <template>
   <QTabs
-    v-model="dataTable.selectedTab"
+    v-model="dataTableStore.selectedTab"
     class="bg-grey-2 text-blue-grey"
     align="justify"
     active-color="primary"
@@ -16,7 +16,7 @@ const dataTable = useDataTableStore()
     inline-label
   >
     <QTab
-      v-for="(tab, i) in dataTable.tabs"
+      v-for="(tab, i) in dataTableStore.tabs"
       :key="i"
       :name="tab.name"
       :icon="tab.icon"
@@ -26,8 +26,8 @@ const dataTable = useDataTableStore()
 
   <QSeparator />
 
-  <QTabPanels v-model="dataTable.selectedTab" animated>
-    <QTabPanel v-for="(tab, i) in dataTable.tabs" :key="i" :name="tab.name" class="q-pa-none">
+  <QTabPanels v-model="dataTableStore.selectedTab" animated>
+    <QTabPanel v-for="(tab, i) in dataTableStore.tabs" :key="i" :name="tab.name" class="q-pa-none">
       <DataTable :table="tab.table" />
     </QTabPanel>
   </QTabPanels>

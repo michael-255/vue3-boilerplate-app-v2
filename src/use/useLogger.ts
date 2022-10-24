@@ -14,7 +14,7 @@ import useSettingsStore from '@/stores/settings'
  */
 export function useLogger(): { [x: string]: any } {
   const logger = new PrettyLogger(AppString.APP_NAME)
-  const settings = useSettingsStore()
+  const settingsStore = useSettingsStore()
   const { notify } = useNotifications()
 
   /**
@@ -30,11 +30,11 @@ export function useLogger(): { [x: string]: any } {
      * DEBUG logs never get saved to the database. Controlled by DEBUG and NOTIFY settings.
      */
     debug: (details: string, error?: Error | any) => {
-      if (settings.DEBUG) {
+      if (settingsStore.DEBUG) {
         const severity = Severity.DEBUG
         logger.debug(`[${severity}]`, details, error)
         // No DB call on DEBUG
-        if (settings.NOTIFY) {
+        if (settingsStore.NOTIFY) {
           notify(`${severity} - ${details}`, Icon.DEBUG, NotifyColor.DEBUG)
         }
       }
@@ -44,13 +44,13 @@ export function useLogger(): { [x: string]: any } {
      */
     info: (details: string, error?: Error | any) => {
       const severity = Severity.INFO
-      if (settings.DEBUG) {
+      if (settingsStore.DEBUG) {
         logger.info(`[${severity}]`, details, error)
       }
-      if (settings.INFO) {
+      if (settingsStore.INFO) {
         DB.add(AppTable.LOGS, new Log({ error, severity, details }))
       }
-      if (settings.NOTIFY) {
+      if (settingsStore.NOTIFY) {
         notify(`${severity} - ${details}`, Icon.INFO, NotifyColor.INFO)
       }
     },
@@ -59,7 +59,7 @@ export function useLogger(): { [x: string]: any } {
      */
     warn: (details: string, error?: Error | any) => {
       const severity = Severity.WARN
-      if (settings.DEBUG) {
+      if (settingsStore.DEBUG) {
         logger.warn(`[${severity}]`, details, error)
       }
       DB.add(AppTable.LOGS, new Log({ error, severity, details }))
@@ -70,7 +70,7 @@ export function useLogger(): { [x: string]: any } {
      */
     error: (details: string, error?: Error | any) => {
       const severity = Severity.ERROR
-      if (settings.DEBUG) {
+      if (settingsStore.DEBUG) {
         logger.error(`[${severity}]`, details, error)
       }
       DB.add(AppTable.LOGS, new Log({ error, severity, details }))
@@ -81,7 +81,7 @@ export function useLogger(): { [x: string]: any } {
      */
     critical: (details: string, error?: Error | any) => {
       const severity = Severity.CRITICAL
-      if (settings.DEBUG) {
+      if (settingsStore.DEBUG) {
         logger.critical(`[${severity}]`, details, error)
       }
       DB.add(AppTable.LOGS, new Log({ error, severity, details }))
@@ -94,7 +94,7 @@ export function useLogger(): { [x: string]: any } {
    * @param value
    */
   function consoleDebug(value: any): void {
-    if (settings.DEBUG) {
+    if (settingsStore.DEBUG) {
       logger.log(value)
     }
   }

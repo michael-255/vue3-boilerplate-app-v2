@@ -17,7 +17,7 @@ const props = defineProps<{ table: AppTable }>()
 const { log } = useLogger()
 const dataItemStore = useDataItemStore()
 // const selected = useSelectedItemStore()
-const report = useReportStore()
+const reportStore = useReportStore()
 Chart.register(...registerables)
 
 /**
@@ -38,14 +38,14 @@ onMounted(async () => {
 </script>
 
 <template>
-  <LineChart :options="report.options" :chartData="report.chartData" />
+  <LineChart :options="reportStore.options" :chartData="reportStore.chartData" />
   <!-- Dates below report -->
   <div class="q-mb-sm">
     <div class="text-subtitle1 text-weight-bold">First Record Date</div>
-    <div>{{ report.firstDate || '-' }}</div>
+    <div>{{ reportStore.firstDate || '-' }}</div>
   </div>
   <div class="q-mb-sm">
     <div class="text-subtitle1 text-weight-bold">Last Record Date</div>
-    <div>{{ report.lastDate || '-' }}</div>
+    <div>{{ reportStore.lastDate || '-' }}</div>
   </div>
 </template>

@@ -8,12 +8,12 @@ import useDataTableStore from '@/stores/data-table'
  * components needed for operations like Create, Update, and Report inside of its slot.
  */
 const emits = defineEmits<{ (eventName: 'on-dialog-close'): void }>()
-const dataTable = useDataTableStore()
+const dataTableStore = useDataTableStore()
 </script>
 
 <template>
   <QDialog
-    v-model="dataTable.dialog"
+    v-model="dataTableStore.dialog"
     persistent
     maximized
     transition-show="slide-up"
@@ -22,7 +22,7 @@ const dataTable = useDataTableStore()
     <QCard>
       <QCardActions class="bg-primary text-white">
         <div class="q-table__title text-weight-bold q-ml-sm">
-          {{ dataTable.operation }} {{ dataTable.itemLabel }}
+          {{ dataTableStore.operation }} {{ dataTableStore.itemLabel }}
         </div>
         <QSpace />
         <QBtn flat round :icon="Icon.CLOSE" @click="emits('on-dialog-close')" />

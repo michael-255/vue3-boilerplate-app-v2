@@ -83,14 +83,14 @@ const router = createRouter({
 
 router.afterEach(async (to: any) => {
   // Manages tabs for DataTabs and DataTable
-  const dataTable = useDataTableStore()
+  const dataTableStore = useDataTableStore()
   const tabs = (to?.meta?.tabs || []) as DataTab[]
 
   if (tabs.length > 0) {
-    dataTable.selectedTab = tabs[0].name
-    dataTable.tabs = tabs
+    dataTableStore.selectedTab = tabs[0].name
+    dataTableStore.tabs = tabs
   } else {
-    dataTable.$reset()
+    dataTableStore.$reset()
   }
 })
 

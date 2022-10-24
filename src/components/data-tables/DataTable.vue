@@ -31,8 +31,8 @@ const { confirmDialog } = useSimpleDialogs()
 // const selected = useSelectedItemStore()
 // const validate = useValidateItemStore()
 // const temporary = useTemporaryItemStore()
-const report = useReportStore()
-const dataTable = useDataTableStore()
+const reportStore = useReportStore()
+const dataTableStore = useDataTableStore()
 const dataItemStore = useDataItemStore()
 const searchFilter: Ref<string> = ref('')
 
@@ -42,10 +42,10 @@ const searchFilter: Ref<string> = ref('')
 onMounted(async () => {
   try {
     const cols = TableHelper.getColumns(props.table)
-    dataTable.columns = cols
-    dataTable.columnOptions = cols.filter((col: DataTableProps) => !col.required)
-    dataTable.visibleColumns = TableHelper.getVisibleColumns(props.table)
-    dataTable.itemLabel = TableHelper.getLabelSingular(props.table)
+    dataTableStore.columns = cols
+    dataTableStore.columnOptions = cols.filter((col: DataTableProps) => !col.required)
+    dataTableStore.visibleColumns = TableHelper.getVisibleColumns(props.table)
+    dataTableStore.itemLabel = TableHelper.getLabelSingular(props.table)
     await updateRows()
   } catch (error) {
     log.error('DataTable:onMounted', error)
@@ -56,7 +56,7 @@ onMounted(async () => {
  * Loads the latest data into the data table rows.
  */
 async function updateRows(): Promise<void> {
-  dataTable.rows = await DB.getAllData(props.table)
+  dataTableStore.rows = await DB.getAllData(props.table)
 }
 
 /**
@@ -69,9 +69,9 @@ async function closeDialog(): Promise<void> {
     // selected.$reset()
     // validate.$reset()
     // temporary.$reset()
-    report.$reset()
-    dataTable.operation = Operation.NOOP
-    dataTable.dialog = false // Always last so everything else is updated before dialog changes
+    reportStore.$reset()
+    dataTableStore.operation = Operation.NOOP
+    dataTableStore.dialog = false // Always last so everything else is updated before dialog changes
   } catch (error) {
     log.error('DataTable:closeDialog', error)
   }
@@ -79,8 +79,8 @@ async function closeDialog(): Promise<void> {
 
 async function onCreate(): Promise<void> {
   try {
-    dataTable.operation = Operation.CREATE
-    dataTable.dialog = true
+    dataTableStore.operation = Operation.CREATE
+    dataTableStore.dialog = true
   } catch (error) {
     log.error('DataTable:onCreate', error)
   }
@@ -90,8 +90,8 @@ async function onUpdate(id: string): Promise<void> {
   try {
     dataItemStore.setSelectedItem(await DB.getFirstByField(props.table, Field.ID, id))
     // selected.setItem(await DB.getFirstByField(props.table, Field.ID, id))
-    dataTable.operation = Operation.UPDATE
-    dataTable.dialog = true
+    dataTableStore.operation = Operation.UPDATE
+    dataTableStore.dialog = true
   } catch (error) {
     log.error('DataTable:onUpdate', error)
   }
@@ -101,8 +101,8 @@ async function onReport(id: string): Promise<void> {
   try {
     dataItemStore.setSelectedItem(await DB.getFirstByField(props.table, Field.ID, id))
     // selected.setItem(await DB.getFirstByField(props.table, Field.ID, id))
-    dataTable.operation = Operation.REPORT
-    dataTable.dialog = true
+    dataTableStore.operation = Operation.REPORT
+    dataTableStore.dialog = true
   } catch (error) {
     log.error('DataTable:onReport', error)
   }
@@ -112,8 +112,8 @@ async function onInspect(id: string): Promise<void> {
   try {
     dataItemStore.setSelectedItem(await DB.getFirstByField(props.table, Field.ID, id))
     // selected.setItem(await DB.getFirstByField(props.table, Field.ID, id))
-    dataTable.operation = Operation.INSPECT
-    dataTable.dialog = true
+    dataTableStore.operation = Operation.INSPECT
+    dataTableStore.dialog = true
   } catch (error) {
     log.error('DataTable:onInspect', error)
   }
@@ -164,20 +164,20 @@ async function onDelete(id: string): Promise<void> {
 
 <template>
   <QTable
-    :rows="dataTable.rows"
-    :columns="dataTable.columns"
+    :rows="dataTableStore.rows"
+    :columns="dataTableStore.columns"
     :rows-per-page-options="[0]"
     virtual-scroll
     style="height: 85vh"
     row-key="id"
-    :visible-columns="dataTable.visibleColumns"
+    :visible-columns="dataTableStore.visibleColumns"
     :filter="searchFilter"
   >
     <!-- Table Heading -->
     <template v-slot:top>
       <!-- Search Input -->
       <QInput
-        :disable="!dataTable.rows.length"
+        :disable="!dataTableStore.rows.length"
         outlined
         dense
         debounce="300"
@@ -192,8 +192,8 @@ async function onDelete(id: string): Promise<void> {
 
       <!-- Column Select -->
       <QSelect
-        v-model="dataTable.visibleColumns"
-        :disable="!dataTable.rows.length"
+        v-model="dataTableStore.visibleColumns"
+        :disable="!dataTableStore.rows.length"
         multiple
         outlined
         dense
@@ -201,7 +201,7 @@ async function onDelete(id: string): Promise<void> {
         display-value="Columns"
         emit-value
         map-options
-        :options="dataTable.columnOptions"
+        :options="dataTableStore.columnOptions"
         option-value="name"
         options-cover
         style="min-width: 150px"
@@ -219,7 +219,7 @@ async function onDelete(id: string): Promise<void> {
         <!-- Clear Btn -->
         <QBtn
           v-if="TableHelper.getOperations(table).includes(Operation.CLEAR)"
-          :disable="!dataTable.rows.length"
+          :disable="!dataTableStore.rows.length"
           color="negative"
           label="Clear"
           @click="onClear()"
@@ -296,21 +296,21 @@ async function onDelete(id: string): Promise<void> {
 
   <!-- Fullscreen Dialog -->
   <DataTableDialog @on-dialog-close="closeDialog()">
-    <ItemInspect v-if="dataTable.operation === Operation.INSPECT" :table="table" />
+    <ItemInspect v-if="dataTableStore.operation === Operation.INSPECT" :table="table" />
 
     <!-- <ItemCreate
-      v-else-if="dataTable.operation === Operation.CREATE"
+      v-else-if="dataTableStore.operation === Operation.CREATE"
       :table="table"
       @on-create-confirmed="closeDialog()"
     />
 
     <ItemUpdate
-      v-else-if="dataTable.operation === Operation.UPDATE"
+      v-else-if="dataTableStore.operation === Operation.UPDATE"
       :table="table"
       @on-update-confired="closeDialog()"
     />
 
-    <ItemReport v-else-if="dataTable.operation === Operation.REPORT" :table="table" /> -->
+    <ItemReport v-else-if="dataTableStore.operation === Operation.REPORT" :table="table" /> -->
 
     <div v-else>Selected operation is not supported</div>
   </DataTableDialog>
