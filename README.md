@@ -2,8 +2,8 @@
 
 ## Todos
 
-- [ ] Fix tabs bug when switching between tab views
-- [ ] Remove unneeded input components
+- [x] Fix tabs bug when switching between tab views
+- [x] Remove unneeded input components
 - [ ] Fix input components
 
   - [ ] `id`

@@ -1,8 +1,9 @@
+import type { DataTab } from '@/constants/types-interfaces'
 import { createRouter, createWebHistory } from 'vue-router'
 import { RouteName } from '@/constants/ui/routing-enums'
 import { Icon } from '@/constants/ui/icon-enums'
-import type { DataTab } from '@/constants/types-interfaces'
 import { AppTable } from '@/constants/core/data-enums'
+import useDataTableStore from '@/stores/data-table'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -78,6 +79,19 @@ const router = createRouter({
       component: () => import(`../views/NotFoundView.vue`),
     },
   ],
+})
+
+router.afterEach(async (to: any) => {
+  // Manages tabs for DataTabs and DataTable
+  const dataTable = useDataTableStore()
+  const tabs = (to?.meta?.tabs || []) as DataTab[]
+
+  if (tabs.length > 0) {
+    dataTable.selectedTab = 0
+    dataTable.tabs = to?.meta?.tabs as DataTab[]
+  } else {
+    dataTable.$reset()
+  }
 })
 
 export default router

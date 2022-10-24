@@ -3,7 +3,7 @@ import { QSelect, QInput, QIcon } from 'quasar'
 import { Icon } from '@/constants/ui/icon-enums'
 import { NotifyColor } from '@/constants/ui/color-enums'
 import { type AppTable, Operation, Field } from '@/constants/core/data-enums'
-import { type Ref, ref, onMounted, onUnmounted } from 'vue'
+import { type Ref, ref, onMounted } from 'vue'
 import { DB } from '@/services/LocalDatabase'
 import { useLogger } from '@/use/useLogger'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
@@ -48,10 +48,6 @@ onMounted(async () => {
   } catch (error) {
     log.error('PageTable:onMounted', error)
   }
-})
-
-onUnmounted(() => {
-  dataTable.$reset()
 })
 
 /**
