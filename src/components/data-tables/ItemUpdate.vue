@@ -11,6 +11,7 @@ import useValidateItemStore from '@/stores/validate-item'
 // import { getTableInputFields } from '@/helpers/table-fields'
 // import { getTableActions } from '@/helpers/table-actions'
 // import { getTableLabel } from '@/helpers/table-label'
+import useDataItemStore from '@/stores/data-item'
 
 /**
  * Component for displaying inputs for the updating an existing data item.
@@ -18,15 +19,16 @@ import useValidateItemStore from '@/stores/validate-item'
  */
 const props = defineProps<{ table: AppTable }>()
 const emits = defineEmits<{ (eventName: 'on-update-confired'): void }>()
-const validate = useValidateItemStore()
-const selected = useSelectedItemStore()
-const temporary = useTemporaryItemStore()
 const { log } = useLogger()
 const { confirmDialog, dismissDialog } = useSimpleDialogs()
+// const validate = useValidateItemStore()
+// const selected = useSelectedItemStore()
+// const temporary = useTemporaryItemStore()
+const dataItemStore = useDataItemStore()
 
 function onUpdate() {
   try {
-    if (!validate.tableItem(props.table)) {
+    if (!dataItemStore.validate.tableItem(props.table)) {
       validationFailedDialog()
     } else {
       confirmUpdateDialog()
@@ -55,8 +57,8 @@ function confirmUpdateDialog(): void {
       const { updateRow } = getTableActions(props.table)
       if (updateRow) {
         await updateRow({
-          originalId: selected.item.id,
-          ...JSON.parse(JSON.stringify(temporary.item)),
+          originalId: dataItemStore.selected.id,
+          ...JSON.parse(JSON.stringify(dataItemStore.temporary)),
         })
         emits('on-update-confired')
       } else {

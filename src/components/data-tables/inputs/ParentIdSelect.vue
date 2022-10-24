@@ -7,19 +7,21 @@ import { truncateString } from '@/utils/common'
 import { isDefined } from '@/utils/validators'
 import { useLogger } from '@/use/useLogger'
 import { TableHelper } from '@/services/TableHelper'
-import useTemporaryItemStore from '@/stores/temporary-item'
-import useSelectedItemStore from '@/stores/selected-item'
-import useValidateItemStore from '@/stores/validate-item'
+// import useTemporaryItemStore from '@/stores/temporary-item'
+// import useSelectedItemStore from '@/stores/selected-item'
+// import useValidateItemStore from '@/stores/validate-item'
+import useDataItemStore from '@/stores/data-item'
 
 /**
  * Uses the table prop to get access to get the parent table.
  * @param table
  */
 const props = defineProps<{ table: AppTable }>()
-const validate = useValidateItemStore()
-const selected = useSelectedItemStore()
-const temporary = useTemporaryItemStore()
 const { log } = useLogger()
+// const validate = useValidateItemStore()
+// const selected = useSelectedItemStore()
+// const temporary = useTemporaryItemStore()
+const dataItemStore = useDataItemStore()
 const inputRef: Ref<any> = ref(null)
 const options: Ref<any[]> = ref([])
 
@@ -46,21 +48,24 @@ onMounted(async () => {
 
     // Set the current option
     // must do this first so it can be null if parent was deleted versus being the first option
-    if (selected.item?.parentId) {
-      const parent = options.value?.find((opt) => opt.value === selected.item.parentId)?.value
+    if (dataItemStore.selected?.parentId) {
+      const parent = options.value?.find(
+        (opt) => opt.value === dataItemStore.selected.parentId
+      )?.value
+
       if (parent) {
-        temporary.item.parentId = parent
-        validate.item.parentId = true
+        dataItemStore.temporary.parentId = parent
+        dataItemStore.validate.parentId = true
       } else {
-        temporary.item.parentId = null
-        validate.item.parentId = false
+        dataItemStore.temporary.parentId = null
+        dataItemStore.validate.parentId = false
       }
     } else if (options.value?.length > 0) {
-      temporary.item.parentId = options.value[0].value
-      validate.item.parentId = true
+      dataItemStore.temporary.parentId = options.value[0].value
+      dataItemStore.validate.parentId = true
     } else {
-      temporary.item.parentId = null
-      validate.item.parentId = false
+      dataItemStore.temporary.parentId = null
+      dataItemStore.validate.parentId = false
     }
   } else {
     log.error('No parent table to make selection', { name: 'ParentIdSelect:onMounted' })
@@ -68,13 +73,13 @@ onMounted(async () => {
 })
 
 function validateInput(): void {
-  validate.item.parentId = !!inputRef?.value?.validate()
+  dataItemStore.validate.parentId = !!inputRef?.value?.validate()
 }
 </script>
 
 <template>
   <QSelect
-    v-model="temporary.item.parentId"
+    v-model="dataItemStore.temporary.parentId"
     ref="inputRef"
     label="Parent"
     :options="options"

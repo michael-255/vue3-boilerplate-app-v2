@@ -4,29 +4,31 @@ import { QInput, QDate, QBtn, QTime, QPopupProxy } from 'quasar'
 import { isoToDisplayDate } from '@/utils/common'
 import { Icon } from '@/constants/ui/icon-enums'
 import { isDate } from '@/utils/validators'
-import useTemporaryItemStore from '@/stores/temporary-item'
-import useSelectedItemStore from '@/stores/selected-item'
-import useValidateItemStore from '@/stores/validate-item'
+// import useTemporaryItemStore from '@/stores/temporary-item'
+// import useSelectedItemStore from '@/stores/selected-item'
+// import useValidateItemStore from '@/stores/validate-item'
+import useDataItemStore from '@/stores/data-item'
 
-const validate = useValidateItemStore()
-const selected = useSelectedItemStore()
-const temporary = useTemporaryItemStore()
+// const validate = useValidateItemStore()
+// const selected = useSelectedItemStore()
+// const temporary = useTemporaryItemStore()
+const dataItemStore = useDataItemStore()
 const inputRef: Ref<any> = ref(null)
 const displayedDate: Ref<string> = ref('')
 const dateTimePicker: Ref<string> = ref('')
 
 // Setup
-if (selected.item?.createdDate) {
-  updateDates(selected.item.createdDate)
+if (dataItemStore.selected?.createdDate) {
+  updateDates(dataItemStore.selected.createdDate)
 } else {
   updateDates()
 }
-validate.item.createdDate = true
+dataItemStore.validate.createdDate = true
 
 function updateDates(date: string = new Date().toISOString()): void {
-  temporary.item.createdDate = new Date(date).toISOString()
+  dataItemStore.temporary.createdDate = new Date(date).toISOString()
   displayedDate.value = isoToDisplayDate(date as string)
-  validate.item.createdDate = true
+  dataItemStore.validate.createdDate = true
 }
 
 /**
@@ -39,7 +41,7 @@ function onPickerDateTime(): void {
 }
 
 function validateInput(): void {
-  validate.item.createdDate = !!inputRef?.value?.validate()
+  dataItemStore.validate.createdDate = !!inputRef?.value?.validate()
 }
 </script>
 

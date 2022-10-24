@@ -15,10 +15,11 @@ import ItemInspect from '@/components/data-tables/ItemInspect.vue'
 // import ItemUpdate from '@/components/data-tables/ItemUpdate.vue'
 // import ItemReport from '@/components/data-tables/ItemReport.vue'
 import useDataTableStore from '@/stores/data-table'
-import useSelectedItemStore from '@/stores/selected-item'
-import useValidateItemStore from '@/stores/validate-item'
-import useTemporaryItemStore from '@/stores/temporary-item'
+// import useSelectedItemStore from '@/stores/selected-item'
+// import useValidateItemStore from '@/stores/validate-item'
+// import useTemporaryItemStore from '@/stores/temporary-item'
 import useReportStore from '@/stores/report'
+import useDataItemStore from '@/stores/data-item'
 
 /**
  * Component allows you to view and perform operations on table data.
@@ -27,11 +28,12 @@ import useReportStore from '@/stores/report'
 const props = defineProps<{ table: AppTable }>()
 const { log } = useLogger()
 const { confirmDialog } = useSimpleDialogs()
-const selected = useSelectedItemStore()
-const validate = useValidateItemStore()
-const temporary = useTemporaryItemStore()
+// const selected = useSelectedItemStore()
+// const validate = useValidateItemStore()
+// const temporary = useTemporaryItemStore()
 const report = useReportStore()
 const dataTable = useDataTableStore()
+const dataItemStore = useDataItemStore()
 const searchFilter: Ref<string> = ref('')
 
 /**
@@ -63,9 +65,10 @@ async function updateRows(): Promise<void> {
 async function closeDialog(): Promise<void> {
   try {
     await updateRows()
-    selected.$reset()
-    validate.$reset()
-    temporary.$reset()
+    dataItemStore.$reset()
+    // selected.$reset()
+    // validate.$reset()
+    // temporary.$reset()
     report.$reset()
     dataTable.operation = Operation.NOOP
     dataTable.dialog = false // Always last so everything else is updated before dialog changes
@@ -85,7 +88,8 @@ async function onCreate(): Promise<void> {
 
 async function onUpdate(id: string): Promise<void> {
   try {
-    selected.setItem(await DB.getFirstByField(props.table, Field.ID, id))
+    dataItemStore.setSelectedItem(await DB.getFirstByField(props.table, Field.ID, id))
+    // selected.setItem(await DB.getFirstByField(props.table, Field.ID, id))
     dataTable.operation = Operation.UPDATE
     dataTable.dialog = true
   } catch (error) {
@@ -95,7 +99,8 @@ async function onUpdate(id: string): Promise<void> {
 
 async function onReport(id: string): Promise<void> {
   try {
-    selected.setItem(await DB.getFirstByField(props.table, Field.ID, id))
+    dataItemStore.setSelectedItem(await DB.getFirstByField(props.table, Field.ID, id))
+    // selected.setItem(await DB.getFirstByField(props.table, Field.ID, id))
     dataTable.operation = Operation.REPORT
     dataTable.dialog = true
   } catch (error) {
@@ -105,7 +110,8 @@ async function onReport(id: string): Promise<void> {
 
 async function onInspect(id: string): Promise<void> {
   try {
-    selected.setItem(await DB.getFirstByField(props.table, Field.ID, id))
+    dataItemStore.setSelectedItem(await DB.getFirstByField(props.table, Field.ID, id))
+    // selected.setItem(await DB.getFirstByField(props.table, Field.ID, id))
     dataTable.operation = Operation.INSPECT
     dataTable.dialog = true
   } catch (error) {

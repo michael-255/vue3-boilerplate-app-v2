@@ -4,13 +4,15 @@ import { QSelect } from 'quasar'
 import { MeasurementType } from '@/constants/core/data-enums'
 import { Field } from '@/constants/core/data-enums'
 import { isDefined } from '@/utils/validators'
-import useTemporaryItemStore from '@/stores/temporary-item'
+// import useTemporaryItemStore from '@/stores/temporary-item'
 // import useSelectedItemStore from '@/stores/selected-item'
-import useValidateItemStore from '@/stores/validate-item'
+// import useValidateItemStore from '@/stores/validate-item'
+import useDataItemStore from '@/stores/data-item'
 
-const validate = useValidateItemStore()
+// const validate = useValidateItemStore()
 // const selected = useSelectedItemStore()
-const temporary = useTemporaryItemStore()
+// const temporary = useTemporaryItemStore()
+const dataItemStore = useDataItemStore()
 const inputRef: Ref<any> = ref(null)
 const options: Ref<any[]> = ref([])
 
@@ -19,13 +21,13 @@ onMounted(async () => {
 })
 
 function validateInput(): void {
-  validate.item.parentId = !!inputRef?.value?.validate()
+  dataItemStore.validate.parentId = !!inputRef?.value?.validate()
 }
 </script>
 
 <template>
   <QSelect
-    v-model="temporary.item[Field.MEASUREMENT_TYPE]"
+    v-model="dataItemStore.temporary[Field.MEASUREMENT_TYPE]"
     ref="inputRef"
     label="Type"
     :options="options"

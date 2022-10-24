@@ -4,18 +4,20 @@ import { onMounted } from 'vue'
 import { useLogger } from '@/use/useLogger'
 import { LineChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
-import useSelectedItemStore from '@/stores/selected-item'
+// import useSelectedItemStore from '@/stores/selected-item'
 // import { getTableActions } from '@/helpers/table-actions'
 import useReportStore from '@/stores/report'
+import useDataItemStore from '@/stores/data-item'
 
 /**
  * Component for handling reports for each supported table.
  * @param table
  */
 const props = defineProps<{ table: AppTable }>()
-const selected = useSelectedItemStore()
-const report = useReportStore()
 const { log } = useLogger()
+const dataItemStore = useDataItemStore()
+// const selected = useSelectedItemStore()
+const report = useReportStore()
 Chart.register(...registerables)
 
 /**
@@ -25,7 +27,7 @@ onMounted(async () => {
   try {
     const { generateReport } = getTableActions(props.table)
     if (generateReport) {
-      await generateReport(selected.item?.id)
+      await generateReport(dataItemStore.selected?.id)
     } else {
       log.error('Missing generateReport action', { name: 'PageReport:onMounted' })
     }

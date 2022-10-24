@@ -4,16 +4,18 @@ import { type Ref, ref, onMounted } from 'vue'
 import type { AppTable, Field } from '@/constants/core/data-enums'
 import { useLogger } from '@/use/useLogger'
 import { TableHelper } from '@/services/TableHelper'
-import useSelectedItemStore from '@/stores/selected-item'
+// import useSelectedItemStore from '@/stores/selected-item'
+import useDataItemStore from '@/stores/data-item'
 
 /**
  * Component allows you to view the values in each of its internal (Exact) fields.
  * @param table
  */
 const props = defineProps<{ table: AppTable }>()
-const selected = useSelectedItemStore()
-const inspectionValues: Ref<DatabaseObject[]> = ref([])
 const { log } = useLogger()
+// const selected = useSelectedItemStore()
+const dataItemStore = useDataItemStore()
+const inspectionValues: Ref<DatabaseObject[]> = ref([])
 
 onMounted(async () => {
   try {
@@ -25,7 +27,7 @@ onMounted(async () => {
         label:
           currentTableColumnProps.find((props: DataTableProps) => props.name === field)?.label ||
           'ERROR',
-        value: selected.item[field] || '-',
+        value: dataItemStore.selected[field] || '-',
       })
     })
   } catch (error) {
