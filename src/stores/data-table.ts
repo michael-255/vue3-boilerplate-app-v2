@@ -2,10 +2,10 @@ import { Operation } from '@/constants/data-enums'
 import { defineStore, type StoreDefinition } from 'pinia'
 
 /**
- * Tracks state for the PageTable components.
+ * Tracks state for the DataTable components.
  */
-const usePageTableStore: StoreDefinition = defineStore({
-  id: 'page-table',
+const useDataTableStore: StoreDefinition = defineStore({
+  id: 'data-table',
 
   state: () => ({
     dialog: false,
@@ -18,4 +18,4 @@ const usePageTableStore: StoreDefinition = defineStore({
   }),
 })
 
-export default usePageTableStore
+export default useDataTableStore

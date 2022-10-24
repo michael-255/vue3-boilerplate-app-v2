@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { QPage, QCard, QCardSection } from 'quasar'
+import { QBtn, QPage, QCard, QCardSection } from 'quasar'
 import DefaultsBtn from '@/components/settings/DefaultsBtn.vue'
 import TestLogsBtn from '@/components/settings/TestLogsBtn.vue'
 </script>

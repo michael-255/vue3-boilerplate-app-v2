@@ -46,7 +46,7 @@ export function useLogger(): { [x: string]: any } {
         logger.info(`[${severity}]`, details, error)
       }
       if (settings.INFO) {
-        DB.dexieWrapper.add(AppTable.LOGS, new Log({ error, severity, details }))
+        DB.add(AppTable.LOGS, new Log({ error, severity, details }))
       }
       if (settings.NOTIFY) {
         notify(`${severity} - ${details}`, Icon.INFO, NotifyColor.INFO)
@@ -60,7 +60,7 @@ export function useLogger(): { [x: string]: any } {
       if (settings.DEBUG) {
         logger.warn(`[${severity}]`, details, error)
       }
-      DB.dexieWrapper.add(AppTable.LOGS, new Log({ error, severity, details }))
+      DB.add(AppTable.LOGS, new Log({ error, severity, details }))
       notify(`${severity} - ${details}`, Icon.WARN, NotifyColor.WARN)
     },
     /**
@@ -71,7 +71,7 @@ export function useLogger(): { [x: string]: any } {
       if (settings.DEBUG) {
         logger.error(`[${severity}]`, details, error)
       }
-      DB.dexieWrapper.add(AppTable.LOGS, new Log({ error, severity, details }))
+      DB.add(AppTable.LOGS, new Log({ error, severity, details }))
       notify(`${severity} - ${details}`, Icon.ERROR, NotifyColor.ERROR)
     },
     /**
@@ -82,7 +82,7 @@ export function useLogger(): { [x: string]: any } {
       if (settings.DEBUG) {
         logger.critical(`[${severity}]`, details, error)
       }
-      DB.dexieWrapper.add(AppTable.LOGS, new Log({ error, severity, details }))
+      DB.add(AppTable.LOGS, new Log({ error, severity, details }))
       notify(`${severity} - ${details}`, Icon.CRITICAL, NotifyColor.CRITICAL)
     },
   }

@@ -7,20 +7,15 @@ import { DB } from '@/services/LocalDatabase'
 import { useLogger } from '@/use/useLogger'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import PageDialog from '@/components/dialogs/PageDialog.vue'
-import PageInspect from '@/components/page-table/PageInspect.vue'
-import PageCreate from '@/components/page-table/PageCreate.vue'
-import PageUpdate from '@/components/page-table/PageUpdate.vue'
-import PageReport from '@/components/page-table/PageReport.vue'
-import usePageTableStore from '@/stores/page-table'
+// import PageInspect from '@/components/page-table/PageInspect.vue'
+// import PageCreate from '@/components/page-table/PageCreate.vue'
+// import PageUpdate from '@/components/page-table/PageUpdate.vue'
+// import PageReport from '@/components/page-table/PageReport.vue'
+import useDataTableStore from '@/stores/data-table'
 import useSelectedItemStore from '@/stores/selected-item'
 import useValidateItemStore from '@/stores/validate-item'
 import useTemporaryItemStore from '@/stores/temporary-item'
 import useReportStore from '@/stores/report'
-import { getTableActions } from '@/helpers/table-actions'
-import { getTableColumns } from '@/helpers/table-columns'
-import { getTableVisibleColumns } from '@/helpers/table-visible-columns'
-import { getTableLabel } from '@/helpers/table-label'
-import { isSupported } from '@/helpers/table-operations'
 import type { DataTableProps } from '@/constants/types-interfaces'
 
 /**
@@ -34,7 +29,7 @@ const selected = useSelectedItemStore()
 const validate = useValidateItemStore()
 const temporary = useTemporaryItemStore()
 const report = useReportStore()
-const pageTable = usePageTableStore()
+const pageTable = useDataTableStore()
 const searchFilter: Ref<string> = ref('')
 
 /**
@@ -306,7 +301,7 @@ async function onDelete(id: string): Promise<void> {
 
   <!-- Fullscreen Dialog -->
   <PageDialog @on-dialog-close="closeDialog()">
-    <PageInspect v-if="pageTable.operation === Operation.INSPECT" :table="table" />
+    <!-- <PageInspect v-if="pageTable.operation === Operation.INSPECT" :table="table" />
 
     <PageCreate
       v-else-if="pageTable.operation === Operation.CREATE"
@@ -322,6 +317,6 @@ async function onDelete(id: string): Promise<void> {
 
     <PageReport v-else-if="pageTable.operation === Operation.REPORT" :table="table" />
 
-    <div v-else>Selected operation is not supported</div>
+    <div v-else>Selected operation is not supported</div> -->
   </PageDialog>
 </template>

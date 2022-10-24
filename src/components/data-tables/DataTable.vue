@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { QSelect, QInput, QIcon } from 'quasar'
 import { Icon, NotifyColor } from '@/constants/ui-enums'
-import { type AppTable, Operation } from '@/constants/data-enums'
+import { type AppTable, Operation, Field } from '@/constants/data-enums'
 import { type Ref, ref, onMounted, onUnmounted } from 'vue'
 import { DB } from '@/services/LocalDatabase'
 import { useLogger } from '@/use/useLogger'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
-// import PageDialog from '@/components/dialogs/PageDialog.vue'
+import PageDialog from '@/components/dialogs/PageDialog.vue'
 // import Inspect from '@/components/data-tables/Inspect.vue'
 // import Create from '@/components/data-tables/Create.vue'
 // import Update from '@/components/data-tables/Update.vue'
 // import Report from '@/components/data-tables/Report.vue'
-import usePageTableStore from '@/stores/page-table'
+import useDataTableStore from '@/stores/data-table'
 import useSelectedItemStore from '@/stores/selected-item'
 import useValidateItemStore from '@/stores/validate-item'
 import useTemporaryItemStore from '@/stores/temporary-item'
@@ -29,7 +29,7 @@ const selected = useSelectedItemStore()
 const validate = useValidateItemStore()
 const temporary = useTemporaryItemStore()
 const report = useReportStore()
-const pageTable = usePageTableStore()
+const dataTable = useDataTableStore()
 const searchFilter: Ref<string> = ref('')
 
 /**
@@ -37,12 +37,12 @@ const searchFilter: Ref<string> = ref('')
  */
 onMounted(async () => {
   try {
-    pageTable.columns = DB.getColumnsForTable(props.table)
-    pageTable.columnOptions = DB.getColumnsForTable(props.table).filter(
+    dataTable.columns = DB.getColumnsForTable(props.table)
+    dataTable.columnOptions = DB.getColumnsForTable(props.table).filter(
       (col: DataTableProps) => !col.required
     )
-    pageTable.visibleColumns = DB.getVisibleColumnsForTable(props.table)
-    pageTable.itemLabel = DB.getLabelSingularForTable(props.table)
+    dataTable.visibleColumns = DB.getVisibleColumnsForTable(props.table)
+    dataTable.itemLabel = DB.getLabelSingularForTable(props.table)
     await updateRows()
   } catch (error) {
     log.error('PageTable:onMounted', error)
@@ -50,14 +50,14 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
-  pageTable.$reset()
+  dataTable.$reset()
 })
 
 /**
  * Loads the latest data into the data table rows.
  */
 async function updateRows(): Promise<void> {
-  pageTable.rows = await DB.getAllDataForTable(props.table)
+  dataTable.rows = await DB.getAllDataForTable(props.table)
 }
 
 /**
@@ -70,8 +70,8 @@ async function closeDialog(): Promise<void> {
     validate.$reset()
     temporary.$reset()
     report.$reset()
-    pageTable.operation = Operation.NOOP
-    pageTable.dialog = false // Always last so everything else is updated before dialog changes
+    dataTable.operation = Operation.NOOP
+    dataTable.dialog = false // Always last so everything else is updated before dialog changes
   } catch (error) {
     log.error('PageTable:closeDialog', error)
   }
@@ -79,8 +79,8 @@ async function closeDialog(): Promise<void> {
 
 async function onCreate(): Promise<void> {
   try {
-    pageTable.operation = Operation.CREATE
-    pageTable.dialog = true
+    dataTable.operation = Operation.CREATE
+    dataTable.dialog = true
   } catch (error) {
     log.error('PageTable:onCreate', error)
   }
@@ -88,9 +88,9 @@ async function onCreate(): Promise<void> {
 
 async function onUpdate(id: string): Promise<void> {
   try {
-    selected.setItem(await DB.dexieWrapper.getById(props.table, id))
-    pageTable.operation = Operation.UPDATE
-    pageTable.dialog = true
+    selected.setItem(await DB.getFirstByField(props.table, Field.ID, id))
+    dataTable.operation = Operation.UPDATE
+    dataTable.dialog = true
   } catch (error) {
     log.error('PageTable:onUpdate', error)
   }
@@ -98,9 +98,9 @@ async function onUpdate(id: string): Promise<void> {
 
 async function onReport(id: string): Promise<void> {
   try {
-    selected.setItem(await DB.dexieWrapper.getById(props.table, id))
-    pageTable.operation = Operation.REPORT
-    pageTable.dialog = true
+    selected.setItem(await DB.getFirstByField(props.table, Field.ID, id))
+    dataTable.operation = Operation.REPORT
+    dataTable.dialog = true
   } catch (error) {
     log.error('PageTable:onReport', error)
   }
@@ -108,9 +108,9 @@ async function onReport(id: string): Promise<void> {
 
 async function onInspect(id: string): Promise<void> {
   try {
-    selected.setItem(await DB.dexieWrapper.getById(props.table, id))
-    pageTable.operation = Operation.INSPECT
-    pageTable.dialog = true
+    selected.setItem(await DB.getFirstByField(props.table, Field.ID, id))
+    dataTable.operation = Operation.INSPECT
+    dataTable.dialog = true
   } catch (error) {
     log.error('PageTable:onInspect', error)
   }
@@ -125,7 +125,7 @@ async function onClear(): Promise<void> {
       NotifyColor.ERROR,
       async () => {
         try {
-          await DB.dexieWrapper.clear(props.table)
+          await DB.clear(props.table)
           await updateRows()
         } catch (error) {
           log.error('PageTable:onClear', error)
@@ -146,7 +146,7 @@ async function onDelete(id: string): Promise<void> {
       NotifyColor.ERROR,
       async () => {
         try {
-          await DB.dexieWrapper.deleteById(props.table, id)
+          await DB.deleteById(props.table, id)
           await updateRows()
         } catch (error) {
           log.error('PageTable:onDelete', error)
@@ -161,20 +161,20 @@ async function onDelete(id: string): Promise<void> {
 
 <template>
   <QTable
-    :rows="pageTable.rows"
-    :columns="pageTable.columns"
+    :rows="dataTable.rows"
+    :columns="dataTable.columns"
     :rows-per-page-options="[0]"
     virtual-scroll
     style="height: 85vh"
     row-key="id"
-    :visible-columns="pageTable.visibleColumns"
+    :visible-columns="dataTable.visibleColumns"
     :filter="searchFilter"
   >
     <!-- Table Heading -->
     <template v-slot:top>
       <!-- Search Input -->
       <QInput
-        :disable="!pageTable.rows.length"
+        :disable="!dataTable.rows.length"
         outlined
         dense
         debounce="300"
@@ -189,8 +189,8 @@ async function onDelete(id: string): Promise<void> {
 
       <!-- Column Select -->
       <QSelect
-        v-model="pageTable.visibleColumns"
-        :disable="!pageTable.rows.length"
+        v-model="dataTable.visibleColumns"
+        :disable="!dataTable.rows.length"
         multiple
         outlined
         dense
@@ -198,7 +198,7 @@ async function onDelete(id: string): Promise<void> {
         display-value="Columns"
         emit-value
         map-options
-        :options="pageTable.columnOptions"
+        :options="dataTable.columnOptions"
         option-value="name"
         options-cover
         style="min-width: 150px"
@@ -216,7 +216,7 @@ async function onDelete(id: string): Promise<void> {
         <!-- Clear Btn -->
         <QBtn
           v-if="DB.getOperationsForTable(table).includes(Operation.CLEAR)"
-          :disable="!pageTable.rows.length"
+          :disable="!dataTable.rows.length"
           color="negative"
           label="Clear"
           @click="onClear()"
@@ -292,23 +292,23 @@ async function onDelete(id: string): Promise<void> {
   </QTable>
 
   <!-- Fullscreen Dialog -->
-  <!-- <PageDialog @on-dialog-close="closeDialog()">
-    <Inspect v-if="pageTable.operation === Operation.INSPECT" :table="table" />
+  <PageDialog @on-dialog-close="closeDialog()">
+    <!-- <Inspect v-if="dataTable.operation === Operation.INSPECT" :table="table" />
 
     <Create
-      v-else-if="pageTable.operation === Operation.CREATE"
+      v-else-if="dataTable.operation === Operation.CREATE"
       :table="table"
       @on-create-confirmed="closeDialog()"
     />
 
     <Update
-      v-else-if="pageTable.operation === Operation.UPDATE"
+      v-else-if="dataTable.operation === Operation.UPDATE"
       :table="table"
       @on-update-confired="closeDialog()"
     />
 
-    <Report v-else-if="pageTable.operation === Operation.REPORT" :table="table" />
+    <Report v-else-if="dataTable.operation === Operation.REPORT" :table="table" />
 
-    <div v-else>Selected operation is not supported</div>
-  </PageDialog> -->
+    <div v-else>Selected operation is not supported</div> -->
+  </PageDialog>
 </template>

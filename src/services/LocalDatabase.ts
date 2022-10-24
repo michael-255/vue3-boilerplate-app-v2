@@ -151,28 +151,28 @@ export class LocalDatabase {
    * Initializes setting keys in the settings table with default values.
    */
   async initDatabaseSettings(): Promise<DatabaseObject> {
-    const settings = (await this.dexieWrapper.getAll(AppTable.SETTINGS)) as Setting[]
+    const settings = (await this.getAll(AppTable.SETTINGS)) as Setting[]
 
     const DEBUG = settings.find((s: DatabaseObject) => s[Field.ID] === SettingKey.DEBUG)
     const NOTIFY = settings.find((s: DatabaseObject) => s[Field.ID] === SettingKey.NOTIFY)
     const INFO = settings.find((s: DatabaseObject) => s[Field.ID] === SettingKey.INFO)
 
     if (!DEBUG) {
-      await this.dexieWrapper.add(AppTable.SETTINGS, {
+      await this.add(AppTable.SETTINGS, {
         id: SettingKey.DEBUG,
         createdDate: new Date().toISOString(),
         settingValue: false,
       })
     }
     if (!NOTIFY) {
-      await this.dexieWrapper.add(AppTable.SETTINGS, {
+      await this.add(AppTable.SETTINGS, {
         id: SettingKey.NOTIFY,
         createdDate: new Date().toISOString(),
         settingValue: false,
       })
     }
     if (!INFO) {
-      await this.dexieWrapper.add(AppTable.SETTINGS, {
+      await this.add(AppTable.SETTINGS, {
         id: SettingKey.INFO,
         createdDate: new Date().toISOString(),
         settingValue: false,

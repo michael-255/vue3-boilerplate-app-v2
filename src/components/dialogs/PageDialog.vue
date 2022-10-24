@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { QDialog, QCard, QCardSection, QCardActions, QBtn } from 'quasar'
 import { Icon } from '@/constants/ui-enums'
-import usePageTableStore from '@/stores/page-table'
+import useDataTableStore from '@/stores/data-table'
 
 /**
  * PageDialog is a fullscreen dialog for views that use the PageTable components. You load
  * components needed for operations like Create, Update, and Report inside of its slot.
  */
 const emits = defineEmits<{ (eventName: 'on-dialog-close'): void }>()
-const pageTable = usePageTableStore()
+const pageTable = useDataTableStore()
 </script>
 
 <template>
