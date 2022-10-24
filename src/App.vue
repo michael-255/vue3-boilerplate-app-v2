@@ -1,13 +1,16 @@
 <script setup lang="ts">
+import type { DataTab } from './constants/types-interfaces'
 import { RouterView, useRoute } from 'vue-router'
 import { onMounted, type Ref, ref, watch, markRaw } from 'vue'
 import { useLogger } from '@/use/useLogger'
 import { DB } from '@/services/LocalDatabase'
 import useSettingsStore from '@/stores/settings'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import useDataTabsStore from '@/stores/data-tabs'
 
-const settings = useSettingsStore()
 const { log } = useLogger()
+const settings = useSettingsStore()
+const dataTabs = useDataTabsStore()
 const route = useRoute()
 
 const layout: Ref<any> = ref(null)
@@ -37,6 +40,14 @@ watch(
       layout.value = markRaw(DefaultLayout)
       log.critical('Route layout watcher', error)
     }
+  },
+  { immediate: true }
+)
+
+watch(
+  () => route.meta?.tabs as DataTab[] | undefined,
+  async (metaTabs) => {
+    dataTabs.tabs = metaTabs || []
   },
   { immediate: true }
 )

@@ -2,7 +2,7 @@
 
 ## Todos
 
-- [x] Change `DataTableDialog` to `DataTableDialog`
+- [ ] Fix tabs bug when switching between tab views
 - [ ] Remove unneeded input components
 - [ ] Fix input components
 
