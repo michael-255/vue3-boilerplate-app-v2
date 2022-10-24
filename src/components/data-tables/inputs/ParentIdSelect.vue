@@ -6,6 +6,7 @@ import { DB } from '@/services/LocalDatabase'
 import { truncateString } from '@/utils/common'
 import { isDefined } from '@/utils/validators'
 import { useLogger } from '@/use/useLogger'
+import { TableHelper } from '@/services/TableHelper'
 import useTemporaryItemStore from '@/stores/temporary-item'
 import useSelectedItemStore from '@/stores/selected-item'
 import useValidateItemStore from '@/stores/validate-item'
@@ -26,7 +27,7 @@ const options: Ref<any[]> = ref([])
  * Sets the select box options with the parent items from the database.
  */
 onMounted(async () => {
-  const parentTable = DB.getParentTableForTable(props.table)
+  const parentTable = TableHelper.getParentTable(props.table)
 
   // Parent table must exist to continue
   if (parentTable) {

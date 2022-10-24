@@ -32,7 +32,7 @@ function onUpdate() {
       confirmUpdateDialog()
     }
   } catch (error) {
-    log.error('UpdateItem:onUpdate', error)
+    log.error('ItemUpdate:onUpdate', error)
   }
 }
 

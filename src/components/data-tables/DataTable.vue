@@ -4,20 +4,21 @@ import { Icon } from '@/constants/ui/icon-enums'
 import { NotifyColor } from '@/constants/ui/color-enums'
 import { type AppTable, Operation, Field } from '@/constants/core/data-enums'
 import { type Ref, ref, onMounted } from 'vue'
+import type { DataTableProps } from '@/constants/types-interfaces'
 import { DB } from '@/services/LocalDatabase'
 import { useLogger } from '@/use/useLogger'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
+import { TableHelper } from '@/services/TableHelper'
 import DataTableDialog from '@/components/dialogs/DataTableDialog.vue'
-import InspectItem from '@/components/data-tables/InspectItem.vue'
-// import CreateItem from '@/components/data-tables/CreateItem.vue'
-// import UpdateItem from '@/components/data-tables/UpdateItem.vue'
-// import ReportItem from '@/components/data-tables/ReportItem.vue'
+import ItemInspect from '@/components/data-tables/ItemInspect.vue'
+// import ItemCreate from '@/components/data-tables/ItemCreate.vue'
+// import ItemUpdate from '@/components/data-tables/ItemUpdate.vue'
+// import ItemReport from '@/components/data-tables/ItemReport.vue'
 import useDataTableStore from '@/stores/data-table'
 import useSelectedItemStore from '@/stores/selected-item'
 import useValidateItemStore from '@/stores/validate-item'
 import useTemporaryItemStore from '@/stores/temporary-item'
 import useReportStore from '@/stores/report'
-import type { DataTableProps } from '@/constants/types-interfaces'
 
 /**
  * Component allows you to view and perform operations on table data.
@@ -38,12 +39,11 @@ const searchFilter: Ref<string> = ref('')
  */
 onMounted(async () => {
   try {
-    dataTable.columns = DB.getColumnsForTable(props.table)
-    dataTable.columnOptions = DB.getColumnsForTable(props.table).filter(
-      (col: DataTableProps) => !col.required
-    )
-    dataTable.visibleColumns = DB.getVisibleColumnsForTable(props.table)
-    dataTable.itemLabel = DB.getLabelSingularForTable(props.table)
+    const cols = TableHelper.getColumns(props.table)
+    dataTable.columns = cols
+    dataTable.columnOptions = cols.filter((col: DataTableProps) => !col.required)
+    dataTable.visibleColumns = TableHelper.getVisibleColumns(props.table)
+    dataTable.itemLabel = TableHelper.getLabelSingular(props.table)
     await updateRows()
   } catch (error) {
     log.error('PageTable:onMounted', error)
@@ -54,7 +54,7 @@ onMounted(async () => {
  * Loads the latest data into the data table rows.
  */
 async function updateRows(): Promise<void> {
-  dataTable.rows = await DB.getAllDataForTable(props.table)
+  dataTable.rows = await DB.getAllData(props.table)
 }
 
 /**
@@ -114,10 +114,10 @@ async function onInspect(id: string): Promise<void> {
 }
 
 async function onClear(): Promise<void> {
-  if (DB.getOperationsForTable(props.table).includes(Operation.CLEAR)) {
+  if (TableHelper.getOperations(props.table).includes(Operation.CLEAR)) {
     confirmDialog(
       'Clear',
-      `Permanently delete all ${DB.getLabelPluralForTable(props.table)}?`,
+      `Permanently delete all ${TableHelper.getLabelPlural(props.table)}?`,
       Icon.DELETE,
       NotifyColor.ERROR,
       async () => {
@@ -130,15 +130,15 @@ async function onClear(): Promise<void> {
       }
     )
   } else {
-    log.warn(`Clear not supported for ${DB.getLabelPluralForTable(props.table)} table`)
+    log.warn(`Clear not supported for ${TableHelper.getLabelPlural(props.table)} table`)
   }
 }
 
 async function onDelete(id: string): Promise<void> {
-  if (DB.getOperationsForTable(props.table).includes(Operation.DELETE)) {
+  if (TableHelper.getOperations(props.table).includes(Operation.DELETE)) {
     confirmDialog(
       'Delete',
-      `Permanently delete "${id}" from ${DB.getLabelPluralForTable(props.table)}?`,
+      `Permanently delete "${id}" from ${TableHelper.getLabelPlural(props.table)}?`,
       Icon.DELETE,
       NotifyColor.ERROR,
       async () => {
@@ -151,7 +151,7 @@ async function onDelete(id: string): Promise<void> {
       }
     )
   } else {
-    log.warn(`Delete not supported for ${DB.getLabelPluralForTable(props.table)} table`)
+    log.warn(`Delete not supported for ${TableHelper.getLabelPlural(props.table)} table`)
   }
 }
 </script>
@@ -204,7 +204,7 @@ async function onDelete(id: string): Promise<void> {
       <div>
         <!-- Create Btn -->
         <QBtn
-          v-if="DB.getOperationsForTable(table).includes(Operation.CREATE)"
+          v-if="TableHelper.getOperations(table).includes(Operation.CREATE)"
           color="positive"
           label="Create"
           class="q-mr-sm q-mb-sm"
@@ -212,7 +212,7 @@ async function onDelete(id: string): Promise<void> {
         />
         <!-- Clear Btn -->
         <QBtn
-          v-if="DB.getOperationsForTable(table).includes(Operation.CLEAR)"
+          v-if="TableHelper.getOperations(table).includes(Operation.CLEAR)"
           :disable="!dataTable.rows.length"
           color="negative"
           label="Clear"
@@ -241,7 +241,7 @@ async function onDelete(id: string): Promise<void> {
         <QTd auto-width>
           <!-- Report Btn -->
           <QBtn
-            v-if="DB.getOperationsForTable(table).includes(Operation.REPORT)"
+            v-if="TableHelper.getOperations(table).includes(Operation.REPORT)"
             flat
             round
             dense
@@ -252,7 +252,7 @@ async function onDelete(id: string): Promise<void> {
           />
           <!-- Details Btn -->
           <QBtn
-            v-if="DB.getOperationsForTable(table).includes(Operation.INSPECT)"
+            v-if="TableHelper.getOperations(table).includes(Operation.INSPECT)"
             flat
             round
             dense
@@ -263,7 +263,7 @@ async function onDelete(id: string): Promise<void> {
           />
           <!-- Edit Btn -->
           <QBtn
-            v-if="DB.getOperationsForTable(table).includes(Operation.UPDATE)"
+            v-if="TableHelper.getOperations(table).includes(Operation.UPDATE)"
             flat
             round
             dense
@@ -274,7 +274,7 @@ async function onDelete(id: string): Promise<void> {
           />
           <!-- Delete Btn -->
           <QBtn
-            v-if="DB.getOperationsForTable(table).includes(Operation.DELETE)"
+            v-if="TableHelper.getOperations(table).includes(Operation.DELETE)"
             flat
             round
             dense
@@ -290,21 +290,21 @@ async function onDelete(id: string): Promise<void> {
 
   <!-- Fullscreen Dialog -->
   <DataTableDialog @on-dialog-close="closeDialog()">
-    <InspectItem v-if="dataTable.operation === Operation.INSPECT" :table="table" />
+    <ItemInspect v-if="dataTable.operation === Operation.INSPECT" :table="table" />
 
-    <!-- <CreateItem
+    <!-- <ItemCreate
       v-else-if="dataTable.operation === Operation.CREATE"
       :table="table"
       @on-create-confirmed="closeDialog()"
     />
 
-    <UpdateItem
+    <ItemUpdate
       v-else-if="dataTable.operation === Operation.UPDATE"
       :table="table"
       @on-update-confired="closeDialog()"
     />
 
-    <ReportItem v-else-if="dataTable.operation === Operation.REPORT" :table="table" /> -->
+    <ItemReport v-else-if="dataTable.operation === Operation.REPORT" :table="table" /> -->
 
     <div v-else>Selected operation is not supported</div>
   </DataTableDialog>

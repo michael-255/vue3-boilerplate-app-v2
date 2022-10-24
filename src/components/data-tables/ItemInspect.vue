@@ -3,7 +3,7 @@ import type { DatabaseObject, DataTableProps } from '@/constants/types-interface
 import { type Ref, ref, onMounted } from 'vue'
 import type { AppTable, Field } from '@/constants/core/data-enums'
 import { useLogger } from '@/use/useLogger'
-import { DB } from '@/services/LocalDatabase'
+import { TableHelper } from '@/services/TableHelper'
 import useSelectedItemStore from '@/stores/selected-item'
 
 /**
@@ -17,8 +17,8 @@ const { log } = useLogger()
 
 onMounted(async () => {
   try {
-    const currentTableFields = DB.getFieldsForTable(props.table)
-    const currentTableColumnProps = DB.getColumnsForTable(props.table)
+    const currentTableFields = TableHelper.getFields(props.table)
+    const currentTableColumnProps = TableHelper.getColumns(props.table)
 
     currentTableFields.forEach((field: Field) => {
       inspectionValues.value.push({
@@ -29,7 +29,7 @@ onMounted(async () => {
       })
     })
   } catch (error) {
-    log.error('InspectItem:Setup', error)
+    log.error('ItemInspect:Setup', error)
   }
 })
 </script>

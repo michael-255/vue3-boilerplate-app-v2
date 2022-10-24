@@ -1,6 +1,6 @@
 import type { IndexableType } from 'dexie'
-import type { DatabaseObject, DataTableProps } from '@/constants/types-interfaces'
-import { AppTable, Field, Operation, SettingKey } from '@/constants/core/data-enums'
+import type { DatabaseObject } from '@/constants/types-interfaces'
+import { AppTable, Field, SettingKey } from '@/constants/core/data-enums'
 import { AppString } from '@/constants/ui/string-enums'
 import { DexieWrapper } from './__DexieWrapper'
 import { Log } from '@/models/__Log'
@@ -187,114 +187,42 @@ export class LocalDatabase {
   }
 
   //
-  // Table Operations
+  // Model Operations
   //
 
-  getFieldsForTable(table: AppTable): Field[] {
+  async getAllData(table: AppTable): Promise<any> {
     return {
-      [AppTable.MEASUREMENTS]: Measurement.getFields(),
-      [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.getFields(),
-      [AppTable.LOGS]: Log.getFields(),
-      [AppTable.SETTINGS]: Setting.getFields(),
+      [AppTable.MEASUREMENTS]: await Measurement.getAll(this),
+      [AppTable.MEASUREMENT_RECORDS]: await MeasurementRecord.getAll(this),
+      [AppTable.LOGS]: await Log.getAll(this),
+      [AppTable.SETTINGS]: await Setting.getAll(this),
     }[table]
   }
 
-  getComponentsForTable(table: AppTable): any[] {
+  async getCreate(table: AppTable, data: DatabaseObject): Promise<void> {
     return {
-      [AppTable.MEASUREMENTS]: Measurement.getFieldComponents(),
-      [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.getFieldComponents(),
-      [AppTable.LOGS]: Log.getFieldComponents(),
-      [AppTable.SETTINGS]: Setting.getFieldComponents(),
+      [AppTable.MEASUREMENTS]: await Measurement.create(this, data),
+      [AppTable.MEASUREMENT_RECORDS]: await MeasurementRecord.create(this, data),
+      [AppTable.LOGS]: await Log.create(this, data),
+      [AppTable.SETTINGS]: await Setting.create(this, data),
     }[table]
   }
 
-  getColumnsForTable(table: AppTable): DataTableProps[] {
+  async getUpdate(table: AppTable, data: DatabaseObject): Promise<void> {
     return {
-      [AppTable.MEASUREMENTS]: Measurement.getColumns(),
-      [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.getColumns(),
-      [AppTable.LOGS]: Log.getColumns(),
-      [AppTable.SETTINGS]: Setting.getColumns(),
+      [AppTable.MEASUREMENTS]: await Measurement.update(this, data),
+      [AppTable.MEASUREMENT_RECORDS]: await MeasurementRecord.update(this, data),
+      [AppTable.LOGS]: await Log.update(this, data),
+      [AppTable.SETTINGS]: await Setting.update(this, data),
     }[table]
   }
 
-  getVisibleColumnsForTable(table: AppTable): Field[] {
+  async getReport(table: AppTable, id: string): Promise<void> {
     return {
-      [AppTable.MEASUREMENTS]: Measurement.getVisibleColumns(),
-      [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.getVisibleColumns(),
-      [AppTable.LOGS]: Log.getVisibleColumns(),
-      [AppTable.SETTINGS]: Setting.getVisibleColumns(),
-    }[table]
-  }
-
-  getOperationsForTable(table: AppTable): Operation[] {
-    return {
-      [AppTable.MEASUREMENTS]: Measurement.getOperations(),
-      [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.getOperations(),
-      [AppTable.LOGS]: Log.getOperations(),
-      [AppTable.SETTINGS]: Setting.getOperations(),
-    }[table]
-  }
-
-  getParentTableForTable(table: AppTable): AppTable | null {
-    return {
-      [AppTable.MEASUREMENTS]: Measurement.getParentTable(),
-      [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.getParentTable(),
-      [AppTable.LOGS]: Log.getParentTable(),
-      [AppTable.SETTINGS]: Setting.getParentTable(),
-    }[table]
-  }
-
-  getLabelPluralForTable(table: AppTable): string {
-    return {
-      [AppTable.MEASUREMENTS]: Measurement.getLabelPlural(),
-      [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.getLabelPlural(),
-      [AppTable.LOGS]: Log.getLabelPlural(),
-      [AppTable.SETTINGS]: Setting.getLabelPlural(),
-    }[table]
-  }
-
-  getLabelSingularForTable(table: AppTable): string {
-    return {
-      [AppTable.MEASUREMENTS]: Measurement.getLabelSingular(),
-      [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.getLabelSingular(),
-      [AppTable.LOGS]: Log.getLabelSingular(),
-      [AppTable.SETTINGS]: Setting.getLabelSingular(),
-    }[table]
-  }
-
-  getAllDataForTable(table: AppTable): any {
-    return {
-      [AppTable.MEASUREMENTS]: Measurement.getAll(this),
-      [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.getAll(this),
-      [AppTable.LOGS]: Log.getAll(this),
-      [AppTable.SETTINGS]: Setting.getAll(this),
-    }[table]
-  }
-
-  getCreateForTable(table: AppTable, data: DatabaseObject): Promise<void> {
-    return {
-      [AppTable.MEASUREMENTS]: Measurement.create(this, data),
-      [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.create(this, data),
-      [AppTable.LOGS]: Log.create(this, data),
-      [AppTable.SETTINGS]: Setting.create(this, data),
-    }[table]
-  }
-
-  getUpdateForTable(table: AppTable, data: DatabaseObject): Promise<void> {
-    return {
-      [AppTable.MEASUREMENTS]: Measurement.update(this, data),
-      [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.update(this, data),
-      [AppTable.LOGS]: Log.update(this, data),
-      [AppTable.SETTINGS]: Setting.update(this, data),
-    }[table]
-  }
-
-  getReportForTable(table: AppTable, id: string): Promise<void> {
-    return {
-      [AppTable.MEASUREMENTS]: Measurement.report(this, id),
-      [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.report(this, id),
-      [AppTable.LOGS]: Log.report(this, id),
-      [AppTable.SETTINGS]: Setting.report(this, id),
+      [AppTable.MEASUREMENTS]: await Measurement.report(this, id),
+      [AppTable.MEASUREMENT_RECORDS]: await MeasurementRecord.report(this, id),
+      [AppTable.LOGS]: await Log.report(this, id),
+      [AppTable.SETTINGS]: await Setting.report(this, id),
     }[table]
   }
 }
