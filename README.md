@@ -4,28 +4,19 @@
 
 - [x] Fix tabs bug when switching between tab views
 - [x] Remove unneeded input components
-- [ ] Fix input components
-
-  - [ ] `id`
-  - [ ] `createdDate`
-  - [ ] `name`
-  - [ ] `parentId`
-  - [ ] `measurementType`
-  - [ ] `measurementValue`
-
-- [ ] Fix `getFieldComponents` in models
+- [x] Fix input components
+- [x] Fix `getFieldComponents` in models
 - [ ] Fix defaulting function
 
   - [ ] Generate randomized defaults for measurements
 
 - [ ] Fix table operations
 
-  - [ ] `Inspect`
+  - [x] `Inspect`
   - [ ] `Create`
   - [ ] `Update`
   - [ ] `Report`
 
-- [ ] Make sure operations work with `truncatedId` (should not use that field)
 - [ ] Clean your legacy data
 - [ ] Test deployment script (gh-pages website)
 - [ ] Go through post cloning task list

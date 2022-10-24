@@ -1,11 +1,11 @@
 import { Activity, type IActivity } from '@/models/__Activity'
-import { AppTable, Operation, type MeasurementType } from '@/constants/core/data-enums'
-import { Field } from '@/constants/core/data-enums'
 import type { DataTableProps, DatabaseObject } from '@/constants/types-interfaces'
 import type { LocalDatabase } from '@/services/LocalDatabase'
 import type { MeasurementRecord } from '@/models/MeasurementRecord'
+import { AppTable, Operation, type MeasurementType } from '@/constants/core/data-enums'
+import { Field } from '@/constants/core/data-enums'
 import { isoToDisplayDate } from '@/utils/common'
-// import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent } from 'vue'
 
 export interface IMeasurement extends IActivity {
   measurementType: MeasurementType
@@ -119,7 +119,9 @@ export class Measurement extends Activity {
   static getFieldComponents(): any {
     return [
       ...Activity.getFieldComponents(),
-      // defineAsyncComponent(() => import('@/components/page-table/inputs/MeasurementTypeSelect.vue')),
+      defineAsyncComponent(
+        () => import('@/components/data-tables/inputs/MeasurementTypeSelect.vue')
+      ),
     ]
   }
 
@@ -128,7 +130,7 @@ export class Measurement extends Activity {
       ...Activity.getColumns(),
       {
         name: Field.MEASUREMENT_TYPE,
-        label: 'Tracks',
+        label: 'Type',
         align: 'left',
         sortable: true,
         required: false,

@@ -18,7 +18,7 @@ const dataTable = useDataTableStore()
     <QTab
       v-for="(tab, i) in dataTable.tabs"
       :key="i"
-      :name="i"
+      :name="tab.name"
       :icon="tab.icon"
       :label="tab.name"
     />
@@ -27,7 +27,7 @@ const dataTable = useDataTableStore()
   <QSeparator />
 
   <QTabPanels v-model="dataTable.selectedTab" animated>
-    <QTabPanel v-for="(tab, i) in dataTable.tabs" :key="i" :name="i" class="q-pa-none">
+    <QTabPanel v-for="(tab, i) in dataTable.tabs" :key="i" :name="tab.name" class="q-pa-none">
       <DataTable :table="tab.table" />
     </QTabPanel>
   </QTabPanels>

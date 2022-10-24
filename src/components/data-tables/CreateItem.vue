@@ -30,7 +30,7 @@ function onCreate() {
       confirmCreateDialog()
     }
   } catch (error) {
-    log.error('PageCreate:onCreate', error)
+    log.error('CreateItem:onCreate', error)
   }
 }
 

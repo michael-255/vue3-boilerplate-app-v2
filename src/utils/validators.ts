@@ -20,12 +20,12 @@ export function isDefined(value: any): boolean {
   return !isUndefined(value)
 }
 
-export function isPositiveNumber(num: number): boolean {
-  return typeof num === 'number' && isFinite(num) && num > 0 && num < 1000000000 // 9 zeros
+export function isNonNegitiveNumber(num: number): boolean {
+  return typeof num === 'number' && isFinite(num) && num >= 0 && num < 1000000000 // 9 zeros
 }
 
-export function isOptionalPositiveNumber(num: number | undefined): boolean {
-  return isUndefined(num) || isPositiveNumber(num as number)
+export function isOptionalNonNegitiveNumber(num: number | undefined): boolean {
+  return isUndefined(num) || isNonNegitiveNumber(num as number)
 }
 
 export function isId(id: string): boolean {

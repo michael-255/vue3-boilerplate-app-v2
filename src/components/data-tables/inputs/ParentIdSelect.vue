@@ -9,10 +9,9 @@ import { useLogger } from '@/use/useLogger'
 import useTemporaryItemStore from '@/stores/temporary-item'
 import useSelectedItemStore from '@/stores/selected-item'
 import useValidateItemStore from '@/stores/validate-item'
-// import { getTableParentTable } from '@/helpers/table-parent-table'
 
 /**
- * Uses the table prop to get access to getRelatedTable.
+ * Uses the table prop to get access to get the parent table.
  * @param table
  */
 const props = defineProps<{ table: AppTable }>()
@@ -27,8 +26,9 @@ const options: Ref<any[]> = ref([])
  * Sets the select box options with the parent items from the database.
  */
 onMounted(async () => {
-  const parentTable = getTableParentTable(props.table)
+  const parentTable = DB.getParentTableForTable(props.table)
 
+  // Parent table must exist to continue
   if (parentTable) {
     const parentTableData = await DB.getAll(parentTable)
 
@@ -39,7 +39,7 @@ onMounted(async () => {
 
     // Builds options with value and label
     options.value = alphaSortedData.map((a: any) => ({
-      value: a.id,
+      value: a.id, // Item id is used as the value under the hood
       label: `${a.name} (${truncateString(a.id, 4, '*')})`, // Truncate id for readability
     }))
 

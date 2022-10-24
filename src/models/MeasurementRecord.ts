@@ -1,8 +1,8 @@
 import { Record, type IRecord } from '@/models/__Record'
-import { AppTable, Field, Operation } from '@/constants/core/data-enums'
 import type { DatabaseObject, DataTableProps } from '@/constants/types-interfaces'
 import type { LocalDatabase } from '@/services/LocalDatabase'
-// import { defineAsyncComponent } from 'vue'
+import { AppTable, Field, Operation } from '@/constants/core/data-enums'
+import { defineAsyncComponent } from 'vue'
 
 export interface IMeasurementRecord extends IRecord {
   measurementValue: number
@@ -83,7 +83,9 @@ export class MeasurementRecord extends Record {
   static getFieldComponents(): any {
     return [
       ...Record.getFieldComponents(),
-      // defineAsyncComponent(() => import('@/components/page-table/inputs/MeasurementValueInput.vue')),
+      defineAsyncComponent(
+        () => import('@/components/data-tables/inputs/MeasurementValueInput.vue')
+      ),
     ]
   }
 

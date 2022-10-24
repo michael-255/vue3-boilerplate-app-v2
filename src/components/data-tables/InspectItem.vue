@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import type { DatabaseObject } from '@/constants/types-interfaces'
-import { type Ref, ref } from 'vue'
-import { useLogger } from '@/use/useLogger'
+import type { DatabaseObject, DataTableProps } from '@/constants/types-interfaces'
+import { type Ref, ref, onMounted } from 'vue'
 import type { AppTable, Field } from '@/constants/core/data-enums'
+import { useLogger } from '@/use/useLogger'
+import { DB } from '@/services/LocalDatabase'
 import useSelectedItemStore from '@/stores/selected-item'
-// import { getFieldDataTableProps } from '@/helpers/field-column-props'
-// import { getTableFields } from '@/helpers/table-fields'
 
 /**
  * Component allows you to view the values in each of its internal (Exact) fields.
@@ -16,26 +15,23 @@ const selected = useSelectedItemStore()
 const inspectionValues: Ref<DatabaseObject[]> = ref([])
 const { log } = useLogger()
 
-// Setup
-try {
-  const fields = getTableFields(props.table)
+onMounted(async () => {
+  try {
+    const currentTableFields = DB.getFieldsForTable(props.table)
+    const currentTableColumnProps = DB.getColumnsForTable(props.table)
 
-  // entry[0] = field name
-  // entry[1] = field value
-  Object.entries(selected.item).forEach((entry: [string, any]) => {
-    // Make sure the field in the store is in the table
-    if (fields.includes(entry[0] as Field)) {
-      // Get the display label for the field
-      const label = getFieldDataTableProps(entry[0] as Field)?.label
-      // Get the field value or '-' if its falsy
-      const value = entry[1] || '-'
-
-      inspectionValues.value.push({ label, value })
-    }
-  })
-} catch (error) {
-  log.error('PageInspect:Setup', error)
-}
+    currentTableFields.forEach((field: Field) => {
+      inspectionValues.value.push({
+        label:
+          currentTableColumnProps.find((props: DataTableProps) => props.name === field)?.label ||
+          'ERROR',
+        value: selected.item[field] || '-',
+      })
+    })
+  } catch (error) {
+    log.error('InspectItem:Setup', error)
+  }
+})
 </script>
 
 <template>

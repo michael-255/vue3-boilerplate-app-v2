@@ -1,7 +1,7 @@
-// import { defineAsyncComponent } from 'vue'
 import { Entity, type IEntity } from '@/models/__Entity'
-import { Field } from '@/constants/core/data-enums'
 import type { DataTableProps } from '@/constants/types-interfaces'
+import { defineAsyncComponent } from 'vue'
+import { Field } from '@/constants/core/data-enums'
 import { truncateString } from '@/utils/common'
 
 export interface IActivity extends IEntity {
@@ -27,7 +27,7 @@ export class Activity extends Entity {
   static getFieldComponents(): any {
     return [
       ...Entity.getFieldComponents(),
-      // defineAsyncComponent(() => import('@/components/page-table/inputs/NameInput.vue')),
+      defineAsyncComponent(() => import('@/components/data-tables/inputs/NameInput.vue')),
     ]
   }
 

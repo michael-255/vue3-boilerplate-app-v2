@@ -8,7 +8,7 @@ import { DB } from '@/services/LocalDatabase'
 import { useLogger } from '@/use/useLogger'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import DataTableDialog from '@/components/dialogs/DataTableDialog.vue'
-// import InspectItem from '@/components/data-tables/InspectItem.vue'
+import InspectItem from '@/components/data-tables/InspectItem.vue'
 // import CreateItem from '@/components/data-tables/CreateItem.vue'
 // import UpdateItem from '@/components/data-tables/UpdateItem.vue'
 // import ReportItem from '@/components/data-tables/ReportItem.vue'
@@ -290,9 +290,9 @@ async function onDelete(id: string): Promise<void> {
 
   <!-- Fullscreen Dialog -->
   <DataTableDialog @on-dialog-close="closeDialog()">
-    <!-- <InspectItem v-if="dataTable.operation === Operation.INSPECT" :table="table" />
+    <InspectItem v-if="dataTable.operation === Operation.INSPECT" :table="table" />
 
-    <CreateItem
+    <!-- <CreateItem
       v-else-if="dataTable.operation === Operation.CREATE"
       :table="table"
       @on-create-confirmed="closeDialog()"
@@ -304,8 +304,8 @@ async function onDelete(id: string): Promise<void> {
       @on-update-confired="closeDialog()"
     />
 
-    <ReportItem v-else-if="dataTable.operation === Operation.REPORT" :table="table" />
+    <ReportItem v-else-if="dataTable.operation === Operation.REPORT" :table="table" /> -->
 
-    <div v-else>Selected operation is not supported</div> -->
+    <div v-else>Selected operation is not supported</div>
   </DataTableDialog>
 </template>

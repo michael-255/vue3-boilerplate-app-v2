@@ -1,7 +1,8 @@
-// import { defineAsyncComponent } from 'vue'
-import { Field } from '@/constants/core/data-enums'
 import type { DataTableProps } from '@/constants/types-interfaces'
+import { defineAsyncComponent } from 'vue'
+import { Field } from '@/constants/core/data-enums'
 import { isoToDisplayDate, truncateString } from '@/utils/common'
+import { validate } from 'uuid'
 
 export interface IEntity {
   id: string
@@ -27,29 +28,19 @@ export class Entity {
 
   static getFieldComponents(): any {
     return [
-      // defineAsyncComponent(() => import('@/components/page-table/inputs/IdInput.vue')),
-      // defineAsyncComponent(() => import('@/components/page-table/inputs/CreatedDateInput.vue')),
+      defineAsyncComponent(() => import('@/components/data-tables/inputs/IdInput.vue')),
+      defineAsyncComponent(() => import('@/components/data-tables/inputs/CreatedDateInput.vue')),
     ]
   }
 
   static getColumns(): DataTableProps[] {
     return [
-      // Used to make a shorter and more readable id in data table views
-      {
-        name: 'truncatedId' as Field,
-        label: 'Id*',
-        align: 'left',
-        sortable: true,
-        required: true,
-        field: (row: any) => row.id,
-        format: (val: string) => truncateString(val, 8, '*'),
-      },
       {
         name: Field.ID,
         label: 'Id',
         align: 'left',
         sortable: true,
-        required: false,
+        required: true, // So operations can use it
         field: (row: any) => row[Field.ID],
         format: (val: string) => val,
       },

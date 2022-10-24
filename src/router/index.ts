@@ -87,8 +87,8 @@ router.afterEach(async (to: any) => {
   const tabs = (to?.meta?.tabs || []) as DataTab[]
 
   if (tabs.length > 0) {
-    dataTable.selectedTab = 0
-    dataTable.tabs = to?.meta?.tabs as DataTab[]
+    dataTable.selectedTab = tabs[0].name
+    dataTable.tabs = tabs
   } else {
     dataTable.$reset()
   }

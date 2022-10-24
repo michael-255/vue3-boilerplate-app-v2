@@ -9,7 +9,7 @@ const useDataTableStore: StoreDefinition = defineStore({
   id: 'data-table',
 
   state: () => ({
-    selectedTab: 0, // First tab is always default
+    selectedTab: '',
     tabs: [] as DataTab[],
     dialog: false,
     operation: Operation.NOOP,

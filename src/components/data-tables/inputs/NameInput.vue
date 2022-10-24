@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { QInput } from 'quasar'
 import { ref, type Ref } from 'vue'
+import { QInput } from 'quasar'
 import { isShortText } from '@/utils/validators'
 import useTemporaryItemStore from '@/stores/temporary-item'
 import useSelectedItemStore from '@/stores/selected-item'

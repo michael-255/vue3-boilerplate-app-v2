@@ -30,7 +30,7 @@ onMounted(async () => {
       log.error('Missing generateReport action', { name: 'PageReport:onMounted' })
     }
   } catch (error) {
-    log.error('PageReport:onMounted', error)
+    log.error('ReportItem:onMounted', error)
   }
 })
 </script>

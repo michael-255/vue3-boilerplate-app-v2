@@ -1,7 +1,7 @@
 import { Entity, type IEntity } from '@/models/__Entity'
-import { Field } from '@/constants/core/data-enums'
 import type { DataTableProps } from '@/constants/types-interfaces'
-// import { defineAsyncComponent } from 'vue'
+import { Field } from '@/constants/core/data-enums'
+import { defineAsyncComponent } from 'vue'
 
 export interface IRecord extends IEntity {
   parentId: string
@@ -26,7 +26,7 @@ export class Record extends Entity {
   static getFieldComponents(): any {
     return [
       ...Entity.getFieldComponents(),
-      // defineAsyncComponent(() => import('@/components/page-table/inputs/ParentIdSelect.vue')),
+      defineAsyncComponent(() => import('@/components/data-tables/inputs/ParentIdSelect.vue')),
     ]
   }
 
