@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import { QSelect, QInput, QIcon } from 'quasar'
-import { Icon, NotifyColor } from '@/constants/ui-enums'
-import { type AppTable, Operation, Field } from '@/constants/data-enums'
+import { Icon } from '@/constants/ui/icon-enums'
+import { NotifyColor } from '@/constants/ui/color-enums'
+import { type AppTable, Operation, Field } from '@/constants/core/data-enums'
 import { type Ref, ref, onMounted, onUnmounted } from 'vue'
 import { DB } from '@/services/LocalDatabase'
 import { useLogger } from '@/use/useLogger'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import DataTableDialog from '@/components/dialogs/DataTableDialog.vue'
-// import Inspect from '@/components/data-tables/Inspect.vue'
-// import Create from '@/components/data-tables/Create.vue'
-// import Update from '@/components/data-tables/Update.vue'
-// import Report from '@/components/data-tables/Report.vue'
+// import InspectItem from '@/components/data-tables/InspectItem.vue'
+// import CreateItem from '@/components/data-tables/CreateItem.vue'
+// import UpdateItem from '@/components/data-tables/UpdateItem.vue'
+// import ReportItem from '@/components/data-tables/ReportItem.vue'
 import useDataTableStore from '@/stores/data-table'
 import useSelectedItemStore from '@/stores/selected-item'
 import useValidateItemStore from '@/stores/validate-item'
@@ -293,21 +294,21 @@ async function onDelete(id: string): Promise<void> {
 
   <!-- Fullscreen Dialog -->
   <DataTableDialog @on-dialog-close="closeDialog()">
-    <!-- <Inspect v-if="dataTable.operation === Operation.INSPECT" :table="table" />
+    <!-- <InspectItem v-if="dataTable.operation === Operation.INSPECT" :table="table" />
 
-    <Create
+    <CreateItem
       v-else-if="dataTable.operation === Operation.CREATE"
       :table="table"
       @on-create-confirmed="closeDialog()"
     />
 
-    <Update
+    <UpdateItem
       v-else-if="dataTable.operation === Operation.UPDATE"
       :table="table"
       @on-update-confired="closeDialog()"
     />
 
-    <Report v-else-if="dataTable.operation === Operation.REPORT" :table="table" />
+    <ReportItem v-else-if="dataTable.operation === Operation.REPORT" :table="table" />
 
     <div v-else>Selected operation is not supported</div> -->
   </DataTableDialog>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QItem, QItemSection, QIcon } from 'quasar'
-import type { Icon } from '@/constants/ui-enums'
+import type { Icon } from '@/constants/ui/icon-enums'
 
 /**
  * Drawer list item that is used by MenuLayout.

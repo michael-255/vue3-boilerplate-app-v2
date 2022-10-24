@@ -2,13 +2,12 @@
 import { QBtn } from 'quasar'
 import { useLogger } from '@/use/useLogger'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
-import { Icon, NotifyColor } from '@/constants/ui-enums'
+import { Icon } from '@/constants/ui/icon-enums'
+import { NotifyColor } from '@/constants/ui/color-enums'
 import { DB } from '@/services/LocalDatabase'
-import { AppTable } from '@/constants/data-enums'
-import defaultExercises from '@/constants/default-exercises.json'
-import defaultWorkouts from '@/constants/default-workouts.json'
-import defaultMeasurements from '@/constants/default-measurements.json'
-import legacyRecords from '@/constants/legacy-records.json'
+import { AppTable } from '@/constants/core/data-enums'
+import defaultMeasurements from '@/constants/data/default-measurements.json'
+import legacyRecords from '@/constants/data/legacy-records.json'
 
 const { log, consoleDebug } = useLogger()
 const { confirmDialog } = useSimpleDialogs()
@@ -47,12 +46,8 @@ async function loadDefaults() {
   consoleDebug(appData)
 
   await Promise.all([
-    DB.bulkAdd(AppTable.EXERCISES, appData?.exercises),
-    DB.bulkAdd(AppTable.EXERCISE_RECORDS, appData?.exerciseRecords),
     DB.bulkAdd(AppTable.MEASUREMENTS, appData?.measurements),
     DB.bulkAdd(AppTable.MEASUREMENT_RECORDS, appData?.measurementRecords),
-    DB.bulkAdd(AppTable.WORKOUTS, appData?.workouts),
-    DB.bulkAdd(AppTable.WORKOUT_RECORDS, appData?.workoutRecords),
     // Logs and Settings are NOT added
   ])
 }

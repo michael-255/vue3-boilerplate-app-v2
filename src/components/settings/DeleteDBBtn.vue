@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { QBtn } from 'quasar'
 import { useLogger } from '@/use/useLogger'
-import { Icon, NotifyColor } from '@/constants/ui-enums'
+import { Icon } from '@/constants/ui/icon-enums'
+import { NotifyColor } from '@/constants/ui/color-enums'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import { DB } from '@/services/LocalDatabase'
 

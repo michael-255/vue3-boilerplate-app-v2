@@ -1,5 +1,5 @@
 import { Entity, type IEntity } from '@/models/__Entity'
-import { Field } from '@/constants/data-enums'
+import { Field } from '@/constants/core/data-enums'
 import type { DataTableProps } from '@/constants/types-interfaces'
 // import { defineAsyncComponent } from 'vue'
 

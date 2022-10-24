@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { QBtn, QLayout, QHeader, QToolbar, QToolbarTitle, QPageContainer } from 'quasar'
 import { useRouter } from 'vue-router'
-import { Icon, RouteName } from '@/constants/ui-enums'
+import { RouteName } from '@/constants/ui/routing-enums'
+import { Icon } from '@/constants/ui/icon-enums'
 
 /**
  * Layout thats used when no other layout is provided in the routes meta data.

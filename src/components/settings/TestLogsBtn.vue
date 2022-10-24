@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QBtn } from 'quasar'
-import { NotifyColor } from '@/constants/ui-enums'
+import { NotifyColor } from '@/constants/ui/color-enums'
 import { useLogger } from '@/use/useLogger'
 import useSettingsStore from '@/stores/settings'
 

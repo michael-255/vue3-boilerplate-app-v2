@@ -11,7 +11,9 @@ import {
   QSeparator,
 } from 'quasar'
 import DrawerItem from '@/components/drawer/DrawerItem.vue'
-import { RouteName, Icon, Strings } from '@/constants/ui-enums'
+import { RouteName } from '@/constants/ui/routing-enums'
+import { Icon } from '@/constants/ui/icon-enums'
+import { AppString } from '@/constants/ui/string-enums'
 import useMainMenuStore from '@/stores/main-menu'
 
 /**
@@ -27,7 +29,7 @@ const mainMenu = useMainMenuStore()
       <QToolbar>
         <QBtn dense flat round :icon="Icon.MENU" @click="mainMenu.drawer = !mainMenu.drawer" />
 
-        <QToolbarTitle>{{ Strings.APP_NAME }}</QToolbarTitle>
+        <QToolbarTitle>{{ AppString.APP_NAME }}</QToolbarTitle>
 
         <QBtn flat round :to="{ name: RouteName.SETTINGS }" :icon="Icon.SETTINGS" />
       </QToolbar>

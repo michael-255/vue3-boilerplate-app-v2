@@ -1,7 +1,7 @@
 import type { DataTableProps, SettingValue } from '@/constants/types-interfaces'
 import { Entity, type IEntity } from '@/models/__Entity'
-import { Field } from '@/constants/data-enums'
-import { AppTable, Operation } from '@/constants/data-enums'
+import { Field } from '@/constants/core/data-enums'
+import { AppTable, Operation } from '@/constants/core/data-enums'
 import type { LocalDatabase } from '@/services/LocalDatabase'
 
 export interface ISetting extends IEntity {

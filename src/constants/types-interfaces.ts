@@ -1,5 +1,5 @@
-import type { AppTable, Field } from './data-enums'
-import type { Icon } from './ui-enums'
+import type { AppTable, Field } from '@/constants/core/data-enums'
+import type { Icon } from '@/constants/ui/icon-enums'
 
 /**
  * Generic type for an object the string based keys storing any value.

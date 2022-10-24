@@ -1,6 +1,8 @@
 import { PrettyLogger } from '@/services/__PrettyLogger'
-import { AppTable, Severity } from '@/constants/data-enums'
-import { NotifyColor, Icon, Strings } from '@/constants/ui-enums'
+import { AppTable, Severity } from '@/constants/core/data-enums'
+import { Icon } from '@/constants/ui/icon-enums'
+import { NotifyColor } from '@/constants/ui/color-enums'
+import { AppString } from '@/constants/ui/string-enums'
 import { DB } from '@/services/LocalDatabase'
 import { Log } from '@/models/__Log'
 import { useNotifications } from '@/use/useNotifications'
@@ -11,7 +13,7 @@ import useSettingsStore from '@/stores/settings'
  * Never awaiting for any logging calls. Don't want to slow down the UI.
  */
 export function useLogger(): { [x: string]: any } {
-  const logger = new PrettyLogger(Strings.APP_NAME)
+  const logger = new PrettyLogger(AppString.APP_NAME)
   const settings = useSettingsStore()
   const { notify } = useNotifications()
 

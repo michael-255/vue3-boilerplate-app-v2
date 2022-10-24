@@ -1,4 +1,4 @@
-import { Field } from '@/constants/data-enums'
+import { Field } from '@/constants/core/data-enums'
 import { defineStore, type StoreDefinition } from 'pinia'
 
 /**

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QPage, QCard, QCardSection, QSeparator, QBtn } from 'quasar'
-import { RouteName } from '@/constants/ui-enums'
+import { RouteName } from '@/constants/ui/routing-enums'
 import SettingToggles from '@/components/settings/SettingToggles.vue'
 import TestLogsBtn from '@/components/settings/TestLogsBtn.vue'
 import DefaultsBtn from '@/components/settings/DefaultsBtn.vue'

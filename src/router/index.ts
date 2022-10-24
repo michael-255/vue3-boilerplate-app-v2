@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { Icon, RouteName } from '@/constants/ui-enums'
+import { RouteName } from '@/constants/ui/routing-enums'
+import { Icon } from '@/constants/ui/icon-enums'
 import type { DataTab } from '@/constants/types-interfaces'
-import { AppTable } from '@/constants/data-enums'
+import { AppTable } from '@/constants/core/data-enums'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

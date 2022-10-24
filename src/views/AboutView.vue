@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { QPage, QCard, QCardSection, QCardActions, QBtn } from 'quasar'
-import { Links, Icon, Strings } from '@/constants/ui-enums'
+import { Links } from '@/constants/ui/routing-enums'
+import { Icon } from '@/constants/ui/icon-enums'
+import { AppString } from '@/constants/ui/string-enums'
 </script>
 
 <template>
@@ -10,7 +12,7 @@ import { Links, Icon, Strings } from '@/constants/ui-enums'
         <QCardSection class="bg-primary text-white text-h3">About</QCardSection>
 
         <QCardSection>
-          {{ Strings.APP_NAME }} is a Vue 3 Typescript project created by michael-255 on GitHub
+          {{ AppString.APP_NAME }} is a Vue 3 Typescript project created by michael-255 on GitHub
         </QCardSection>
 
         <QCardActions align="left">

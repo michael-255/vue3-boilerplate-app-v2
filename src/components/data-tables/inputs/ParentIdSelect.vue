@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { QSelect } from 'quasar'
 import { onMounted, ref, type Ref } from 'vue'
-import type { AppTable } from '@/constants/data-enums'
+import type { AppTable } from '@/constants/core/data-enums'
 import { DB } from '@/services/LocalDatabase'
 import { truncateString } from '@/utils/common'
 import { isDefined } from '@/utils/validators'
@@ -9,7 +9,7 @@ import { useLogger } from '@/use/useLogger'
 import useTemporaryItemStore from '@/stores/temporary-item'
 import useSelectedItemStore from '@/stores/selected-item'
 import useValidateItemStore from '@/stores/validate-item'
-import { getTableParentTable } from '@/helpers/table-parent-table'
+// import { getTableParentTable } from '@/helpers/table-parent-table'
 
 /**
  * Uses the table prop to get access to getRelatedTable.

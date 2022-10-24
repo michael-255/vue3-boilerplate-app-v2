@@ -1,7 +1,7 @@
 import type { IndexableType } from 'dexie'
 import type { DatabaseObject, DataTableProps } from '@/constants/types-interfaces'
-import { AppTable, Field, Operation, SettingKey } from '@/constants/data-enums'
-import { Strings } from '@/constants/ui-enums'
+import { AppTable, Field, Operation, SettingKey } from '@/constants/core/data-enums'
+import { AppString } from '@/constants/ui/string-enums'
 import { DexieWrapper } from './__DexieWrapper'
 import { Log } from '@/models/__Log'
 import { Setting } from '@/models/__Setting'
@@ -302,4 +302,4 @@ export class LocalDatabase {
 /**
  * Preconfigured LocalDatabase
  */
-export const DB = new LocalDatabase(new DexieWrapper(`${Strings.APP_NAME} v${Strings.VERSION}`))
+export const DB = new LocalDatabase(new DexieWrapper(`${AppString.APP_NAME} v${AppString.VERSION}`))

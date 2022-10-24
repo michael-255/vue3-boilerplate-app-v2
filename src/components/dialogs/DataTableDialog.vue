@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QDialog, QCard, QCardSection, QCardActions, QBtn } from 'quasar'
-import { Icon } from '@/constants/ui-enums'
+import { Icon } from '@/constants/ui/icon-enums'
 import useDataTableStore from '@/stores/data-table'
 
 /**

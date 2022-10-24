@@ -3,9 +3,10 @@ import { exportFile, QInput, QBtn } from 'quasar'
 import { type Ref, ref } from 'vue'
 import { useLogger } from '@/use/useLogger'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
-import { AppTable } from '@/constants/data-enums'
+import { AppTable } from '@/constants/core/data-enums'
 import { DB } from '@/services/LocalDatabase'
-import { Icon, NotifyColor } from '@/constants/ui-enums'
+import { Icon } from '@/constants/ui/icon-enums'
+import { NotifyColor } from '@/constants/ui/color-enums'
 
 const { log, consoleDebug } = useLogger()
 const { confirmDialog } = useSimpleDialogs()

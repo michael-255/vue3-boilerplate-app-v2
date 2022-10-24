@@ -1,5 +1,6 @@
 import { useQuasar } from 'quasar'
-import { NotifyColor, Icon } from '@/constants/ui-enums'
+import { Icon } from '@/constants/ui/icon-enums'
+import { NotifyColor } from '@/constants/ui/color-enums'
 
 /**
  * Simple customizable notifications.

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { QInput } from 'quasar'
 import { ref, type Ref } from 'vue'
-import { v4 as createId } from 'uuid'
-import { Icon } from '@/constants/ui-enums'
+import { Icon } from '@/constants/ui/icon-enums'
 import { isId } from '@/utils/validators'
 import useTemporaryItemStore from '@/stores/temporary-item'
 import useSelectedItemStore from '@/stores/selected-item'
 import useValidateItemStore from '@/stores/validate-item'
+import { uuid } from '@/utils/common'
 
 const validate = useValidateItemStore()
 const selected = useSelectedItemStore()
@@ -14,11 +14,11 @@ const temporary = useTemporaryItemStore()
 const inputRef: Ref<any> = ref(null)
 
 // Setup
-temporary.item.id = selected.item?.id ? selected.item.id : createId()
+temporary.item.id = selected.item?.id ? selected.item.id : uuid()
 validate.item.id = true
 
 function generateId(): void {
-  temporary.item.id = createId()
+  temporary.item.id = uuid()
   validate.item.id = true
 }
 

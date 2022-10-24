@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { Icon, NotifyColor } from '@/constants/ui-enums'
+import type { Icon } from '@/constants/ui/icon-enums'
+import type { NotifyColor } from '@/constants/ui/color-enums'
 import { QDialog, QCard, QCardSection, QCardActions, QIcon, QBtn } from 'quasar'
 import { useDialogPluginComponent } from 'quasar'
 

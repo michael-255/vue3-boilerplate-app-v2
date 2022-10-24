@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { AppTable, InputField } from '@/constants/data-enums'
-import { Icon, NotifyColor } from '@/constants/ui-enums'
-import { getInputFieldComponent } from '@/helpers/field-components'
+import type { AppTable } from '@/constants/core/data-enums'
+import { Icon } from '@/constants/ui/icon-enums'
+import { NotifyColor } from '@/constants/ui/color-enums'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import { useLogger } from '@/use/useLogger'
 import useTemporaryItemStore from '@/stores/temporary-item'
 import useValidateItemStore from '@/stores/validate-item'
-import { getTableInputFields } from '@/helpers/table-fields'
-import { getTableActions } from '@/helpers/table-actions'
-import { getTableLabel } from '@/helpers/table-label'
+// import { getInputFieldComponent } from '@/helpers/field-components'
+// import { getTableInputFields } from '@/helpers/table-fields'
+// import { getTableActions } from '@/helpers/table-actions'
+// import { getTableLabel } from '@/helpers/table-label'
 
 /**
  * Component for displaying inputs for the creation of new data items.

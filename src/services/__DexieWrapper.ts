@@ -3,7 +3,7 @@ import { Log, type ILog } from '@/models/__Log'
 import { Setting, type ISetting } from '@/models/__Setting'
 import { Measurement, type IMeasurement } from '@/models/Measurement'
 import { MeasurementRecord, type IMeasurementRecord } from '@/models/MeasurementRecord'
-import { AppTable, Field } from '@/constants/data-enums'
+import { AppTable, Field } from '@/constants/core/data-enums'
 
 /**
  * Wrapper for Dexie IndexedDB

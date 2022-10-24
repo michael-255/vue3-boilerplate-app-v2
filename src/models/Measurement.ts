@@ -1,6 +1,6 @@
 import { Activity, type IActivity } from '@/models/__Activity'
-import { AppTable, Operation, type MeasurementType } from '@/constants/data-enums'
-import { Field } from '@/constants/data-enums'
+import { AppTable, Operation, type MeasurementType } from '@/constants/core/data-enums'
+import { Field } from '@/constants/core/data-enums'
 import type { DataTableProps, DatabaseObject } from '@/constants/types-interfaces'
 import type { LocalDatabase } from '@/services/LocalDatabase'
 import type { MeasurementRecord } from '@/models/MeasurementRecord'

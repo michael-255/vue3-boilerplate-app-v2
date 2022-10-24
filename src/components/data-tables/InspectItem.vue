@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { DataObject } from '@/constants/types-interfaces'
+import type { DatabaseObject } from '@/constants/types-interfaces'
 import { type Ref, ref } from 'vue'
 import { useLogger } from '@/use/useLogger'
-import type { AppTable, Field } from '@/constants/data-enums'
-import { getTableFields } from '@/helpers/table-fields'
-import { getFieldDataTableProps } from '@/helpers/field-column-props'
+import type { AppTable, Field } from '@/constants/core/data-enums'
 import useSelectedItemStore from '@/stores/selected-item'
+// import { getFieldDataTableProps } from '@/helpers/field-column-props'
+// import { getTableFields } from '@/helpers/table-fields'
 
 /**
  * Component allows you to view the values in each of its internal (Exact) fields.
@@ -13,7 +13,7 @@ import useSelectedItemStore from '@/stores/selected-item'
  */
 const props = defineProps<{ table: AppTable }>()
 const selected = useSelectedItemStore()
-const inspectionValues: Ref<DataObject[]> = ref([])
+const inspectionValues: Ref<DatabaseObject[]> = ref([])
 const { log } = useLogger()
 
 // Setup

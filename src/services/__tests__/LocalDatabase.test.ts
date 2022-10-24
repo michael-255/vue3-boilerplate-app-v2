@@ -1,6 +1,6 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { LocalDatabase } from '@/services/LocalDatabase'
-import { AppTable, SettingKey } from '@/constants/data-enums'
+import { AppTable, SettingKey } from '@/constants/core/data-enums'
 
 const tableMock = vi.fn().mockReturnValue({
   toArray: vi.fn(),

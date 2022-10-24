@@ -1,5 +1,5 @@
 // import { defineAsyncComponent } from 'vue'
-import { Field } from '@/constants/data-enums'
+import { Field } from '@/constants/core/data-enums'
 import type { DataTableProps } from '@/constants/types-interfaces'
 import { isoToDisplayDate, truncateString } from '@/utils/common'
 

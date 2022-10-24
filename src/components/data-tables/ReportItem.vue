@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { AppTable } from '@/constants/data-enums.js'
+import type { AppTable } from '@/constants/core/data-enums'
 import { onMounted } from 'vue'
 import { useLogger } from '@/use/useLogger'
 import { LineChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
 import useSelectedItemStore from '@/stores/selected-item'
-import { getTableActions } from '@/helpers/table-actions'
+// import { getTableActions } from '@/helpers/table-actions'
 import useReportStore from '@/stores/report'
 
 /**

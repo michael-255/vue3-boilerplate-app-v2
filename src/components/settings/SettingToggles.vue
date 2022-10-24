@@ -3,7 +3,7 @@ import { QToggle } from 'quasar'
 import useSettingsStore from '@/stores/settings'
 import { computed } from 'vue'
 import { DB } from '@/services/LocalDatabase'
-import { AppTable, SettingKey } from '@/constants/data-enums'
+import { AppTable, SettingKey } from '@/constants/core/data-enums'
 
 const settings = useSettingsStore()
 
