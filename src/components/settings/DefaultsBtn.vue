@@ -6,10 +6,11 @@ import { Icon } from '@/constants/ui/icon-enums'
 import { NotifyColor } from '@/constants/ui/color-enums'
 import { DB } from '@/services/LocalDatabase'
 import { AppTable } from '@/constants/core/data-enums'
-import defaultMeasurements from '@/constants/data/default-measurements.json'
-import legacyRecords from '@/constants/data/legacy-records.json'
+import { uuid } from '@/utils/common'
+import { MeasurementRecord } from '@/models/MeasurementRecord'
+import defaultMeasurements from '@/constants/data/default-measurements'
 
-const { log, consoleDebug } = useLogger()
+const { log } = useLogger()
 const { confirmDialog } = useSimpleDialogs()
 
 /**
@@ -23,7 +24,7 @@ function onDefaults(): void {
     NotifyColor.INFO,
     async (): Promise<void> => {
       try {
-        loadDefaults()
+        await loadDefaults()
       } catch (error) {
         log.error('onDefaults', error)
       }
@@ -31,25 +32,38 @@ function onDefaults(): void {
   )
 }
 
-async function loadDefaults() {
-  const appData = {
-    exercises: defaultExercises || [],
-    exerciseRecords: legacyRecords.exerciseRecords || [], // TEMP
-    measurements: defaultMeasurements || [],
-    measurementRecords: legacyRecords.measurementRecords || [], // TEMP
-    workouts: defaultWorkouts || [],
-    workoutRecords: legacyRecords.workoutRecords || [], // TEMP
-    logs: [], // No reason to default these
-    settings: [], // No reason to default these
-  }
-
-  consoleDebug(appData)
-
+async function loadDefaults(): Promise<void> {
   await Promise.all([
-    DB.bulkAdd(AppTable.MEASUREMENTS, appData?.measurements),
-    DB.bulkAdd(AppTable.MEASUREMENT_RECORDS, appData?.measurementRecords),
-    // Logs and Settings are NOT added
+    DB.bulkAdd(AppTable.MEASUREMENTS, defaultMeasurements),
+    DB.bulkAdd(AppTable.MEASUREMENT_RECORDS, makeDefaultMeasurementRecords()),
   ])
+}
+
+/**
+ * @deprecate
+ */
+function makeDefaultMeasurementRecords(): MeasurementRecord[] {
+  let date = new Date('2022/01/01')
+  const defaultMeasurementRecords: MeasurementRecord[] = []
+
+  defaultMeasurements.forEach((measurement: any) => {
+    // Inner loop to make many records per measurement type
+    for (let i = 0; i < 20; i++) {
+      defaultMeasurementRecords.push(
+        new MeasurementRecord({
+          id: uuid(),
+          createdDate: date.toISOString(),
+          parentId: measurement.id,
+          measurementValue: Number(Math.random().toString(10).substring(2, 3)) + i,
+        })
+      )
+
+      // Increment the date by 1 day each iteration
+      date = new Date(date.setDate(date.getDate() + 1))
+    }
+  })
+
+  return defaultMeasurementRecords
 }
 </script>
 

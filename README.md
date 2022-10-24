@@ -6,10 +6,7 @@
 - [x] Remove unneeded input components
 - [x] Fix input components
 - [x] Fix `getFieldComponents` in models
-- [ ] Fix defaulting function
-
-  - [ ] Generate randomized defaults for measurements
-
+- [x] Fix defaulting function
 - [ ] Fix table operations
 
   - [x] `Inspect`
