@@ -33,11 +33,12 @@ export class Measurement extends Activity {
    * @param id
    */
   static async report(database: LocalDatabase, id: string): Promise<any> {
-    const records = (await database.getFirstByField(
+    const records = (await database.getAllByField(
       AppTable.MEASUREMENT_RECORDS,
       Field.PARENT_ID,
       id
     )) as MeasurementRecord[]
+
     const parent = (await database.getFirstByField(
       AppTable.MEASUREMENTS,
       Field.ID,
@@ -55,17 +56,19 @@ export class Measurement extends Activity {
 
     return {
       title: parent?.name,
-      chartData: {
-        labels: records.map(() => ''),
-        datasets: datasets,
-      },
+      labels: records.map(() => ''),
+      datasets: datasets,
       firstDate: isoToDisplayDate(records[0]?.createdDate),
       lastDate: isoToDisplayDate(records[records.length - 1]?.createdDate),
     }
   }
 
-  static async update(database: LocalDatabase, data: DatabaseObject): Promise<void> {
-    const { originalId, id, createdDate, name, measurementType } = data
+  static async update(
+    database: LocalDatabase,
+    originalId: string,
+    props: DatabaseObject
+  ): Promise<void> {
+    const { id, createdDate, name, measurementType } = props
     await database.updateById(
       AppTable.MEASUREMENTS,
       originalId,

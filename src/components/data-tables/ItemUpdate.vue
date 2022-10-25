@@ -4,6 +4,8 @@ import { Icon } from '@/constants/ui/icon-enums'
 import { NotifyColor } from '@/constants/ui/color-enums'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import { useLogger } from '@/use/useLogger'
+import { TableHelper } from '@/services/TableHelper'
+import { DB } from '@/services/LocalDatabase'
 import useDataItemStore from '@/stores/data-item'
 
 /**
@@ -11,14 +13,15 @@ import useDataItemStore from '@/stores/data-item'
  * @param table
  */
 const props = defineProps<{ table: AppTable }>()
-const emits = defineEmits<{ (eventName: 'on-update-confired'): void }>()
+const emits = defineEmits<{ (eventName: 'on-update-confirmed'): void }>()
 const { log } = useLogger()
 const { confirmDialog, dismissDialog } = useSimpleDialogs()
 const dataItemStore = useDataItemStore()
 
 function onUpdate() {
   try {
-    if (!dataItemStore.validate.tableItem(props.table)) {
+    const fields = TableHelper.getFields(props.table)
+    if (!dataItemStore.areItemFieldsValid(fields)) {
       validationFailedDialog()
     } else {
       confirmUpdateDialog()
@@ -37,22 +40,22 @@ function validationFailedDialog(): void {
   )
 }
 
-function confirmUpdateDialog(): void {
+async function confirmUpdateDialog(): Promise<void> {
   confirmDialog(
     'Update',
-    `Are you sure you want to update this ${getTableLabel(props.table, 'singular')}?`,
+    `Are you sure you want to update this ${TableHelper.getLabelSingular(props.table)}?`,
     Icon.SAVE,
     NotifyColor.INFO,
     async () => {
-      const { updateRow } = getTableActions(props.table)
-      if (updateRow) {
-        await updateRow({
-          originalId: dataItemStore.selected.id,
-          ...JSON.parse(JSON.stringify(dataItemStore.temporary)),
-        })
-        emits('on-update-confired')
-      } else {
-        log.error('Missing updateRow action', { name: 'PageUpdate:confirmUpdateDialog' })
+      try {
+        await DB.callUpdate(
+          props.table,
+          dataItemStore.selected.id,
+          JSON.parse(JSON.stringify(dataItemStore.temporary))
+        )
+        emits('on-update-confirmed')
+      } catch (error) {
+        log.error('ItemUpdate:confirmUpdateDialog', error)
       }
     }
   )
@@ -60,21 +63,15 @@ function confirmUpdateDialog(): void {
 </script>
 
 <template>
-  <!-- Dynamically load components for each input with any needed custom props -->
-  <div v-for="(field, i) in getTableInputFields(table)" :key="i">
-    <component
-      v-if="field === InputField.PARENT_ID"
-      :is="getInputFieldComponent(field)"
-      :table="table"
-    />
-    <component v-else :is="getInputFieldComponent(field)" />
+  <div v-for="(comp, i) in TableHelper.getComponents(table)" :key="i">
+    <component :is="comp" :table="table" />
   </div>
 
   <QBtn
     class="q-mt-lg"
     color="primary"
     :icon="Icon.SAVE"
-    :label="`Update ${getTableLabel(table, 'singular')}`"
+    :label="`Update ${TableHelper.getLabelSingular(props.table)}`"
     @click="onUpdate()"
   />
 </template>

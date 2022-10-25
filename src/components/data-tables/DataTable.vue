@@ -12,8 +12,8 @@ import { TableHelper } from '@/services/TableHelper'
 import DataTableDialog from '@/components/data-tables/DataTableDialog.vue'
 import ItemInspect from '@/components/data-tables/ItemInspect.vue'
 import ItemCreate from '@/components/data-tables/ItemCreate.vue'
-// import ItemUpdate from '@/components/data-tables/ItemUpdate.vue'
-// import ItemReport from '@/components/data-tables/ItemReport.vue'
+import ItemUpdate from '@/components/data-tables/ItemUpdate.vue'
+import ItemReport from '@/components/data-tables/ItemReport.vue'
 import useDataTableStore from '@/stores/data-table'
 import useReportStore from '@/stores/report'
 import useDataItemStore from '@/stores/data-item'
@@ -292,13 +292,13 @@ async function onDelete(id: string): Promise<void> {
       @on-create-confirmed="closeDialog()"
     />
 
-    <!-- <ItemUpdate
+    <ItemUpdate
       v-else-if="dataTableStore.operation === Operation.UPDATE"
       :table="table"
-      @on-update-confired="closeDialog()"
+      @on-update-confirmed="closeDialog()"
     />
 
-    <ItemReport v-else-if="dataTableStore.operation === Operation.REPORT" :table="table" /> -->
+    <ItemReport v-else-if="dataTableStore.operation === Operation.REPORT" :table="table" />
 
     <div v-else>Selected operation is not supported</div>
   </DataTableDialog>

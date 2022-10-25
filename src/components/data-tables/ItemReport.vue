@@ -4,6 +4,7 @@ import { onMounted } from 'vue'
 import { useLogger } from '@/use/useLogger'
 import { LineChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
+import { DB } from '@/services/LocalDatabase'
 import useReportStore from '@/stores/report'
 import useDataItemStore from '@/stores/data-item'
 
@@ -22,12 +23,18 @@ Chart.register(...registerables)
  */
 onMounted(async () => {
   try {
-    const { generateReport } = getTableActions(props.table)
-    if (generateReport) {
-      await generateReport(dataItemStore.selected?.id)
-    } else {
-      log.error('Missing generateReport action', { name: 'PageReport:onMounted' })
+    const generatedReport = await DB.callReport(props.table, dataItemStore.selected.id)
+
+    reportStore.options.plugins.title = {
+      text: generatedReport?.title,
+      display: true,
     }
+    reportStore.chartData = {
+      labels: generatedReport?.labels,
+      datasets: generatedReport?.datasets,
+    }
+    reportStore.firstDate = generatedReport?.firstDate
+    reportStore.lastDate = generatedReport?.lastDate
   } catch (error) {
     log.error('ItemReport:onMounted', error)
   }

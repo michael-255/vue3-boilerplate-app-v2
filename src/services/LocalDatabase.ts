@@ -103,14 +103,18 @@ export class LocalDatabase {
   }
 
   /**
-   * Update provided properties on table item by id.
+   * Update provided properties on table item by the originalId.
    * @param table
-   * @param id
+   * @param originalId
    * @param props
    * @returns 1 on a successful update
    */
-  async updateById<T>(table: AppTable, id: string, props: Partial<T>): Promise<IndexableType> {
-    return await this.dexieWrapper.table(table).update(id, props)
+  async updateById<T>(
+    table: AppTable,
+    originalId: string,
+    props: Partial<T>
+  ): Promise<IndexableType> {
+    return await this.dexieWrapper.table(table).update(originalId, props)
   }
 
   /**
@@ -216,16 +220,17 @@ export class LocalDatabase {
   /**
    * @todo
    * @param table
-   * @param data
+   * @param originalId
+   * @param props
    * @returns
    */
-  async callUpdate(table: AppTable, data: DatabaseObject): Promise<void> {
+  async callUpdate(table: AppTable, originalId: string, props: DatabaseObject): Promise<void> {
     return await {
       [AppTable.MEASUREMENTS]: Measurement.update,
       [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.update,
       [AppTable.LOGS]: Log.update,
       [AppTable.SETTINGS]: Setting.update,
-    }[table](this, data) // Execute async function before returning
+    }[table](this, originalId, props) // Execute async function before returning
   }
 
   /**
@@ -234,7 +239,7 @@ export class LocalDatabase {
    * @param id
    * @returns
    */
-  async callReport(table: AppTable, id: string): Promise<void> {
+  async callReport(table: AppTable, id: string): Promise<any> {
     return await {
       [AppTable.MEASUREMENTS]: Measurement.report,
       [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.report,

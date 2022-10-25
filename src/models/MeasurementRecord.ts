@@ -29,11 +29,15 @@ export class MeasurementRecord extends Record {
     throw new Error('Not Supported')
   }
 
-  static async update(database: LocalDatabase, data: DatabaseObject): Promise<void> {
-    const { originalId, id, createdDate, parentId, measurementValue } = data
+  static async update(
+    database: LocalDatabase,
+    originalId: string,
+    props: DatabaseObject
+  ): Promise<void> {
+    const { id, createdDate, parentId, measurementValue } = props
     await database.updateById(
-      originalId,
       AppTable.MEASUREMENT_RECORDS,
+      originalId,
       new MeasurementRecord({ id, createdDate, parentId, measurementValue })
     )
   }

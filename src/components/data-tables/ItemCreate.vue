@@ -47,8 +47,12 @@ function confirmCreateDialog(): void {
     Icon.SAVE,
     NotifyColor.INFO,
     async () => {
-      await DB.callCreate(props.table, dataItemStore.temporary)
-      emits('on-create-confirmed')
+      try {
+        await DB.callCreate(props.table, dataItemStore.temporary)
+        emits('on-create-confirmed')
+      } catch (error) {
+        log.error('ItemCreate:confirmCreateDialog', error)
+      }
     }
   )
 }

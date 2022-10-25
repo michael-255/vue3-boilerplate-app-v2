@@ -7,13 +7,7 @@
 - [x] Fix input components
 - [x] Fix `getFieldComponents` in models
 - [x] Fix defaulting function
-- [ ] Fix table operations
-
-  - [x] `Inspect`
-  - [x] `Create`
-  - [ ] `Update`
-  - [ ] `Report`
-
+- [x] Fix table operations
 - [ ] Clean your legacy data (activities & records)
 - [ ] Test deployment script (gh-pages website)
 - [ ] Go through post cloning task list

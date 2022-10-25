@@ -54,7 +54,7 @@ function makeDefaultMeasurementRecords(): MeasurementRecord[] {
           id: uuid(),
           createdDate: date.toISOString(),
           parentId: measurement.id,
-          measurementValue: Number(Math.random().toString(10).substring(2, 3)) + i,
+          measurementValue: Number(Math.random().toString(10).substring(2, 3)) + 5 + i,
         })
       )
 
