@@ -11,13 +11,10 @@ import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import { TableHelper } from '@/services/TableHelper'
 import DataTableDialog from '@/components/data-tables/DataTableDialog.vue'
 import ItemInspect from '@/components/data-tables/ItemInspect.vue'
-// import ItemCreate from '@/components/data-tables/ItemCreate.vue'
+import ItemCreate from '@/components/data-tables/ItemCreate.vue'
 // import ItemUpdate from '@/components/data-tables/ItemUpdate.vue'
 // import ItemReport from '@/components/data-tables/ItemReport.vue'
 import useDataTableStore from '@/stores/data-table'
-// import useSelectedItemStore from '@/stores/selected-item'
-// import useValidateItemStore from '@/stores/validate-item'
-// import useTemporaryItemStore from '@/stores/temporary-item'
 import useReportStore from '@/stores/report'
 import useDataItemStore from '@/stores/data-item'
 
@@ -28,9 +25,6 @@ import useDataItemStore from '@/stores/data-item'
 const props = defineProps<{ table: AppTable }>()
 const { log } = useLogger()
 const { confirmDialog } = useSimpleDialogs()
-// const selected = useSelectedItemStore()
-// const validate = useValidateItemStore()
-// const temporary = useTemporaryItemStore()
 const reportStore = useReportStore()
 const dataTableStore = useDataTableStore()
 const dataItemStore = useDataItemStore()
@@ -56,7 +50,7 @@ onMounted(async () => {
  * Loads the latest data into the data table rows.
  */
 async function updateRows(): Promise<void> {
-  dataTableStore.rows = await DB.getAllData(props.table)
+  dataTableStore.rows = await DB.callGetAll(props.table)
 }
 
 /**
@@ -66,9 +60,6 @@ async function closeDialog(): Promise<void> {
   try {
     await updateRows()
     dataItemStore.$reset()
-    // selected.$reset()
-    // validate.$reset()
-    // temporary.$reset()
     reportStore.$reset()
     dataTableStore.operation = Operation.NOOP
     dataTableStore.dialog = false // Always last so everything else is updated before dialog changes
@@ -89,7 +80,6 @@ async function onCreate(): Promise<void> {
 async function onUpdate(id: string): Promise<void> {
   try {
     dataItemStore.setSelectedItem(await DB.getFirstByField(props.table, Field.ID, id))
-    // selected.setItem(await DB.getFirstByField(props.table, Field.ID, id))
     dataTableStore.operation = Operation.UPDATE
     dataTableStore.dialog = true
   } catch (error) {
@@ -100,7 +90,6 @@ async function onUpdate(id: string): Promise<void> {
 async function onReport(id: string): Promise<void> {
   try {
     dataItemStore.setSelectedItem(await DB.getFirstByField(props.table, Field.ID, id))
-    // selected.setItem(await DB.getFirstByField(props.table, Field.ID, id))
     dataTableStore.operation = Operation.REPORT
     dataTableStore.dialog = true
   } catch (error) {
@@ -111,7 +100,6 @@ async function onReport(id: string): Promise<void> {
 async function onInspect(id: string): Promise<void> {
   try {
     dataItemStore.setSelectedItem(await DB.getFirstByField(props.table, Field.ID, id))
-    // selected.setItem(await DB.getFirstByField(props.table, Field.ID, id))
     dataTableStore.operation = Operation.INSPECT
     dataTableStore.dialog = true
   } catch (error) {
@@ -298,13 +286,13 @@ async function onDelete(id: string): Promise<void> {
   <DataTableDialog @on-dialog-close="closeDialog()">
     <ItemInspect v-if="dataTableStore.operation === Operation.INSPECT" :table="table" />
 
-    <!-- <ItemCreate
+    <ItemCreate
       v-else-if="dataTableStore.operation === Operation.CREATE"
       :table="table"
       @on-create-confirmed="closeDialog()"
     />
 
-    <ItemUpdate
+    <!-- <ItemUpdate
       v-else-if="dataTableStore.operation === Operation.UPDATE"
       :table="table"
       @on-update-confired="closeDialog()"

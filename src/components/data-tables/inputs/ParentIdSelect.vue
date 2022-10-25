@@ -7,9 +7,6 @@ import { truncateString } from '@/utils/common'
 import { isDefined } from '@/utils/validators'
 import { useLogger } from '@/use/useLogger'
 import { TableHelper } from '@/services/TableHelper'
-// import useTemporaryItemStore from '@/stores/temporary-item'
-// import useSelectedItemStore from '@/stores/selected-item'
-// import useValidateItemStore from '@/stores/validate-item'
 import useDataItemStore from '@/stores/data-item'
 
 /**
@@ -18,9 +15,6 @@ import useDataItemStore from '@/stores/data-item'
  */
 const props = defineProps<{ table: AppTable }>()
 const { log } = useLogger()
-// const validate = useValidateItemStore()
-// const selected = useSelectedItemStore()
-// const temporary = useTemporaryItemStore()
 const dataItemStore = useDataItemStore()
 const inputRef: Ref<any> = ref(null)
 const options: Ref<any[]> = ref([])

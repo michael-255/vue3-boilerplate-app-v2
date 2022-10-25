@@ -10,11 +10,11 @@
 - [ ] Fix table operations
 
   - [x] `Inspect`
-  - [ ] `Create`
+  - [x] `Create`
   - [ ] `Update`
   - [ ] `Report`
 
-- [ ] Clean your legacy data
+- [ ] Clean your legacy data (activities & records)
 - [ ] Test deployment script (gh-pages website)
 - [ ] Go through post cloning task list
 - [ ] Rebuild tests for all files

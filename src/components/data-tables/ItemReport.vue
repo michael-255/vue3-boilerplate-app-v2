@@ -4,8 +4,6 @@ import { onMounted } from 'vue'
 import { useLogger } from '@/use/useLogger'
 import { LineChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
-// import useSelectedItemStore from '@/stores/selected-item'
-// import { getTableActions } from '@/helpers/table-actions'
 import useReportStore from '@/stores/report'
 import useDataItemStore from '@/stores/data-item'
 
@@ -16,7 +14,6 @@ import useDataItemStore from '@/stores/data-item'
 const props = defineProps<{ table: AppTable }>()
 const { log } = useLogger()
 const dataItemStore = useDataItemStore()
-// const selected = useSelectedItemStore()
 const reportStore = useReportStore()
 Chart.register(...registerables)
 

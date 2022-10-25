@@ -4,13 +4,6 @@ import { Icon } from '@/constants/ui/icon-enums'
 import { NotifyColor } from '@/constants/ui/color-enums'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import { useLogger } from '@/use/useLogger'
-import useTemporaryItemStore from '@/stores/temporary-item'
-import useSelectedItemStore from '@/stores/selected-item'
-import useValidateItemStore from '@/stores/validate-item'
-// import { getInputFieldComponent } from '@/helpers/field-components'
-// import { getTableInputFields } from '@/helpers/table-fields'
-// import { getTableActions } from '@/helpers/table-actions'
-// import { getTableLabel } from '@/helpers/table-label'
 import useDataItemStore from '@/stores/data-item'
 
 /**
@@ -21,9 +14,6 @@ const props = defineProps<{ table: AppTable }>()
 const emits = defineEmits<{ (eventName: 'on-update-confired'): void }>()
 const { log } = useLogger()
 const { confirmDialog, dismissDialog } = useSimpleDialogs()
-// const validate = useValidateItemStore()
-// const selected = useSelectedItemStore()
-// const temporary = useTemporaryItemStore()
 const dataItemStore = useDataItemStore()
 
 function onUpdate() {

@@ -4,7 +4,6 @@ import { type Ref, ref, onMounted } from 'vue'
 import type { AppTable, Field } from '@/constants/core/data-enums'
 import { useLogger } from '@/use/useLogger'
 import { TableHelper } from '@/services/TableHelper'
-// import useSelectedItemStore from '@/stores/selected-item'
 import useDataItemStore from '@/stores/data-item'
 
 /**
@@ -13,7 +12,6 @@ import useDataItemStore from '@/stores/data-item'
  */
 const props = defineProps<{ table: AppTable }>()
 const { log } = useLogger()
-// const selected = useSelectedItemStore()
 const dataItemStore = useDataItemStore()
 const inspectionValues: Ref<DatabaseObject[]> = ref([])
 

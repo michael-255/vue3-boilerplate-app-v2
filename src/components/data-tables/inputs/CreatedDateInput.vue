@@ -4,14 +4,8 @@ import { QInput, QDate, QBtn, QTime, QPopupProxy } from 'quasar'
 import { isoToDisplayDate } from '@/utils/common'
 import { Icon } from '@/constants/ui/icon-enums'
 import { isDate } from '@/utils/validators'
-// import useTemporaryItemStore from '@/stores/temporary-item'
-// import useSelectedItemStore from '@/stores/selected-item'
-// import useValidateItemStore from '@/stores/validate-item'
 import useDataItemStore from '@/stores/data-item'
 
-// const validate = useValidateItemStore()
-// const selected = useSelectedItemStore()
-// const temporary = useTemporaryItemStore()
 const dataItemStore = useDataItemStore()
 const inputRef: Ref<any> = ref(null)
 const displayedDate: Ref<string> = ref('')

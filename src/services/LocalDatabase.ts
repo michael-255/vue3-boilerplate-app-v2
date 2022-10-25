@@ -198,40 +198,64 @@ export class LocalDatabase {
   // Model Operations
   //
 
-  async getAllData(table: AppTable): Promise<any> {
-    return {
-      [AppTable.MEASUREMENTS]: await Measurement.getAll(this),
-      [AppTable.MEASUREMENT_RECORDS]: await MeasurementRecord.getAll(this),
-      [AppTable.LOGS]: await Log.getAll(this),
-      [AppTable.SETTINGS]: await Setting.getAll(this),
-    }[table]
+  async callGetAll(table: AppTable): Promise<any> {
+    switch (table) {
+      case AppTable.MEASUREMENTS:
+        return await Measurement.getAll(this)
+      case AppTable.MEASUREMENT_RECORDS:
+        return await MeasurementRecord.getAll(this)
+      case AppTable.LOGS:
+        return await Log.getAll(this)
+      case AppTable.SETTINGS:
+        return await Setting.getAll(this)
+      default:
+        console.error('Table not recognized')
+    }
   }
 
-  async getCreate(table: AppTable, data: DatabaseObject): Promise<void> {
-    return {
-      [AppTable.MEASUREMENTS]: await Measurement.create(this, data),
-      [AppTable.MEASUREMENT_RECORDS]: await MeasurementRecord.create(this, data),
-      [AppTable.LOGS]: await Log.create(this, data),
-      [AppTable.SETTINGS]: await Setting.create(this, data),
-    }[table]
+  async callCreate(table: AppTable, data: DatabaseObject): Promise<void> {
+    switch (table) {
+      case AppTable.MEASUREMENTS:
+        return await Measurement.create(this, data)
+      case AppTable.MEASUREMENT_RECORDS:
+        return await MeasurementRecord.create(this, data)
+      case AppTable.LOGS:
+        return await Log.create(this, data)
+      case AppTable.SETTINGS:
+        return await Setting.create(this, data)
+      default:
+        console.error('Table not recognized')
+    }
   }
 
-  async getUpdate(table: AppTable, data: DatabaseObject): Promise<void> {
-    return {
-      [AppTable.MEASUREMENTS]: await Measurement.update(this, data),
-      [AppTable.MEASUREMENT_RECORDS]: await MeasurementRecord.update(this, data),
-      [AppTable.LOGS]: await Log.update(this, data),
-      [AppTable.SETTINGS]: await Setting.update(this, data),
-    }[table]
+  async callUpdate(table: AppTable, data: DatabaseObject): Promise<void> {
+    switch (table) {
+      case AppTable.MEASUREMENTS:
+        return await Measurement.update(this, data)
+      case AppTable.MEASUREMENT_RECORDS:
+        return await MeasurementRecord.update(this, data)
+      case AppTable.LOGS:
+        return await Log.update(this, data)
+      case AppTable.SETTINGS:
+        return await Setting.update(this, data)
+      default:
+        console.error('Table not recognized')
+    }
   }
 
-  async getReport(table: AppTable, id: string): Promise<void> {
-    return {
-      [AppTable.MEASUREMENTS]: await Measurement.report(this, id),
-      [AppTable.MEASUREMENT_RECORDS]: await MeasurementRecord.report(this, id),
-      [AppTable.LOGS]: await Log.report(this, id),
-      [AppTable.SETTINGS]: await Setting.report(this, id),
-    }[table]
+  async callReport(table: AppTable, id: string): Promise<void> {
+    switch (table) {
+      case AppTable.MEASUREMENTS:
+        return await Measurement.report(this, id)
+      case AppTable.MEASUREMENT_RECORDS:
+        return await MeasurementRecord.report(this, id)
+      case AppTable.LOGS:
+        return await Log.report(this, id)
+      case AppTable.SETTINGS:
+        return await Setting.report(this, id)
+      default:
+        console.error('Table not recognized')
+    }
   }
 }
 
