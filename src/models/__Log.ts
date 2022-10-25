@@ -53,10 +53,6 @@ export class Log extends Activity {
     throw new Error('Not Supported')
   }
 
-  static async getAll(database: LocalDatabase): Promise<Log[]> {
-    return await database.getAll(AppTable.LOGS)
-  }
-
   static getLabelSingular(): string {
     return 'Log'
   }

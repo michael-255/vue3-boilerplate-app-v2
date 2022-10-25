@@ -35,10 +35,6 @@ export class Setting extends Entity {
     throw new Error('Not Supported')
   }
 
-  static async getAll(database: LocalDatabase): Promise<Setting[]> {
-    return await database.getAll(AppTable.SETTINGS)
-  }
-
   static getLabelSingular(): string {
     return 'Setting'
   }

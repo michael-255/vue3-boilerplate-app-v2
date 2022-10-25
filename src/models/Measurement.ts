@@ -81,10 +81,6 @@ export class Measurement extends Activity {
     )
   }
 
-  static async getAll(database: LocalDatabase): Promise<Measurement[]> {
-    return await database.getAll(AppTable.MEASUREMENTS)
-  }
-
   static getLabelSingular(): string {
     return 'Measurement'
   }

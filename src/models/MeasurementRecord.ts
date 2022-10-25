@@ -46,10 +46,6 @@ export class MeasurementRecord extends Record {
     )
   }
 
-  static async getAll(database: LocalDatabase): Promise<MeasurementRecord[]> {
-    return await database.getAll(AppTable.MEASUREMENT_RECORDS)
-  }
-
   static getLabelSingular(): string {
     return 'Measurement Record'
   }

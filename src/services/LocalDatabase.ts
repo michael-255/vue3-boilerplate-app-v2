@@ -198,21 +198,32 @@ export class LocalDatabase {
   // Model Operations
   //
 
+  /**
+   * GetAll code is here versus the models since its so small.
+   * @param table
+   * @returns Data rows
+   */
   async callGetAll(table: AppTable): Promise<any> {
     switch (table) {
       case AppTable.MEASUREMENTS:
-        return await Measurement.getAll(this)
+        return await this.getAll<Measurement>(table)
       case AppTable.MEASUREMENT_RECORDS:
-        return await MeasurementRecord.getAll(this)
+        return await this.getAll<MeasurementRecord>(table)
       case AppTable.LOGS:
-        return await Log.getAll(this)
+        return await this.getAll<Log>(table)
       case AppTable.SETTINGS:
-        return await Setting.getAll(this)
+        return await this.getAll<Setting>(table)
       default:
         console.error('Table not recognized')
     }
   }
 
+  /**
+   * @todo
+   * @param table
+   * @param data
+   * @returns
+   */
   async callCreate(table: AppTable, data: DatabaseObject): Promise<void> {
     switch (table) {
       case AppTable.MEASUREMENTS:
@@ -228,6 +239,12 @@ export class LocalDatabase {
     }
   }
 
+  /**
+   * @todo
+   * @param table
+   * @param data
+   * @returns
+   */
   async callUpdate(table: AppTable, data: DatabaseObject): Promise<void> {
     switch (table) {
       case AppTable.MEASUREMENTS:
@@ -243,6 +260,12 @@ export class LocalDatabase {
     }
   }
 
+  /**
+   * @todo
+   * @param table
+   * @param id
+   * @returns
+   */
   async callReport(table: AppTable, id: string): Promise<void> {
     switch (table) {
       case AppTable.MEASUREMENTS:
