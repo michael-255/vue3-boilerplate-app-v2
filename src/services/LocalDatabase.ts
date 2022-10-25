@@ -199,44 +199,18 @@ export class LocalDatabase {
   //
 
   /**
-   * GetAll code is here versus the models since its so small.
-   * @param table
-   * @returns Data rows
-   */
-  async callGetAll(table: AppTable): Promise<any> {
-    switch (table) {
-      case AppTable.MEASUREMENTS:
-        return await this.getAll<Measurement>(table)
-      case AppTable.MEASUREMENT_RECORDS:
-        return await this.getAll<MeasurementRecord>(table)
-      case AppTable.LOGS:
-        return await this.getAll<Log>(table)
-      case AppTable.SETTINGS:
-        return await this.getAll<Setting>(table)
-      default:
-        console.error('Table not recognized')
-    }
-  }
-
-  /**
    * @todo
    * @param table
    * @param data
    * @returns
    */
   async callCreate(table: AppTable, data: DatabaseObject): Promise<void> {
-    switch (table) {
-      case AppTable.MEASUREMENTS:
-        return await Measurement.create(this, data)
-      case AppTable.MEASUREMENT_RECORDS:
-        return await MeasurementRecord.create(this, data)
-      case AppTable.LOGS:
-        return await Log.create(this, data)
-      case AppTable.SETTINGS:
-        return await Setting.create(this, data)
-      default:
-        console.error('Table not recognized')
-    }
+    return await {
+      [AppTable.MEASUREMENTS]: Measurement.create,
+      [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.create,
+      [AppTable.LOGS]: Log.create,
+      [AppTable.SETTINGS]: Setting.create,
+    }[table](this, data) // Execute async function before returning
   }
 
   /**
@@ -246,18 +220,12 @@ export class LocalDatabase {
    * @returns
    */
   async callUpdate(table: AppTable, data: DatabaseObject): Promise<void> {
-    switch (table) {
-      case AppTable.MEASUREMENTS:
-        return await Measurement.update(this, data)
-      case AppTable.MEASUREMENT_RECORDS:
-        return await MeasurementRecord.update(this, data)
-      case AppTable.LOGS:
-        return await Log.update(this, data)
-      case AppTable.SETTINGS:
-        return await Setting.update(this, data)
-      default:
-        console.error('Table not recognized')
-    }
+    return await {
+      [AppTable.MEASUREMENTS]: Measurement.update,
+      [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.update,
+      [AppTable.LOGS]: Log.update,
+      [AppTable.SETTINGS]: Setting.update,
+    }[table](this, data) // Execute async function before returning
   }
 
   /**
@@ -267,18 +235,12 @@ export class LocalDatabase {
    * @returns
    */
   async callReport(table: AppTable, id: string): Promise<void> {
-    switch (table) {
-      case AppTable.MEASUREMENTS:
-        return await Measurement.report(this, id)
-      case AppTable.MEASUREMENT_RECORDS:
-        return await MeasurementRecord.report(this, id)
-      case AppTable.LOGS:
-        return await Log.report(this, id)
-      case AppTable.SETTINGS:
-        return await Setting.report(this, id)
-      default:
-        console.error('Table not recognized')
-    }
+    return await {
+      [AppTable.MEASUREMENTS]: Measurement.report,
+      [AppTable.MEASUREMENT_RECORDS]: MeasurementRecord.report,
+      [AppTable.LOGS]: Log.report,
+      [AppTable.SETTINGS]: Setting.report,
+    }[table](this, id) // Execute async function before returning
   }
 }
 

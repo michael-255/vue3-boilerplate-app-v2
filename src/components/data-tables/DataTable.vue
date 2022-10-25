@@ -50,7 +50,7 @@ onMounted(async () => {
  * Loads the latest data into the data table rows.
  */
 async function updateRows(): Promise<void> {
-  dataTableStore.rows = await DB.callGetAll(props.table)
+  dataTableStore.rows = await DB.getAll(props.table)
 }
 
 /**
