@@ -1,3 +1,8 @@
+/**
+ * Typicial measurements people may want to take.
+ * @see
+ * Default export at bottom of file
+ */
 const defaultMeasurements = [
   {
     id: '0090f468-5917-4124-98bd-1e7711ab360e',

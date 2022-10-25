@@ -8,12 +8,13 @@
 - [x] Fix `getFieldComponents` in models
 - [x] Fix defaulting function
 - [x] Fix table operations
-- [ ] Clean your legacy data (activities & records)
+- [x] Clean your legacy data (activities & records)
 - [ ] Test deployment script (gh-pages website)
-- [ ] Go through post cloning task list
-- [ ] Rebuild tests for all files
-
-  - [ ] `...`
+- [ ] Go through post cloning task list (double check)
+- [ ] Rebuild your records export cleaner for your reduced datapoint models (v2)
+- [ ] `Commenting` Clean up and create comments throughout the app (reasons why you did certain
+      things)
+- [ ] `Tests` Rebuild tests for all files
 
 ## Post Cloning Steps
 
