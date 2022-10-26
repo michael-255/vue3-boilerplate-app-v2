@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { QPage, QCard, QCardSection, QCardActions, QBtn } from 'quasar'
+import { QCard, QCardSection, QCardActions, QBtn } from 'quasar'
 import { Links } from '@/constants/ui/routing-enums'
 import { Icon } from '@/constants/ui/icon-enums'
 import { AppString } from '@/constants/ui/string-enums'
 </script>
 
 <template>
-  <QPage padding>
-    <div class="row justify-center">
+  <div class="row justify-center">
+    <div class="col-md-6 col-sm-8 col-xs-12">
       <QCard>
         <QCardSection class="bg-primary text-white text-h3">About</QCardSection>
 
@@ -36,5 +36,5 @@ import { AppString } from '@/constants/ui/string-enums'
         </QCardActions>
       </QCard>
     </div>
-  </QPage>
+  </div>
 </template>

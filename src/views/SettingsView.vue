@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { QPage, QCard, QCardSection, QSeparator, QBtn } from 'quasar'
+import { QCard, QCardSection, QSeparator, QBtn } from 'quasar'
 import { RouteName } from '@/constants/ui/routing-enums'
 import SettingToggles from '@/components/settings/SettingToggles.vue'
 import TestLogsBtn from '@/components/settings/TestLogsBtn.vue'
@@ -11,8 +11,8 @@ import DeleteDBBtn from '@/components/settings/DeleteDBBtn.vue'
 </script>
 
 <template>
-  <QPage padding>
-    <div class="row justify-center">
+  <div class="row justify-center">
+    <div class="col-12">
       <QCard>
         <QCardSection class="bg-primary text-white">
           <div class="text-h3">Settings</div>
@@ -93,5 +93,5 @@ import DeleteDBBtn from '@/components/settings/DeleteDBBtn.vue'
         </QCardSection>
       </QCard>
     </div>
-  </QPage>
+  </div>
 </template>

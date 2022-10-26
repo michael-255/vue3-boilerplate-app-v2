@@ -9,6 +9,7 @@ import {
   QPageContainer,
   QList,
   QSeparator,
+  QPage,
 } from 'quasar'
 import DrawerItem from '@/components/drawer/DrawerItem.vue'
 import { RouteName } from '@/constants/ui/routing-enums'
@@ -60,7 +61,9 @@ const mainMenuStore = useMainMenuStore()
     </QDrawer>
 
     <QPageContainer>
-      <router-view />
+      <QPage padding>
+        <router-view />
+      </QPage>
     </QPageContainer>
   </QLayout>
 </template>

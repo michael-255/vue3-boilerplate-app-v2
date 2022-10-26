@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { QBtn, QPage, QCard, QCardSection } from 'quasar'
+import { QBtn, QCard, QCardSection } from 'quasar'
 import DefaultsBtn from '@/components/settings/DefaultsBtn.vue'
 import TestLogsBtn from '@/components/settings/TestLogsBtn.vue'
 </script>
 
 <template>
-  <QPage padding>
-    <div class="row justify-center">
+  <div class="row q-col-gutter-md justify-start">
+    <div class="col-12">
       <QCard>
         <QCardSection class="bg-primary text-white text-h3">Dashboard</QCardSection>
 
@@ -32,5 +32,13 @@ import TestLogsBtn from '@/components/settings/TestLogsBtn.vue'
         </QCardActions>
       </QCard>
     </div>
-  </QPage>
+
+    <div v-for="i in 5" :key="i" class="col-md-4 col-sm-6 col-xs-12">
+      <QCard>
+        <QCardActions align="left">
+          <QBtn icon="straighten" class="full-width" color="positive"> Take Measurements </QBtn>
+        </QCardActions>
+      </QCard>
+    </div>
+  </div>
 </template>

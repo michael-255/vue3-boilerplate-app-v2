@@ -11,12 +11,24 @@
 - [x] Clean your legacy data (activities & records)
 - [x] Test deployment script (gh-pages website)
 - [x] Rebuild your records export cleaner for your reduced datapoint models (v2)
-- [ ] Go through post cloning task list (double check)
+- [ ] Organize components/views/layouts
+
+  - [ ] Spacing template code can stay in views/layouts if it makes sense
+  - [ ] Folder for `/components/view`
+
+    - [ ] Put most logic and components for the views in here
+    - [ ] Folders for the contents of each view (`settings`, `about`, `dashboard`, etc.)
+
+  - [ ] Folder for `/components/layout`
+
+    - [ ] Put most logic and components for the layouts in here
+    - [ ] Folders for
+
 - [ ] Build `Measurements` route
 
   - [ ] Card for dashboard
   - [ ] Take a Measurement button
-  - [ ] List all MeasurementCard (scale for device)
+  - [ ] List all Measurements (scale for device)
 
     - [ ] Measurement Name
     - [ ] Button for report
@@ -31,6 +43,7 @@
 - [ ] `Commenting` Clean up and create comments throughout the app (reasons why you did certain
       things)
 - [ ] `Tests` Rebuild tests for all files
+- [ ] Go through post cloning task list (double check)
 
 ## Post Cloning Steps
 
@@ -43,8 +56,8 @@
   - [ ] `bugs`
   - [ ] `homepage`
 
-- [ ] Update `base` in `vite.config.ts` to your repository name for deployments to work
-- [ ] Update `Strings` in `ui-enums.ts` to represent your app
+- [ ] Update `base` in `~/vite.config.ts` to your repository name for deployments to work
+- [ ] Update `AppString` in `~/src/constants/ui/string-enums.ts` to represent your app
 - [ ] Update `title` in `~/index.html` to reflect the app name you use in `ui-enums.ts`
 
 - [ ] Update `GitHub` repository settings

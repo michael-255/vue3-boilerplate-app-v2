@@ -27,8 +27,10 @@ const router = useRouter()
       </QToolbar>
     </QHeader>
 
-    <QPageContainer class="q-mx-sm">
-      <router-view />
+    <QPageContainer>
+      <QPage padding>
+        <router-view />
+      </QPage>
     </QPageContainer>
   </QLayout>
 </template>

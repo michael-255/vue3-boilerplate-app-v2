@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { QPage, QCard, QCardSection, QCardActions, QBtn } from 'quasar'
+import { QCard, QCardSection, QCardActions, QBtn } from 'quasar'
 import { RouteName } from '@/constants/ui/routing-enums'
 import { Icon } from '@/constants/ui/icon-enums'
 </script>
 
 <template>
-  <QPage padding>
-    <div class="row justify-center">
-      <QCard style="width: 320px">
-        <QCardSection class="bg-deep-purple text-white">
+  <div class="row justify-center">
+    <div class="col-md-4 col-sm-5 col-xs-12">
+      <QCard>
+        <QCardSection class="bg-negative text-white">
           <div class="text-h3">404</div>
           <div class="text-subtitle1">Page Not Found</div>
         </QCardSection>
@@ -23,5 +23,5 @@ import { Icon } from '@/constants/ui/icon-enums'
         </QCardActions>
       </QCard>
     </div>
-  </QPage>
+  </div>
 </template>
