@@ -4,8 +4,8 @@
 
 - [ ] Build `Measurements` route
 
-  - [ ] Card for dashboard
-  - [ ] Take a Measurement button
+  - [x] Card for dashboard
+  - [x] Take a Measurement button
   - [ ] List all Measurements (scale for device)
 
     - [ ] Measurement Name
