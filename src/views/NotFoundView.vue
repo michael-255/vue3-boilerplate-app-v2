@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QPage } from 'quasar'
-import NotFoundCard from '@/components/__view/not-found/NotFoundCard.vue'
+import NotFoundCard from '@/components/view/not-found/NotFoundCard.vue'
 </script>
 
 <template>

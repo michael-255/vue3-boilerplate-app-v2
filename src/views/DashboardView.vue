@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QBtn, QCard, QPage } from 'quasar'
-import BoilerplateMessageCard from '@/components/__view/dashboard/BoilerplateMessageCard.vue'
+import BoilerplateMessageCard from '@/components/view/dashboard/BoilerplateMessageCard.vue'
 </script>
 
 <template>

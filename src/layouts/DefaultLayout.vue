@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QLayout, QPageContainer } from 'quasar'
-import DefaultHeader from '@/components/__layout/default/DefaultHeader.vue'
+import DefaultHeader from '@/components/layout/default/DefaultHeader.vue'
 </script>
 
 <template>

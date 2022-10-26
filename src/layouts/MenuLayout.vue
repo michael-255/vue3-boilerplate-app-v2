@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { QLayout, QPageContainer } from 'quasar'
-import MenuHeader from '@/components/__layout/menu/MenuHeader.vue'
-import MenuDrawer from '@/components/__layout/menu/MenuDrawer.vue'
+import MenuHeader from '@/components/layout/menu/MenuHeader.vue'
+import MenuDrawer from '@/components/layout/menu/MenuDrawer.vue'
 </script>
 
 <template>

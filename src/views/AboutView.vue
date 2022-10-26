@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QPage } from 'quasar'
-import AboutCard from '@/components/__view/about/AboutCard.vue'
+import AboutCard from '@/components/view/about/AboutCard.vue'
 </script>
 
 <template>

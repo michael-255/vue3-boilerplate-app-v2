@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { QCardSection } from 'quasar'
-import SettingToggles from '@/components/__view/settings/inputs/SettingToggles.vue'
-import TestLogsBtn from '@/components/__view/settings/buttons/TestLogsBtn.vue'
+import SettingToggles from '@/components/view/settings/inputs/SettingToggles.vue'
+import TestLogsBtn from '@/components/view/settings/buttons/TestLogsBtn.vue'
 </script>
 
 <template>

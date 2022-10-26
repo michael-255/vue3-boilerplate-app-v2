@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QPage } from 'quasar'
-import SettingsCard from '@/components/__view/settings/SettingsCard.vue'
+import SettingsCard from '@/components/view/settings/SettingsCard.vue'
 </script>
 
 <template>

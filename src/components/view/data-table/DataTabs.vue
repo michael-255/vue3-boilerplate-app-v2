@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { QSeparator, QTabs, QTab, QTabPanels, QTabPanel } from 'quasar'
-import useDataTableStore from '@/stores/data-table'
-import DataTable from '@/components/data-table/DataTable.vue'
+import useDataTableStore from '@/stores/view/data-table'
+import DataTable from '@/components/view/data-table/DataTable.vue'
 
 const dataTableStore = useDataTableStore()
 </script>

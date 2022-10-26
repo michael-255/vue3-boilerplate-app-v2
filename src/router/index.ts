@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { RouteName } from '@/constants/ui/routing-enums'
 import { Icon } from '@/constants/ui/icon-enums'
 import { AppTable } from '@/constants/core/data-enums'
-import useDataTableStore from '@/stores/data-table'
+import useDataTableStore from '@/stores/view/data-table'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,7 +50,7 @@ const router = createRouter({
           },
         ] as DataTab[],
       },
-      component: () => import(`../components/data-table/DataTabs.vue`),
+      component: () => import(`../components/view/data-table/DataTabs.vue`),
     },
     {
       path: '/logs-and-settings-data',
@@ -70,7 +70,7 @@ const router = createRouter({
           },
         ] as DataTab[],
       },
-      component: () => import(`../components/data-table/DataTabs.vue`),
+      component: () => import(`../components/view/data-table/DataTabs.vue`),
     },
     {
       path: '/:pathMatch(.*)*', // 404 Not Found

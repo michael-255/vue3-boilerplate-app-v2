@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { QDialog, QCard, QCardSection, QCardActions, QBtn } from 'quasar'
 import { Icon } from '@/constants/ui/icon-enums'
-import useDataTableStore from '@/stores/data-table'
+import useDataTableStore from '@/stores/view/data-table'
 
 /**
  * DataTableDialog is a fullscreen dialog for views that use the DataTable components. You load

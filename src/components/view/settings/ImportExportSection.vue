@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { QCardSection } from 'quasar'
-import ImportInput from '@/components/__view/settings/inputs/ImportInput.vue'
-import ExportInput from '@/components/__view/settings/inputs/ExportInput.vue'
+import ImportInput from '@/components/view/settings/inputs/ImportInput.vue'
+import ExportInput from '@/components/view/settings/inputs/ExportInput.vue'
 </script>
 
 <template>

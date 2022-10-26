@@ -2,7 +2,7 @@
 import { QDrawer, QList, QSeparator } from 'quasar'
 import { RouteName } from '@/constants/ui/routing-enums'
 import { Icon } from '@/constants/ui/icon-enums'
-import DrawerItem from '@/components/__layout/menu/DrawerItem.vue'
+import DrawerItem from '@/components/layout/menu/DrawerItem.vue'
 import useMainMenuStore from '@/stores/main-menu'
 
 const mainMenuStore = useMainMenuStore()
