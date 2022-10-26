@@ -2,28 +2,6 @@
 
 ## Todos
 
-- [x] Fix tabs bug when switching between tab views
-- [x] Remove unneeded input components
-- [x] Fix input components
-- [x] Fix `getFieldComponents` in models
-- [x] Fix defaulting function
-- [x] Fix table operations
-- [x] Clean your legacy data (activities & records)
-- [x] Test deployment script (gh-pages website)
-- [x] Rebuild your records export cleaner for your reduced datapoint models (v2)
-- [ ] Organize components/views/layouts
-
-  - [ ] Spacing template code can stay in views/layouts if it makes sense
-  - [ ] Folder for `/components/view`
-
-    - [ ] Put most logic and components for the views in here
-    - [ ] Folders for the contents of each view (`settings`, `about`, `dashboard`, etc.)
-
-  - [ ] Folder for `/components/layout`
-
-    - [ ] Put most logic and components for the layouts in here
-    - [ ] Folders for
-
 - [ ] Build `Measurements` route
 
   - [ ] Card for dashboard

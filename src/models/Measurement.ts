@@ -119,7 +119,7 @@ export class Measurement extends Activity {
     return [
       ...Activity.getFieldComponents(),
       defineAsyncComponent(
-        () => import('@/components/data-tables/inputs/MeasurementTypeSelect.vue')
+        () => import('@/components/data-table/inputs/MeasurementTypeSelect.vue')
       ),
     ]
   }

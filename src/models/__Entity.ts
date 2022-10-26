@@ -28,8 +28,8 @@ export class Entity {
 
   static getFieldComponents(): any {
     return [
-      defineAsyncComponent(() => import('@/components/data-tables/inputs/IdInput.vue')),
-      defineAsyncComponent(() => import('@/components/data-tables/inputs/CreatedDateInput.vue')),
+      defineAsyncComponent(() => import('@/components/data-table/inputs/IdInput.vue')),
+      defineAsyncComponent(() => import('@/components/data-table/inputs/CreatedDateInput.vue')),
     ]
   }
 

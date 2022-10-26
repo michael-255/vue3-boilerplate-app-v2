@@ -26,7 +26,7 @@ export class Record extends Entity {
   static getFieldComponents(): any {
     return [
       ...Entity.getFieldComponents(),
-      defineAsyncComponent(() => import('@/components/data-tables/inputs/ParentIdSelect.vue')),
+      defineAsyncComponent(() => import('@/components/data-table/inputs/ParentIdSelect.vue')),
     ]
   }
 

@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { QLayout, QPageContainer } from 'quasar'
-import DefaultHeader from '@/components/__layout/default/DefaultHeader.vue'
 </script>
 
 <template>
   <QLayout elevated view="hHh LpR lff">
-    <DefaultHeader />
+    <!-- @todo - Make ActiveHeader, TimerFooter -->
 
     <QPageContainer>
       <router-view />

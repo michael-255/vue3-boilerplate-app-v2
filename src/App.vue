@@ -7,9 +7,8 @@ import useSettingsStore from '@/stores/settings'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 
 const { log } = useLogger()
-const settingsStore = useSettingsStore()
 const route = useRoute()
-
+const settingsStore = useSettingsStore()
 const layout: Ref<any> = ref(null)
 
 onMounted(async () => {

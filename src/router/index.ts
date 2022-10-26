@@ -50,7 +50,7 @@ const router = createRouter({
           },
         ] as DataTab[],
       },
-      component: () => import(`../components/data-tables/DataTabs.vue`),
+      component: () => import(`../components/data-table/DataTabs.vue`),
     },
     {
       path: '/logs-and-settings-data',
@@ -70,7 +70,7 @@ const router = createRouter({
           },
         ] as DataTab[],
       },
-      component: () => import(`../components/data-tables/DataTabs.vue`),
+      component: () => import(`../components/data-table/DataTabs.vue`),
     },
     {
       path: '/:pathMatch(.*)*', // 404 Not Found
