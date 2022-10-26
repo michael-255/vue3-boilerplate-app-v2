@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { RouteName } from '@/constants/ui/routing-enums'
 import { Icon } from '@/constants/ui/icon-enums'
 import { AppTable } from '@/constants/core/data-enums'
-import useDataTableStore from '@/stores/view/data-table'
+import useDataTableStore from '@/stores/data-table'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

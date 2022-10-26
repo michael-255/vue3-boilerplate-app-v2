@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { QBtn, QCard, QPage } from 'quasar'
+import { QPage } from 'quasar'
 import BoilerplateMessageCard from '@/components/view/dashboard/BoilerplateMessageCard.vue'
+import MeasurementsCard from '@/components/view/dashboard/MeasurementsCard.vue'
 </script>
 
 <template>
@@ -10,12 +11,8 @@ import BoilerplateMessageCard from '@/components/view/dashboard/BoilerplateMessa
         <BoilerplateMessageCard />
       </div>
 
-      <div v-for="i in 5" :key="i" class="col-md-4 col-sm-6 col-xs-12">
-        <QCard>
-          <QCardActions align="left">
-            <QBtn icon="straighten" class="full-width" color="positive"> Take Measurements </QBtn>
-          </QCardActions>
-        </QCard>
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <MeasurementsCard />
       </div>
     </div>
   </QPage>
