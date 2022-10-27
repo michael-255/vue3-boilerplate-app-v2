@@ -67,7 +67,7 @@ const defaultMeasurements = [
   {
     id: 'b4450018-1506-450f-a429-9903aded5c9b',
     createdDate: '2022-01-01T05:00:00.000Z',
-    name: 'Weight',
+    name: 'Body Weight',
     measurementType: 'Lbs',
   },
   {

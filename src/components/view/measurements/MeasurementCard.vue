@@ -2,18 +2,29 @@
 import { QCard, QCardSection, QBtn, QInput } from 'quasar'
 import { Icon } from '@/constants/ui/icon-enums'
 import { ref, type Ref } from 'vue'
+import { isoToDisplayDate } from '@/utils/common'
 
+/**
+ * Component allows you to view and perform operations on table data.
+ * @param table
+ */
+const props = defineProps<{
+  name: string
+  measurementType: string
+  previousMeasurementCreatedDate: string
+  previousMeasurementValue: number
+}>()
 const testText: Ref<string> = ref('')
 </script>
 
 <template>
   <QCard>
     <QCardSection class="q-pt-sm">
-      <div class="text-h6">Right Forearm</div>
-      <div>Wed Oct 26 2022 7:06:24 PM EDT</div>
-      <div>12.3 Inches</div>
+      <div class="text-h6">{{ name }}</div>
+      <div>{{ isoToDisplayDate(previousMeasurementCreatedDate) }}</div>
+      <div>{{ previousMeasurementValue }} {{ measurementType }}</div>
 
-      <QInput class="q-mt-md" v-model="testText" dense outlined placeholder="Inches">
+      <QInput class="q-mt-md" v-model="testText" dense outlined :placeholder="measurementType">
         <template v-slot:before>
           <QIcon :name="Icon.MEASUREMENTS" class="q-mr-sm" />
         </template>
