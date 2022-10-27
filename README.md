@@ -4,19 +4,26 @@
 
 - [ ] Build `Measurements` route
 
-  - [x] Card for dashboard
-  - [x] Take a Measurement button
-  - [ ] List all Measurements (scale for device)
+  - [ ] `getAll` Measurements
+  - [ ] `getAll` MeasurementRecords
+  - [ ] Loop through measurements in template to create cards list
+  - [ ] Load Measurement `name` on card
+  - [ ] Load most recent MeasurementRecord `createdDate` on card or `-`
+  - [ ] Add badge after date like `6 days ago`, `today`, `never` (maybe not never)
+  - [ ] Load most recent MeasurementRecord `measurementValue` on card
+  - [ ] Include parent `measurementType` after value
+  - [ ] Use `measurementType` as input placeholder
+  - [ ] Add a report button in the top right
+  - [ ] Input specific
 
-    - [ ] Measurement Name
-    - [ ] Button for report
-    - [ ] Button at end of input to save (disable on empty input)
+    - [ ] Set input as a number type
+    - [ ] Set input with a rule
+    - [ ] Disable save button when input is empty
     - [ ] Clear input after saving
-    - [ ] Date of previous measurement
-    - [ ] Value of previous measurement
-    - [ ] Input with measurementType as placeholder
-    - [ ] log.info after saving
+    - [ ] Show `log.info(...)` after saving
     - [ ] Reload data after saving
+
+- [ ] Build the `ActiveView` as a simple timer in the footer (rest will be in fitness app)
 
 - [ ] `Commenting` Clean up and create comments throughout the app (reasons why you did certain
       things)
