@@ -29,6 +29,7 @@ export enum Icon {
   // Misc
   CALENDAR_DATE = 'event',
   CALENDAR_CHECK = 'event_available',
+  RETURN_TO_DASHBOARD = 'exit_to_app',
   TIME = 'access_time',
   RENEW = 'autorenew',
   DASHBOARD = 'dashboard',

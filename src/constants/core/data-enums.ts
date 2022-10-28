@@ -55,6 +55,11 @@ export enum SettingKey {
   DEBUG = 'debug-logging',
   NOTIFY = 'all-alerts',
   INFO = 'save-info-logs',
+  // new setting names
+  DARK_MODE = 'dark-mode',
+  SUPPRESS_CONSOLE_LOGS = 'suppress-console-logs',
+  HIDE_DEBUG_MESSAGES = 'hide-debug-messages',
+  SAVE_INFO_MESSAGES = 'save-info-messages',
 }
 
 /**

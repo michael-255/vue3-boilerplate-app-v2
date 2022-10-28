@@ -27,7 +27,10 @@ export function useLogger(): { [x: string]: any } {
    */
   const log = {
     /**
-     * DEBUG logs never get saved to the database. Controlled by DEBUG and NOTIFY settings.
+     * DEBUG
+     * - Suppressable console logs
+     * - Suppressable notifications
+     * - Never saved in DB
      */
     debug: (details: string, error?: Error | any) => {
       if (settingsStore.DEBUG) {
@@ -40,7 +43,10 @@ export function useLogger(): { [x: string]: any } {
       }
     },
     /**
-     * INFO logs can be suppressed if desired. Controlled by DEBUG, NOTIFY, and INFO settings.
+     * INFO
+     * - Suppressable console logs
+     * - Cannot suppress notifications
+     * - Can turn off DB saving
      */
     info: (details: string, error?: Error | any) => {
       const severity = Severity.INFO
@@ -55,7 +61,10 @@ export function useLogger(): { [x: string]: any } {
       }
     },
     /**
-     * WARN logs cannot be suppressed. Can hide the console output with DEBUG setting.
+     * WARN
+     * - Suppressable console logs
+     * - Cannot suppress notifications
+     * - Cannot turn off DB saving
      */
     warn: (details: string, error?: Error | any) => {
       const severity = Severity.WARN
@@ -66,7 +75,10 @@ export function useLogger(): { [x: string]: any } {
       notify(`${severity} - ${details}`, Icon.WARN, NotifyColor.WARN)
     },
     /**
-     * ERROR logs cannot be suppressed. Can hide the console output with DEBUG setting.
+     * ERROR
+     * - Suppressable console logs
+     * - Cannot suppress notifications
+     * - Cannot turn off DB saving
      */
     error: (details: string, error?: Error | any) => {
       const severity = Severity.ERROR
@@ -77,7 +89,10 @@ export function useLogger(): { [x: string]: any } {
       notify(`${severity} - ${details}`, Icon.ERROR, NotifyColor.ERROR)
     },
     /**
-     * CRITICAL logs cannot be suppressed. Can hide the console output with DEBUG setting.
+     * CRITICAL
+     * - Suppressable console logs (settingsStore.DEBUG)
+     * - Cannot suppress notifications
+     * - Cannot turn off DB saving
      */
     critical: (details: string, error?: Error | any) => {
       const severity = Severity.CRITICAL

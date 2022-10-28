@@ -33,26 +33,6 @@ const router = createRouter({
       component: () => import(`../views/MeasurementsView.vue`),
     },
     {
-      path: '/measurements-data',
-      name: RouteName.MEASUREMENTS_DATA,
-      meta: {
-        layout: 'MenuLayout',
-        tabs: [
-          {
-            name: 'Measurements',
-            icon: Icon.MEASUREMENTS,
-            table: AppTable.MEASUREMENTS,
-          },
-          {
-            name: 'Records',
-            icon: Icon.RECORDS,
-            table: AppTable.MEASUREMENT_RECORDS,
-          },
-        ] as DataTab[],
-      },
-      component: () => import(`../components/view/data-table/DataTabs.vue`),
-    },
-    {
       path: '/logs-and-settings-data',
       name: RouteName.LOGS_AND_SETTINGS_DATA,
       meta: {
@@ -67,6 +47,26 @@ const router = createRouter({
             name: 'Settings',
             icon: Icon.SETTINGS,
             table: AppTable.SETTINGS,
+          },
+        ] as DataTab[],
+      },
+      component: () => import(`../components/view/data-table/DataTabs.vue`),
+    },
+    {
+      path: '/measurements-data',
+      name: RouteName.MEASUREMENTS_DATA,
+      meta: {
+        layout: 'MenuLayout',
+        tabs: [
+          {
+            name: 'Measurements',
+            icon: Icon.MEASUREMENTS,
+            table: AppTable.MEASUREMENTS,
+          },
+          {
+            name: 'Records',
+            icon: Icon.RECORDS,
+            table: AppTable.MEASUREMENT_RECORDS,
           },
         ] as DataTab[],
       },
