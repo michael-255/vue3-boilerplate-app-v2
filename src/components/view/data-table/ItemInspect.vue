@@ -20,6 +20,10 @@ onMounted(async () => {
     const currentTableFields = TableHelper.getFields(props.table)
     const currentTableColumnProps = TableHelper.getColumns(props.table)
 
+    /**
+     * @todo - Include the readable date with the ISO data
+     * @example 2022-01-01T05:00:00.000Z (Sat Jan 1 2022 12:00:00 AM EST)
+     */
     currentTableFields.forEach((field: Field) => {
       inspectionValues.value.push({
         label:

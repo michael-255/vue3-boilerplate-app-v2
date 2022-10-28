@@ -11,9 +11,17 @@ const mainMenuStore = useMainMenuStore()
 <template>
   <QDrawer v-model="mainMenuStore.drawer" :width="220" show-if-above side="left" bordered>
     <QList>
+      <QItem>
+        <QItemSection class="text-h6">Menu</QItemSection>
+      </QItem>
+
       <DrawerItem :to="{ name: RouteName.DASHBOARD }" :icon="Icon.DASHBOARD" label="Dashboard" />
 
       <QSeparator />
+
+      <QItem>
+        <QItemSection class="text-h6">Data Tables</QItemSection>
+      </QItem>
 
       <DrawerItem
         :to="{ name: RouteName.MEASUREMENTS_DATA }"

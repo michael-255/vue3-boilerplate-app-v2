@@ -9,7 +9,7 @@ const mainMenuStore = useMainMenuStore()
 </script>
 
 <template>
-  <QHeader elevated class="bg-primary text-white">
+  <QHeader elevated>
     <QToolbar>
       <QBtn
         dense

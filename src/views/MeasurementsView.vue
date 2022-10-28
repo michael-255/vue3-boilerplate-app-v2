@@ -19,30 +19,19 @@ onMounted(async () => {
     }) as Measurement[]
 
     const promises = measurements.map(async (measurement: Measurement) => {
-      const id = measurement.id
-      const name = measurement.name
-      const measurementType = measurement.measurementType
-      const previousCreatedDate = (
-        (await DB.getNewestByField(
-          AppTable.MEASUREMENT_RECORDS,
-          Field.PARENT_ID,
-          measurement.id
-        )) as MeasurementRecord
-      )?.createdDate as string
-      const previousMeasurementValue = (
-        (await DB.getNewestByField(
-          AppTable.MEASUREMENT_RECORDS,
-          Field.PARENT_ID,
-          measurement.id
-        )) as MeasurementRecord
-      )?.measurementValue as number
+      // Get most recent Measurement Record (if any)
+      const measurementRecord = (await DB.getNewestByField(
+        AppTable.MEASUREMENT_RECORDS,
+        Field.PARENT_ID,
+        measurement.id
+      )) as MeasurementRecord
 
       return {
-        id,
-        name,
-        measurementType,
-        previousCreatedDate,
-        previousMeasurementValue,
+        id: measurement.id,
+        name: measurement.name,
+        measurementType: measurement.measurementType,
+        previousCreatedDate: measurementRecord?.createdDate || 'No previous records', // From Measurement Rccord
+        previousMeasurementValue: measurementRecord?.measurementValue || 0, // From Measurement Rccord
       }
     })
 
@@ -55,8 +44,8 @@ onMounted(async () => {
 
 <template>
   <QPage padding>
-    <div class="row q-col-gutter-md justify-center">
-      <div v-for="data in cardData" :key="data.id" class="col-md-6 col-sm-8 col-xs-12">
+    <div class="row q-col-gutter-md justify-start">
+      <div v-for="data in cardData" :key="data.id" class="col-md-4 col-sm-6 col-xs-12">
         <MeasurementCard
           :name="data.name"
           :measurementType="data.measurementType"

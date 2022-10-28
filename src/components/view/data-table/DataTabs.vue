@@ -9,7 +9,6 @@ const dataTableStore = useDataTableStore()
 <template>
   <QTabs
     v-model="dataTableStore.selectedTab"
-    class="bg-grey-2 text-blue-grey"
     align="justify"
     active-color="primary"
     indicator-color="primary"
