@@ -54,6 +54,7 @@ const saveInfoMessages = computed({
   <div>
     <QToggle v-model="darkMode" label="Dark Mode" />
   </div>
+
   <div>
     <QToggle v-model="showConsoleLogs" label="Show Console Logs" />
   </div>

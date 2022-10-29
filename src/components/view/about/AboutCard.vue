@@ -7,7 +7,10 @@ import { AppString } from '@/constants/ui/string-enums'
 
 <template>
   <QCard>
-    <QCardSection class="bg-primary text-white text-h3">About</QCardSection>
+    <QCardSection class="bg-primary text-white q-py-sm text-h5">
+      <QIcon class="q-pb-xs q-pr-sm" :name="Icon.INFO" />
+      About
+    </QCardSection>
 
     <QCardSection>
       {{ AppString.APP_NAME }} is a Vue 3 Typescript project created by michael-255 on GitHub

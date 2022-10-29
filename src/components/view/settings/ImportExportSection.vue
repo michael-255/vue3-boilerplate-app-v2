@@ -8,10 +8,10 @@ import ExportInput from '@/components/view/settings/inputs/ExportInput.vue'
   <QCardSection>
     <div class="text-h6 q-mb-sm">Import & Export</div>
 
-    <div class="q-mb-md">You can import data into the app database from a JSON file.</div>
+    <div class="q-mb-md">You can import data into the database from a JSON file.</div>
     <ImportInput />
 
-    <div class="q-mb-md">You can export the entire app database as a JSON file.</div>
+    <div class="q-mb-md">You can export the entire database as a JSON file.</div>
     <ExportInput />
   </QCardSection>
 </template>

@@ -2,18 +2,20 @@
 
 ## Todos
 
+- [ ] Rename some view list components to `*Container`
+- [ ] Create `ActiveView` route for a simple `ActivityTimer` (can expand on in later apps)
+
+- [ ] Organize `Composables` (use) with components in `~/src/components/...`
+
+  - [ ] All reusable components should be in `~/src/components/shared/use`
+  - [ ] Split Vue `<script>` and Vue `<template>` up
+
+    - [ ] Create a `use` directory in each component folder with its own `__tests__`
+
 - [ ] Build `Measurements` route
 
-  - [x] `getAll` Measurements
-  - [x] `getAll` MeasurementRecords
-  - [x] Loop through measurements in template to create cards list
-  - [x] Load Measurement `name` on card
-  - [x] Load most recent MeasurementRecord `createdDate` on card or `-`
-  - [x] Load most recent MeasurementRecord `measurementValue` on card
-  - [x] Include parent `measurementType` after value
-  - [x] Use `measurementType` as input placeholder
-  - [ ] Add badge after date like `6 days ago`, `today`, `never` (maybe not never)
-  - [ ] Add a report button in the top right
+  - [ ] Add badge for date like `6 days ago`, `today`, `never` (maybe not never)
+  - [ ] Add a report icon button in the top right
   - [ ] Input specific
 
     - [ ] Set input as a number type

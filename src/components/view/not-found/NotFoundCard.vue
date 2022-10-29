@@ -14,6 +14,7 @@ import { Icon } from '@/constants/ui/icon-enums'
     <QCardActions align="left">
       <QBtn
         flat
+        class="full-width"
         :to="{ name: RouteName.DASHBOARD }"
         :icon="Icon.UNDO"
         label="Return to Dashboard"

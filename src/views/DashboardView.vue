@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QPage } from 'quasar'
-import BoilerplateMessageCard from '@/components/view/dashboard/BoilerplateMessageCard.vue'
+import DashboardCard from '@/components/view/dashboard/DashboardCard.vue'
 import MeasurementsCard from '@/components/view/dashboard/MeasurementsCard.vue'
 </script>
 
@@ -8,7 +8,7 @@ import MeasurementsCard from '@/components/view/dashboard/MeasurementsCard.vue'
   <QPage padding>
     <div class="row q-col-gutter-md justify-start">
       <div class="col-12">
-        <BoilerplateMessageCard />
+        <DashboardCard />
       </div>
 
       <div class="col-md-4 col-sm-6 col-xs-12">

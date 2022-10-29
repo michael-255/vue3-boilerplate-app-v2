@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { DatabaseObject, DataTableProps } from '@/constants/types-interfaces'
 import { type Ref, ref, onMounted } from 'vue'
-import type { AppTable, Field } from '@/constants/core/data-enums'
+import { Field, type AppTable } from '@/constants/core/data-enums'
 import { useLogger } from '@/use/useLogger'
 import { TableHelper } from '@/services/TableHelper'
 import useDataItemStore from '@/stores/data-item'
+import { isoToDisplayDate } from '@/utils/common'
 
 /**
  * Component allows you to view the values in each of its internal (Exact) fields.
@@ -20,17 +21,19 @@ onMounted(async () => {
     const currentTableFields = TableHelper.getFields(props.table)
     const currentTableColumnProps = TableHelper.getColumns(props.table)
 
-    /**
-     * @todo - Include the readable date with the ISO data
-     * @example 2022-01-01T05:00:00.000Z (Sat Jan 1 2022 12:00:00 AM EST)
-     */
     currentTableFields.forEach((field: Field) => {
-      inspectionValues.value.push({
-        label:
-          currentTableColumnProps.find((props: DataTableProps) => props.name === field)?.label ||
-          'ERROR',
-        value: dataItemStore.selected[field] || '-',
-      })
+      const label =
+        currentTableColumnProps.find((props: DataTableProps) => props.name === field)?.label ||
+        'ERROR'
+
+      let value = dataItemStore.selected[field] || '-'
+
+      // Add readable date after iso date
+      if (field === Field.CREATED_DATE && value !== '-') {
+        value += ` (${isoToDisplayDate(value)})`
+      }
+
+      inspectionValues.value.push({ label, value })
     })
   } catch (error) {
     log.error('ItemInspect:Setup', error)

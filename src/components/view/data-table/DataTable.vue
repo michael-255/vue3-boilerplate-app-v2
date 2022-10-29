@@ -163,21 +163,6 @@ async function onDelete(id: string): Promise<void> {
   >
     <!-- Table Heading -->
     <template v-slot:top>
-      <!-- Search Input -->
-      <QInput
-        :disable="!dataTableStore.rows.length"
-        outlined
-        dense
-        debounce="300"
-        v-model="searchFilter"
-        placeholder="Search"
-        class="q-mr-sm q-mb-sm"
-      >
-        <template v-slot:append>
-          <QIcon name="search" />
-        </template>
-      </QInput>
-
       <!-- Column Select -->
       <QSelect
         v-model="dataTableStore.visibleColumns"
@@ -214,6 +199,21 @@ async function onDelete(id: string): Promise<void> {
           class="q-mb-sm"
         />
       </div>
+      <!-- Search Input -->
+      <QInput
+        :disable="!dataTableStore.rows.length"
+        outlined
+        dense
+        clearable
+        debounce="300"
+        v-model="searchFilter"
+        placeholder="Search"
+        class="full-width q-mr-sm q-mb-sm"
+      >
+        <template v-slot:append>
+          <QIcon name="search" />
+        </template>
+      </QInput>
     </template>
 
     <!-- Column Headers -->

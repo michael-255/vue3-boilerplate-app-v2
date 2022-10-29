@@ -19,6 +19,8 @@ const mainMenuStore = useMainMenuStore()
       />
 
       <QToolbarTitle>{{ AppString.APP_NAME }}</QToolbarTitle>
+
+      <!-- <QBtn flat dense :to="{ name: RouteName.DASHBOARD }" :icon="Icon.RETURN_TO_DASHBOARD" /> -->
     </QToolbar>
   </QHeader>
 </template>

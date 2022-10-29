@@ -5,7 +5,7 @@ import DefaultsBtn from '@/components/view/settings/buttons/DefaultsBtn.vue'
 
 <template>
   <QCardSection>
-    <div class="text-h6 q-mb-sm">Pre-Configured Defaults</div>
+    <div class="text-h6 q-mb-sm">Database Defaults</div>
 
     <div class="q-mb-md">
       Load default data into the database that you can begin using right away.
