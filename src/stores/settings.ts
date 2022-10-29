@@ -7,14 +7,10 @@ const useSettingsStore: StoreDefinition = defineStore({
   id: 'settings',
 
   state: () => ({
-    // deprecated settings (WIP)
-    DEBUG: false,
-    NOTIFY: false,
-    INFO: false,
-    // new settings
-    darkMode: true,
-    suppressConsoleLogs: true,
-    hideDebugMessages: true,
+    // The real defaults for these are set in DB.initDatabaseSettings()
+    darkMode: false,
+    showConsoleLogs: false,
+    showDebugMessages: false,
     saveInfoMessages: false,
   }),
 
@@ -23,29 +19,16 @@ const useSettingsStore: StoreDefinition = defineStore({
       this.darkMode = !!bool
     },
 
-    setSuppressConsoleLogs(bool: boolean): void {
-      this.suppressConsoleLogs = !!bool
+    setShowConsoleLogs(bool: boolean): void {
+      this.showConsoleLogs = !!bool
     },
 
-    setHideDebugMessages(bool: boolean): void {
-      this.hideDebugMessages = !!bool
+    setShowDebugMessages(bool: boolean): void {
+      this.showDebugMessages = !!bool
     },
 
     setSaveInfoMessages(bool: boolean): void {
       this.saveInfoMessages = !!bool
-    },
-
-    // deprecated settings (WIP)
-    setDEBUG(bool: boolean): void {
-      this.DEBUG = !!bool
-    },
-
-    setNOTIFY(bool: boolean): void {
-      this.NOTIFY = !!bool
-    },
-
-    setINFO(bool: boolean): void {
-      this.INFO = !!bool
     },
   },
 })

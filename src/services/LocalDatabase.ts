@@ -1,5 +1,5 @@
 import type { IndexableType } from 'dexie'
-import type { DatabaseObject } from '@/constants/types-interfaces'
+import type { DatabaseObject, SettingValue } from '@/constants/types-interfaces'
 import { AppTable, Field, SettingKey } from '@/constants/core/data-enums'
 import { AppString } from '@/constants/ui/string-enums'
 import { DexieWrapper } from './__DexieWrapper'
@@ -165,36 +165,68 @@ export class LocalDatabase {
   async initDatabaseSettings(): Promise<DatabaseObject> {
     const settings = (await this.getAll(AppTable.SETTINGS)) as Setting[]
 
-    const DEBUG = settings.find((s: DatabaseObject) => s[Field.ID] === SettingKey.DEBUG)
-    const NOTIFY = settings.find((s: DatabaseObject) => s[Field.ID] === SettingKey.NOTIFY)
-    const INFO = settings.find((s: DatabaseObject) => s[Field.ID] === SettingKey.INFO)
+    let darkModeValue = settings.find(
+      (setting: DatabaseObject) => setting[Field.ID] === SettingKey.DARK_MODE
+    )?.settingValue
 
-    if (!DEBUG) {
+    let showConsoleLogsValue = settings.find(
+      (setting: DatabaseObject) => setting[Field.ID] === SettingKey.SHOW_CONSOLE_LOGS
+    )?.settingValue
+
+    let showDebugMessagesValue = settings.find(
+      (setting: DatabaseObject) => setting[Field.ID] === SettingKey.SHOW_DEBUG_MESSAGES
+    )?.settingValue
+
+    let saveInfoMessagesValue = settings.find(
+      (setting: DatabaseObject) => setting[Field.ID] === SettingKey.SAVE_INFO_MESSAGES
+    )?.settingValue
+
+    // Create the Setting records with a default value if it doesn't exist
+    if (darkModeValue === undefined) {
+      darkModeValue = true // default
+
       await this.add(AppTable.SETTINGS, {
-        id: SettingKey.DEBUG,
+        id: SettingKey.DARK_MODE,
         createdDate: new Date().toISOString(),
-        settingValue: false,
+        settingValue: darkModeValue,
       })
     }
-    if (!NOTIFY) {
+
+    if (showConsoleLogsValue === undefined) {
+      showConsoleLogsValue = false // default
+
       await this.add(AppTable.SETTINGS, {
-        id: SettingKey.NOTIFY,
+        id: SettingKey.SHOW_CONSOLE_LOGS,
         createdDate: new Date().toISOString(),
-        settingValue: false,
+        settingValue: showConsoleLogsValue,
       })
     }
-    if (!INFO) {
+
+    if (showDebugMessagesValue === undefined) {
+      showDebugMessagesValue = false // default
+
       await this.add(AppTable.SETTINGS, {
-        id: SettingKey.INFO,
+        id: SettingKey.SHOW_DEBUG_MESSAGES,
         createdDate: new Date().toISOString(),
-        settingValue: false,
+        settingValue: showDebugMessagesValue,
+      })
+    }
+
+    if (saveInfoMessagesValue === undefined) {
+      saveInfoMessagesValue = false // default
+
+      await this.add(AppTable.SETTINGS, {
+        id: SettingKey.SAVE_INFO_MESSAGES,
+        createdDate: new Date().toISOString(),
+        settingValue: saveInfoMessagesValue,
       })
     }
 
     return {
-      DEBUG,
-      NOTIFY,
-      INFO,
+      darkModeValue,
+      showConsoleLogsValue,
+      showDebugMessagesValue,
+      saveInfoMessagesValue,
     }
   }
 

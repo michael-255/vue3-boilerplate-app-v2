@@ -29,46 +29,43 @@ export function useLogger(): { [x: string]: any } {
     /**
      * DEBUG
      * - Suppressable console logs
-     * - Suppressable notifications
      * - Never saved in DB
+     * - Suppressable notifications
      */
     debug: (details: string, error?: Error | any) => {
-      if (settingsStore.DEBUG) {
-        const severity = Severity.DEBUG
+      const severity = Severity.DEBUG
+      if (settingsStore.showConsoleLogs) {
         logger.debug(`[${severity}]`, details, error)
-        // No DB call on DEBUG
-        if (settingsStore.NOTIFY) {
-          notify(`${severity} - ${details}`, Icon.DEBUG, NotifyColor.DEBUG)
-        }
+      }
+      if (settingsStore.showDebugMessages) {
+        notify(`${severity} - ${details}`, Icon.DEBUG, NotifyColor.DEBUG)
       }
     },
     /**
      * INFO
      * - Suppressable console logs
-     * - Cannot suppress notifications
      * - Can turn off DB saving
+     * - Cannot suppress notifications
      */
     info: (details: string, error?: Error | any) => {
       const severity = Severity.INFO
-      if (settingsStore.DEBUG) {
+      if (settingsStore.showConsoleLogs) {
         logger.info(`[${severity}]`, details, error)
       }
-      if (settingsStore.INFO) {
+      if (settingsStore.saveInfoMessages) {
         DB.add(AppTable.LOGS, new Log({ error, severity, details }))
       }
-      if (settingsStore.NOTIFY) {
-        notify(`${severity} - ${details}`, Icon.INFO, NotifyColor.INFO)
-      }
+      notify(`${severity} - ${details}`, Icon.INFO, NotifyColor.INFO)
     },
     /**
      * WARN
      * - Suppressable console logs
-     * - Cannot suppress notifications
      * - Cannot turn off DB saving
+     * - Cannot suppress notifications
      */
     warn: (details: string, error?: Error | any) => {
       const severity = Severity.WARN
-      if (settingsStore.DEBUG) {
+      if (settingsStore.showConsoleLogs) {
         logger.warn(`[${severity}]`, details, error)
       }
       DB.add(AppTable.LOGS, new Log({ error, severity, details }))
@@ -77,12 +74,12 @@ export function useLogger(): { [x: string]: any } {
     /**
      * ERROR
      * - Suppressable console logs
-     * - Cannot suppress notifications
      * - Cannot turn off DB saving
+     * - Cannot suppress notifications
      */
     error: (details: string, error?: Error | any) => {
       const severity = Severity.ERROR
-      if (settingsStore.DEBUG) {
+      if (settingsStore.showConsoleLogs) {
         logger.error(`[${severity}]`, details, error)
       }
       DB.add(AppTable.LOGS, new Log({ error, severity, details }))
@@ -90,13 +87,13 @@ export function useLogger(): { [x: string]: any } {
     },
     /**
      * CRITICAL
-     * - Suppressable console logs (settingsStore.DEBUG)
-     * - Cannot suppress notifications
+     * - Suppressable console logs
      * - Cannot turn off DB saving
+     * - Cannot suppress notifications
      */
     critical: (details: string, error?: Error | any) => {
       const severity = Severity.CRITICAL
-      if (settingsStore.DEBUG) {
+      if (settingsStore.showConsoleLogs) {
         logger.critical(`[${severity}]`, details, error)
       }
       DB.add(AppTable.LOGS, new Log({ error, severity, details }))

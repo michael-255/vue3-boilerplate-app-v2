@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { QBtn } from 'quasar'
+import { useQuasar, QBtn } from 'quasar'
 import { useLogger } from '@/use/useLogger'
 import { AppTable } from '@/constants/core/data-enums'
 import { DB } from '@/services/LocalDatabase'
@@ -8,6 +8,7 @@ import { NotifyColor } from '@/constants/ui/color-enums'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import useSettingsStore from '@/stores/settings'
 
+const $q = useQuasar()
 const { log } = useLogger()
 const { confirmDialog } = useSimpleDialogs()
 const settingsStore = useSettingsStore()
@@ -24,10 +25,12 @@ async function onClearAll(): Promise<void> {
     async (): Promise<void> => {
       try {
         await Promise.all(Object.values(AppTable).map((table) => DB.clear(table as AppTable)))
-        await DB.initDatabaseSettings() // Default settings after clear finishes
-        settingsStore.setDEBUG(false)
-        settingsStore.setNOTIFY(false)
-        settingsStore.setINFO(false)
+        const initialSettings = await DB.initDatabaseSettings() // Default settings after clear
+        settingsStore.setDarkMode(initialSettings.darkModeValue)
+        settingsStore.setShowConsoleLogs(initialSettings.showConsoleLogsValue)
+        settingsStore.setShowDebugMessages(initialSettings.showDebugMessagesValue)
+        settingsStore.setSaveInfoMessages(initialSettings.saveInfoMessagesValue)
+        $q.dark.set(initialSettings.darkModeValue)
       } catch (error) {
         log.error('onClearAll', error)
       }

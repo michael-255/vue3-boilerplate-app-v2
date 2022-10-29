@@ -52,13 +52,9 @@ export enum Operation {
  * These are the keys for the supported settings within the app.
  */
 export enum SettingKey {
-  DEBUG = 'debug-logging',
-  NOTIFY = 'all-alerts',
-  INFO = 'save-info-logs',
-  // new setting names
   DARK_MODE = 'dark-mode',
-  SUPPRESS_CONSOLE_LOGS = 'suppress-console-logs',
-  HIDE_DEBUG_MESSAGES = 'hide-debug-messages',
+  SHOW_CONSOLE_LOGS = 'show-console-logs',
+  SHOW_DEBUG_MESSAGES = 'show-debug-messages',
   SAVE_INFO_MESSAGES = 'save-info-messages',
 }
 
