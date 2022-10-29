@@ -1,0 +1,1 @@
+import{d as n,bl as r,o as s,c,w as e,a as t,u as a,bm as u,bn as _}from"./index.d5b49914.js";const m=n({__name:"ActiveLayout",setup(l){return(p,f)=>{const o=r("router-view");return s(),c(a(_),{elevated:"",view:"hHh LpR lff"},{default:e(()=>[t(a(u),null,{default:e(()=>[t(o)]),_:1})]),_:1})}}});export{m as default};
