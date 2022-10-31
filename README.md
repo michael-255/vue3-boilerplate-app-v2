@@ -2,6 +2,12 @@
 
 ## Todos
 
+- [ ] Build `Measurements` route
+
+  - [ ] Clear input after saving
+  - [ ] Show `log.info(...)` after saving
+  - [ ] Reload data after saving
+
 - [ ] Rename some view list components to `*Container`
 - [ ] Create `ActiveView` route for a simple `ActivityTimer` (can expand on in later apps)
 
@@ -11,19 +17,6 @@
   - [ ] Split Vue `<script>` and Vue `<template>` up
 
     - [ ] Create a `use` directory in each component folder with its own `__tests__`
-
-- [ ] Build `Measurements` route
-
-  - [ ] Add badge for date like `6 days ago`, `today`, `never` (maybe not never)
-  - [ ] Add a report icon button in the top right
-  - [ ] Input specific
-
-    - [ ] Set input as a number type
-    - [ ] Set input with a rule
-    - [ ] Disable save button when input is empty
-    - [ ] Clear input after saving
-    - [ ] Show `log.info(...)` after saving
-    - [ ] Reload data after saving
 
 - [ ] Build the `ActiveView` as a simple timer in the footer (rest will be in fitness app)
 
