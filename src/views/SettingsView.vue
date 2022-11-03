@@ -1,14 +1,7 @@
 <script setup lang="ts">
-import { QPage } from 'quasar'
-import SettingsCard from '@/components/view/settings/SettingsCard.vue'
+import SettingsPage from '@/components/view/settings/SettingsPage.vue'
 </script>
 
 <template>
-  <QPage padding>
-    <div class="row justify-center">
-      <div class="col-12">
-        <SettingsCard />
-      </div>
-    </div>
-  </QPage>
+  <SettingsPage />
 </template>

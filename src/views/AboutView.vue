@@ -1,14 +1,7 @@
 <script setup lang="ts">
-import { QPage } from 'quasar'
-import AboutCard from '@/components/view/about/AboutCard.vue'
+import AboutPage from '@/components/view/about/AboutPage.vue'
 </script>
 
 <template>
-  <QPage padding>
-    <div class="row justify-center">
-      <div class="col-md-6 col-sm-8 col-xs-12">
-        <AboutCard />
-      </div>
-    </div>
-  </QPage>
+  <AboutPage />
 </template>

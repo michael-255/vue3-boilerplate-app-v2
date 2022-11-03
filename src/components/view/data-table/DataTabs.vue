@@ -7,27 +7,34 @@ const dataTableStore = useDataTableStore()
 </script>
 
 <template>
-  <QTabs
-    v-model="dataTableStore.selectedTab"
-    align="justify"
-    active-color="primary"
-    indicator-color="primary"
-    inline-label
-  >
-    <QTab
-      v-for="(tab, i) in dataTableStore.tabs"
-      :key="i"
-      :name="tab.name"
-      :icon="tab.icon"
-      :label="tab.name"
-    />
-  </QTabs>
+  <QPage>
+    <QTabs
+      v-model="dataTableStore.selectedTab"
+      align="justify"
+      active-color="primary"
+      indicator-color="primary"
+      inline-label
+    >
+      <QTab
+        v-for="(tab, i) in dataTableStore.tabs"
+        :key="i"
+        :name="tab.name"
+        :icon="tab.icon"
+        :label="tab.name"
+      />
+    </QTabs>
 
-  <QSeparator />
+    <QSeparator />
 
-  <QTabPanels v-model="dataTableStore.selectedTab" animated>
-    <QTabPanel v-for="(tab, i) in dataTableStore.tabs" :key="i" :name="tab.name" class="q-pa-none">
-      <DataTable :table="tab.table" />
-    </QTabPanel>
-  </QTabPanels>
+    <QTabPanels v-model="dataTableStore.selectedTab" animated>
+      <QTabPanel
+        v-for="(tab, i) in dataTableStore.tabs"
+        :key="i"
+        :name="tab.name"
+        class="q-pa-none"
+      >
+        <DataTable :table="tab.table" />
+      </QTabPanel>
+    </QTabPanels>
+  </QPage>
 </template>
