@@ -78,6 +78,39 @@ export class LocalDatabase {
     return (await this.dexieWrapper.table(table).bulkGet(ids)).filter(Boolean)
   }
 
+  /**
+   *
+   */
+  async getMeasurementCards(): Promise<DatabaseObject[]> {
+    // Measurements
+    const measurements = (await this.getAll(AppTable.MEASUREMENTS)).sort((a: any, b: any) => {
+      return a.name.localeCompare(b.name)
+    }) as Measurement[]
+
+    // Measurement Card Objects
+    const measurementCards = await Promise.all(
+      // Recent Measurement Records
+      measurements.map(async (measurement: Measurement) => {
+        // Get most recent Measurement Record (if any)
+        const measurementRecord = (await this.getNewestByField(
+          AppTable.MEASUREMENT_RECORDS,
+          Field.PARENT_ID,
+          measurement.id
+        )) as MeasurementRecord
+
+        return {
+          id: measurement.id,
+          name: measurement.name,
+          measurementType: measurement.measurementType,
+          previousCreatedDate: measurementRecord?.createdDate,
+          previousMeasurementValue: measurementRecord?.measurementValue,
+        }
+      })
+    )
+
+    return measurementCards
+  }
+
   //
   // Creates, Updates, Deletes
   //

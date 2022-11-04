@@ -2,18 +2,27 @@
 import { QBadge, QCard, QCardSection, QBtn, QIcon } from 'quasar'
 import { Icon } from '@/constants/ui/icon-enums'
 import { isoToDisplayDate } from '@/utils/common'
+import { useLogger } from '@/use/useLogger'
 import { useTimeAgo } from '@vueuse/core'
+import { onUpdated, ref } from 'vue'
 import SaveMeasurementInput from './inputs/SaveMeasurementInput.vue'
 
 const props = defineProps<{
   parentId: string
   name: string
   measurementType: string
-  previousMeasurementCreatedDate: string
-  previousMeasurementValue: number
+  previousCreatedDate: string | undefined
+  previousValue: number | undefined
 }>()
 
-const timeSince = useTimeAgo(new Date(props.previousMeasurementCreatedDate))
+const { log } = useLogger()
+// These ensure a live update of the time since the last one
+const previousCreatedDateRef = ref(new Date(props.previousCreatedDate || '')) // Ref of the date
+const timeAgo = useTimeAgo(previousCreatedDateRef) // Tracks the ref
+
+onUpdated(() => {
+  previousCreatedDateRef.value = new Date(props.previousCreatedDate || '')
+})
 </script>
 
 <template>
@@ -24,24 +33,22 @@ const timeSince = useTimeAgo(new Date(props.previousMeasurementCreatedDate))
       <QBtn round flat :icon="Icon.REPORT" class="absolute-top-right q-ma-sm" />
 
       <div>
-        <QBadge rounded color="grey-9" :label="timeSince || 'never'" />
+        <QBadge rounded color="grey-9" :label="timeAgo || 'never'" />
       </div>
 
       <div>
         <QIcon :name="Icon.CALENDAR_CHECK" />
         <span class="text-caption q-ml-xs">
-          {{ isoToDisplayDate(previousMeasurementCreatedDate) }}
+          {{ isoToDisplayDate(previousCreatedDate || '') }}
         </span>
       </div>
 
       <div>
         <QIcon :name="Icon.MEASUREMENTS" />
-        <span class="text-caption q-ml-xs">
-          {{ previousMeasurementValue || '-' }} {{ measurementType }}
-        </span>
+        <span class="text-caption q-ml-xs"> {{ previousValue || '-' }} {{ measurementType }} </span>
       </div>
 
-      <SaveMeasurementInput :measurementType="measurementType" />
+      <SaveMeasurementInput :parentId="parentId" :measurementType="measurementType" />
     </QCardSection>
   </QCard>
 </template>

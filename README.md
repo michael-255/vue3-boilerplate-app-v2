@@ -4,9 +4,10 @@
 
 - [ ] Build `Measurements` route
 
-  - [ ] Clear input after saving
+  - [x] Clear input after saving
+  - [x] Reload data after saving
+  - [ ] Confirm dialog when saving
   - [ ] Show `log.info(...)` after saving
-  - [ ] Reload data after saving
 
 - [ ] Rename some view list components to `*Container`
 - [ ] Create `ActiveView` route for a simple `ActivityTimer` (can expand on in later apps)
