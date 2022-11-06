@@ -2,6 +2,7 @@
 import { QPage } from 'quasar'
 import MessageCard from './MessageCard.vue'
 import TakeMeasurementsCard from './TakeMeasurementsCard.vue'
+import ActiveCard from './ActiveCard.vue'
 </script>
 
 <template>
@@ -13,6 +14,10 @@ import TakeMeasurementsCard from './TakeMeasurementsCard.vue'
 
       <div class="col-md-4 col-sm-6 col-xs-12">
         <TakeMeasurementsCard />
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <ActiveCard />
       </div>
     </div>
   </QPage>

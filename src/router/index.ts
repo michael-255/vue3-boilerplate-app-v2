@@ -27,10 +27,16 @@ const router = createRouter({
       component: () => import(`../views/AboutView.vue`),
     },
     {
-      path: '/measurements',
-      name: RouteName.MEASUREMENTS,
+      path: '/active',
+      name: RouteName.ACTIVE,
+      meta: { layout: 'ActiveLayout' } as RouteMeta,
+      component: () => import(`../views/ActiveView.vue`),
+    },
+    {
+      path: '/take-measurements',
+      name: RouteName.TAKE_MEASUREMENTS,
       meta: { layout: 'MenuLayout' } as RouteMeta,
-      component: () => import(`../views/MeasurementsView.vue`),
+      component: () => import(`../views/TakeMeasurementsView.vue`),
     },
     {
       path: '/logs-and-settings-data',

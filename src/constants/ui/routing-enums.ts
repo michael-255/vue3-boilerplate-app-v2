@@ -3,7 +3,8 @@
  */
 export enum RouteName {
   DASHBOARD = 'Dashboard',
-  MEASUREMENTS = 'Measurements',
+  ACTIVE = 'Active',
+  TAKE_MEASUREMENTS = 'TakeMeasurements',
   MEASUREMENTS_DATA = 'MeasurementsData',
   LOGS_AND_SETTINGS_DATA = 'LogsAndSettingsData',
   SETTINGS = 'Settings',
