@@ -2,8 +2,11 @@
 
 ## Todos
 
-- [ ] `Commenting` Clean up and create comments throughout the app (reasons why you did certain
-      things)
+- [ ] Find a better way to do the `OperationDialog` (make it a global component)
+
+---
+
+- [ ] `Commenting` Clean up and comment the app (reasons why you did certain things that way)
 - [ ] `Tests` Rebuild tests for all files
 - [ ] Go through post cloning task list (double check)
 
