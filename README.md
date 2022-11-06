@@ -2,15 +2,6 @@
 
 ## Todos
 
-- [ ] Organize `Composables` (use) with components in `~/src/components/...`
-
-  - [ ] All reusable components should be in `~/src/components/shared/use`
-  - [ ] Split Vue `<script>` and Vue `<template>` up
-
-    - [ ] Create a `use` directory in each component folder with its own `__tests__`
-
-- [ ] Build the `ActiveView` as a simple timer in the footer (rest will be in fitness app)
-
 - [ ] `Commenting` Clean up and create comments throughout the app (reasons why you did certain
       things)
 - [ ] `Tests` Rebuild tests for all files
