@@ -27,7 +27,7 @@ export class Activity extends Entity {
   static getFieldComponents(): any {
     return [
       ...Entity.getFieldComponents(),
-      defineAsyncComponent(() => import('@/components/view/data-table/inputs/NameInput.vue')),
+      defineAsyncComponent(() => import('@/components/data-table/inputs/NameInput.vue')),
     ]
   }
 

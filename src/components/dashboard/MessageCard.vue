@@ -2,8 +2,8 @@
 import { QCard, QCardSection } from 'quasar'
 import { Icon } from '@/constants/ui/icon-enums'
 import { AppString } from '@/constants/ui/string-enums'
-import DefaultsBtn from '@/components/view/settings/buttons/DefaultsBtn.vue'
-import TestLogsBtn from '@/components/view/settings/buttons/TestLogsBtn.vue'
+import DefaultsBtn from '@/components/settings/buttons/DefaultsBtn.vue'
+import TestLogsBtn from '@/components/settings/buttons/TestLogsBtn.vue'
 </script>
 
 <template>

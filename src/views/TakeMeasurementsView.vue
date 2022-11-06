@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MeasurementsPage from '@/components/view/measurements/MeasurementsPage.vue'
+import MeasurementsPage from '@/components/measurements/MeasurementsPage.vue'
 </script>
 
 <template>

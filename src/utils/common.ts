@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { DateTime } from 'luxon'
+import { Milliseconds } from '@/constants/core/data-enums'
 
 /**
  * Generates a random id using the UUID package.
@@ -80,4 +81,27 @@ export function isoToDisplayDate(date: string): string | undefined {
     return undefined
   }
   return luxonDate
+}
+
+/**
+ * Converts milliseconds into a time duration string.
+ * @param milliseconds
+ * @returns Example: 1d 14h 6m 33s
+ */
+export function getDurationFromMilliseconds(milliseconds: number): string {
+  if (!milliseconds || milliseconds < 1000) {
+    return '-'
+  }
+
+  const seconds = Math.floor((milliseconds / Milliseconds.PER_SECOND) % 60)
+  const minutes = Math.floor((milliseconds / Milliseconds.PER_MINUTE) % 60)
+  const hours = Math.floor((milliseconds / Milliseconds.PER_HOUR) % 24)
+  const days = Math.floor(milliseconds / Milliseconds.PER_DAY)
+
+  const daysStr = days > 0 ? `${days}d ` : ''
+  const hoursStr = hours > 0 ? `${hours}h ` : ''
+  const minutesStr = minutes > 0 ? `${minutes}m ` : ''
+  const secondsStr = seconds > 0 ? `${seconds}s` : ''
+
+  return `${daysStr}${hoursStr}${minutesStr}${secondsStr}`
 }

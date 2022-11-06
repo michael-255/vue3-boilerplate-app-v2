@@ -77,3 +77,13 @@ export enum MeasurementType {
   INCHES = 'Inches',
   PERCENT = '%',
 }
+
+/**
+ * Milliseconds per time value.
+ */
+export enum Milliseconds {
+  PER_DAY = 86400000,
+  PER_HOUR = 3600000,
+  PER_MINUTE = 60000,
+  PER_SECOND = 1000,
+}

@@ -15,9 +15,11 @@ import {
 import { RouteName } from '@/constants/ui/routing-enums'
 import { Icon } from '@/constants/ui/icon-enums'
 import { AppString } from '@/constants/ui/string-enums'
+import { useRoute } from 'vue-router'
 import useMainMenuStore from '@/stores/main-menu'
 
 const mainMenuStore = useMainMenuStore()
+const route = useRoute()
 </script>
 
 <template>
@@ -34,6 +36,14 @@ const mainMenuStore = useMainMenuStore()
         />
 
         <QToolbarTitle>{{ AppString.APP_NAME }}</QToolbarTitle>
+
+        <QBtn
+          v-if="route.name !== RouteName.DASHBOARD"
+          flat
+          dense
+          :to="{ name: RouteName.DASHBOARD }"
+          :icon="Icon.RETURN_TO_DASHBOARD"
+        />
       </QToolbar>
     </QHeader>
 

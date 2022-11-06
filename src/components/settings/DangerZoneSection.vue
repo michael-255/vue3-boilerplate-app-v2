@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { QCardSection } from 'quasar'
-import ClearAllBtn from '@/components/view/settings/buttons/ClearAllBtn.vue'
-import DeleteDBBtn from '@/components/view/settings/buttons/DeleteDBBtn.vue'
+import ClearAllBtn from '@/components/settings/buttons/ClearAllBtn.vue'
+import DeleteDBBtn from '@/components/settings/buttons/DeleteDBBtn.vue'
 </script>
 
 <template>

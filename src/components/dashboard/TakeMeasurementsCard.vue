@@ -7,16 +7,16 @@ import { Icon } from '@/constants/ui/icon-enums'
 <template>
   <QCard>
     <QCardSection>
-      <div class="text-h6">Active</div>
+      <div class="text-h6">Take Measurements</div>
     </QCardSection>
 
     <QCardActions align="left">
       <QBtn
         color="positive"
         class="full-width"
-        :to="{ name: RouteName.ACTIVE }"
-        :icon="Icon.ACTIVITIES"
-        label="Track Activity"
+        :to="{ name: RouteName.TAKE_MEASUREMENTS }"
+        :icon="Icon.MEASUREMENTS"
+        label="Take Measurements"
       />
     </QCardActions>
   </QCard>

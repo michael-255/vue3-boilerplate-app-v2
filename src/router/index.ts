@@ -56,7 +56,7 @@ const router = createRouter({
           },
         ],
       } as RouteMeta,
-      component: () => import(`../components/view/data-table/DataTabs.vue`),
+      component: () => import(`../components/data-table/DataTabs.vue`),
     },
     {
       path: '/measurements-data',
@@ -76,7 +76,7 @@ const router = createRouter({
           },
         ],
       } as RouteMeta,
-      component: () => import(`../components/view/data-table/DataTabs.vue`),
+      component: () => import(`../components/data-table/DataTabs.vue`),
     },
     {
       path: '/:pathMatch(.*)*', // 404 Not Found

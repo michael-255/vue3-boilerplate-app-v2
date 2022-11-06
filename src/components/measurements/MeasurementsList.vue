@@ -5,7 +5,7 @@ import { useLogger } from '@/use/useLogger'
 import { AppTable } from '@/constants/core/data-enums'
 import useTakeMeasurementsStore from '@/stores/take-measurements'
 import useOperationDialogStore from '@/stores/operation-dialog'
-import MeasurementCard from '@/components/view/measurements/MeasurementCard.vue'
+import MeasurementCard from '@/components/measurements/MeasurementCard.vue'
 import OperationDialog from '@/components/shared/OperationDialog.vue'
 
 const { log } = useLogger()

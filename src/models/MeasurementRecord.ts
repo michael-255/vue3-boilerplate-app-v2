@@ -84,7 +84,7 @@ export class MeasurementRecord extends Record {
     return [
       ...Record.getFieldComponents(),
       defineAsyncComponent(
-        () => import('@/components/view/data-table/inputs/MeasurementValueInput.vue')
+        () => import('@/components/data-table/inputs/MeasurementValueInput.vue')
       ),
     ]
   }

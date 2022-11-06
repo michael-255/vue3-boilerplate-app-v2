@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { QPage } from 'quasar'
-import SettingsHeader from '@/components/view/settings/SettingsHeader.vue'
-import OptionsSection from '@/components/view/settings/OptionsSection.vue'
-import DefaultsSection from '@/components/view/settings/DefaultsSection.vue'
-import ImportExportSection from '@/components/view/settings/ImportExportSection.vue'
-import DangerZoneSection from '@/components/view/settings/DangerZoneSection.vue'
+import SettingsHeader from '@/components/settings/SettingsHeader.vue'
+import OptionsSection from '@/components/settings/OptionsSection.vue'
+import DefaultsSection from '@/components/settings/DefaultsSection.vue'
+import ImportExportSection from '@/components/settings/ImportExportSection.vue'
+import DangerZoneSection from '@/components/settings/DangerZoneSection.vue'
 </script>
 
 <template>
