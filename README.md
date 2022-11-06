@@ -2,8 +2,6 @@
 
 ## Todos
 
-- [ ] Layout components are small enough to all be inline in the layouts root component
-- [ ] Create `ActiveView` route for a simple `ActivityTimer` (can expand on in later apps)
 - [ ] Organize `Composables` (use) with components in `~/src/components/...`
 
   - [ ] All reusable components should be in `~/src/components/shared/use`
