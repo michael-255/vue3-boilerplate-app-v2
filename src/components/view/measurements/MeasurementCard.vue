@@ -18,8 +18,8 @@ const props = defineProps<{
   parentId: string
   name: string
   measurementType: string
-  previousCreatedDate: string | undefined
-  previousValue: number | undefined
+  previousCreatedDate: string
+  previousValue: number
 }>()
 
 const { log } = useLogger()
@@ -75,7 +75,7 @@ async function onReport(): Promise<void> {
       <div>
         <QIcon :name="Icon.CALENDAR_CHECK" />
         <span class="text-caption q-ml-xs">
-          {{ isoToDisplayDate(previousCreatedDate as string) || '-' }}
+          {{ isoToDisplayDate(previousCreatedDate) || '-' }}
         </span>
       </div>
 

@@ -21,7 +21,7 @@ dataItemStore.validate.createdDate = true
 
 function updateDates(date: string = new Date().toISOString()): void {
   dataItemStore.temporary.createdDate = new Date(date).toISOString()
-  displayedDate.value = isoToDisplayDate(date as string)
+  displayedDate.value = isoToDisplayDate(date) || ''
   dataItemStore.validate.createdDate = true
 }
 
