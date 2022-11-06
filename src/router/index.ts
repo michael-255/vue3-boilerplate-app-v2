@@ -1,4 +1,4 @@
-import type { DataTab } from '@/constants/types-interfaces'
+import type { RouteMeta, RouteTab } from '@/constants/types-interfaces'
 import { createRouter, createWebHistory } from 'vue-router'
 import { RouteName } from '@/constants/ui/routing-enums'
 import { Icon } from '@/constants/ui/icon-enums'
@@ -11,25 +11,25 @@ const router = createRouter({
     {
       path: '/',
       name: RouteName.DASHBOARD,
-      meta: { layout: 'MenuLayout' },
+      meta: { layout: 'MenuLayout' } as RouteMeta,
       component: () => import(`../views/DashboardView.vue`),
     },
     {
       path: '/settings',
       name: RouteName.SETTINGS,
-      meta: { layout: 'MenuLayout' },
+      meta: { layout: 'MenuLayout' } as RouteMeta,
       component: () => import(`../views/SettingsView.vue`),
     },
     {
       path: '/about',
       name: RouteName.ABOUT,
-      meta: { layout: 'MenuLayout' },
+      meta: { layout: 'MenuLayout' } as RouteMeta,
       component: () => import(`../views/AboutView.vue`),
     },
     {
       path: '/measurements',
       name: RouteName.MEASUREMENTS,
-      meta: { layout: 'MenuLayout' },
+      meta: { layout: 'MenuLayout' } as RouteMeta,
       component: () => import(`../views/MeasurementsView.vue`),
     },
     {
@@ -48,8 +48,8 @@ const router = createRouter({
             icon: Icon.SETTINGS,
             table: AppTable.SETTINGS,
           },
-        ] as DataTab[],
-      },
+        ],
+      } as RouteMeta,
       component: () => import(`../components/view/data-table/DataTabs.vue`),
     },
     {
@@ -68,8 +68,8 @@ const router = createRouter({
             icon: Icon.RECORDS,
             table: AppTable.MEASUREMENT_RECORDS,
           },
-        ] as DataTab[],
-      },
+        ],
+      } as RouteMeta,
       component: () => import(`../components/view/data-table/DataTabs.vue`),
     },
     {
@@ -84,7 +84,7 @@ const router = createRouter({
 router.afterEach(async (to: any) => {
   // Manages tabs for DataTabs and DataTable
   const dataTableStore = useDataTableStore()
-  const tabs = (to?.meta?.tabs || []) as DataTab[]
+  const tabs = (to?.meta?.tabs || []) as RouteTab[]
 
   if (tabs.length > 0) {
     dataTableStore.selectedTab = tabs[0].name

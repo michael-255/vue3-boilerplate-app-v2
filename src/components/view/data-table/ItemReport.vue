@@ -8,11 +8,9 @@ import { DB } from '@/services/LocalDatabase'
 import useReportStore from '@/stores/report'
 import useDataItemStore from '@/stores/data-item'
 
-/**
- * Component for handling reports for each supported table.
- * @param table
- */
+// Props & Emits
 const props = defineProps<{ table: AppTable }>()
+
 const { log } = useLogger()
 const dataItemStore = useDataItemStore()
 const reportStore = useReportStore()

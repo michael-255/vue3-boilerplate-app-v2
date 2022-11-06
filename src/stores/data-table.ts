@@ -1,4 +1,4 @@
-import type { DataTab } from '@/constants/types-interfaces'
+import type { RouteTab } from '@/constants/types-interfaces'
 import { Operation } from '@/constants/core/data-enums'
 import { defineStore, type StoreDefinition } from 'pinia'
 
@@ -10,7 +10,7 @@ const useDataTableStore: StoreDefinition = defineStore({
 
   state: () => ({
     selectedTab: '',
-    tabs: [] as DataTab[],
+    tabs: [] as RouteTab[],
     dialog: false,
     operation: Operation.NOOP,
     itemLabel: '',

@@ -36,7 +36,11 @@ export class LocalDatabase {
    * @returns Array of data from table with matching field value
    */
   async getAllByField<T>(table: AppTable, field: Field, value: any): Promise<T[]> {
-    return await this.dexieWrapper.table(table).where(field).equalsIgnoreCase(value).toArray()
+    return await this.dexieWrapper
+      .table(table)
+      .where(field)
+      .equalsIgnoreCase(value)
+      .sortBy(Field.CREATED_DATE)
   }
 
   /**

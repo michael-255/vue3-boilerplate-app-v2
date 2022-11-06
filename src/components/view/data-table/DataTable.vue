@@ -9,25 +9,19 @@ import { DB } from '@/services/LocalDatabase'
 import { useLogger } from '@/use/useLogger'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import { TableHelper } from '@/services/TableHelper'
-import DataTableDialog from './DataTableDialog.vue'
-import ItemInspect from './ItemInspect.vue'
-import ItemCreate from './ItemCreate.vue'
-import ItemUpdate from './ItemUpdate.vue'
-import ItemReport from './ItemReport.vue'
 import useDataTableStore from '@/stores/data-table'
-import useReportStore from '@/stores/report'
 import useDataItemStore from '@/stores/data-item'
+import useOperationDialogStore from '@/stores/operation-dialog'
+import OperationDialog from '@/components/shared/OperationDialog.vue'
 
-/**
- * Component allows you to view and perform operations on table data.
- * @param table
- */
+// Props & Emits
 const props = defineProps<{ table: AppTable }>()
+
 const { log } = useLogger()
 const { confirmDialog } = useSimpleDialogs()
-const reportStore = useReportStore()
 const dataTableStore = useDataTableStore()
 const dataItemStore = useDataItemStore()
+const operationDialogStore = useOperationDialogStore()
 const searchFilter: Ref<string> = ref('')
 
 /**
@@ -40,6 +34,7 @@ onMounted(async () => {
     dataTableStore.columnOptions = cols.filter((col: DataTableProps) => !col.required)
     dataTableStore.visibleColumns = TableHelper.getVisibleColumns(props.table)
     dataTableStore.itemLabel = TableHelper.getLabelSingular(props.table)
+    operationDialogStore.table = props.table
     await updateRows()
   } catch (error) {
     log.error('DataTable:onMounted', error)
@@ -53,100 +48,49 @@ async function updateRows(): Promise<void> {
   dataTableStore.rows = await DB.getAll(props.table)
 }
 
-/**
- * Closes the fullscreen dialog after reseting the stores and updating the table rows.
- */
-async function closeDialog(): Promise<void> {
+async function onOpenOperationDialog(operation: Operation, id?: string): Promise<void> {
   try {
-    await updateRows()
-    dataItemStore.$reset()
-    reportStore.$reset()
-    dataTableStore.operation = Operation.NOOP
-    dataTableStore.dialog = false // Always last so everything else is updated before dialog changes
+    if (id) {
+      dataItemStore.setSelectedItem(await DB.getFirstByField(props.table, Field.ID, id))
+    }
+    operationDialogStore.openDialog(operation)
   } catch (error) {
-    log.error('DataTable:closeDialog', error)
+    log.error(`onOpenOperationDialog:${operation}`, error)
   }
 }
 
-async function onCreate(): Promise<void> {
-  try {
-    dataTableStore.operation = Operation.CREATE
-    dataTableStore.dialog = true
-  } catch (error) {
-    log.error('DataTable:onCreate', error)
-  }
-}
-
-async function onUpdate(id: string): Promise<void> {
-  try {
-    dataItemStore.setSelectedItem(await DB.getFirstByField(props.table, Field.ID, id))
-    dataTableStore.operation = Operation.UPDATE
-    dataTableStore.dialog = true
-  } catch (error) {
-    log.error('DataTable:onUpdate', error)
-  }
-}
-
-async function onReport(id: string): Promise<void> {
-  try {
-    dataItemStore.setSelectedItem(await DB.getFirstByField(props.table, Field.ID, id))
-    dataTableStore.operation = Operation.REPORT
-    dataTableStore.dialog = true
-  } catch (error) {
-    log.error('DataTable:onReport', error)
-  }
-}
-
-async function onInspect(id: string): Promise<void> {
-  try {
-    dataItemStore.setSelectedItem(await DB.getFirstByField(props.table, Field.ID, id))
-    dataTableStore.operation = Operation.INSPECT
-    dataTableStore.dialog = true
-  } catch (error) {
-    log.error('DataTable:onInspect', error)
-  }
-}
-
-async function onClear(): Promise<void> {
-  if (TableHelper.getOperations(props.table).includes(Operation.CLEAR)) {
-    confirmDialog(
-      'Clear',
-      `Permanently delete all ${TableHelper.getLabelPlural(props.table)}?`,
-      Icon.DELETE,
-      NotifyColor.ERROR,
-      async () => {
-        try {
-          await DB.clear(props.table)
-          await updateRows()
-        } catch (error) {
-          log.error('DataTable:onClear', error)
-        }
+async function onOpenClearDialog(): Promise<void> {
+  confirmDialog(
+    'Clear',
+    `Permanently delete all ${TableHelper.getLabelPlural(props.table)}?`,
+    Icon.DELETE,
+    NotifyColor.ERROR,
+    async () => {
+      try {
+        await DB.clear(props.table)
+        await updateRows()
+      } catch (error) {
+        log.error('DataTable:onOpenClearDialog', error)
       }
-    )
-  } else {
-    log.warn(`Clear not supported for ${TableHelper.getLabelPlural(props.table)} table`)
-  }
+    }
+  )
 }
 
-async function onDelete(id: string): Promise<void> {
-  if (TableHelper.getOperations(props.table).includes(Operation.DELETE)) {
-    confirmDialog(
-      'Delete',
-      `Permanently delete "${id}" from ${TableHelper.getLabelPlural(props.table)}?`,
-      Icon.DELETE,
-      NotifyColor.ERROR,
-      async () => {
-        try {
-          await DB.deleteById(props.table, id)
-          await updateRows()
-        } catch (error) {
-          log.error('DataTable:onDelete', error)
-        }
+async function onOpenDeleteDialog(id: string): Promise<void> {
+  confirmDialog(
+    'Delete',
+    `Permanently delete "${id}" from ${TableHelper.getLabelPlural(props.table)}?`,
+    Icon.DELETE,
+    NotifyColor.ERROR,
+    async () => {
+      try {
+        await DB.deleteById(props.table, id)
+        await updateRows()
+      } catch (error) {
+        log.error('DataTable:onOpenDeleteDialog', error)
       }
-    )
-  } else {
-    log.warn(`Delete not supported for ${TableHelper.getLabelPlural(props.table)} table`)
-  }
+    }
+  )
 }
 </script>
 
@@ -156,7 +100,7 @@ async function onDelete(id: string): Promise<void> {
     :columns="dataTableStore.columns"
     :rows-per-page-options="[0]"
     virtual-scroll
-    style="height: 85vh"
+    style="height: 80vh"
     row-key="id"
     :visible-columns="dataTableStore.visibleColumns"
     :filter="searchFilter"
@@ -187,7 +131,7 @@ async function onDelete(id: string): Promise<void> {
           color="positive"
           label="Create"
           class="q-mr-sm q-mb-sm"
-          @click="onCreate()"
+          @click="onOpenOperationDialog(Operation.CREATE)"
         />
         <!-- Clear Btn -->
         <QBtn
@@ -195,7 +139,7 @@ async function onDelete(id: string): Promise<void> {
           :disable="!dataTableStore.rows.length"
           color="negative"
           label="Clear"
-          @click="onClear()"
+          @click="onOpenClearDialog()"
           class="q-mb-sm"
         />
       </div>
@@ -241,7 +185,7 @@ async function onDelete(id: string): Promise<void> {
             dense
             class="q-ml-xs"
             color="accent"
-            @click="onReport(props.cols[0].value)"
+            @click="onOpenOperationDialog(Operation.REPORT, props.cols[0].value)"
             :icon="Icon.REPORT"
           />
           <!-- Details Btn -->
@@ -252,7 +196,7 @@ async function onDelete(id: string): Promise<void> {
             dense
             class="q-ml-xs"
             color="primary"
-            @click="onInspect(props.cols[0].value)"
+            @click="onOpenOperationDialog(Operation.INSPECT, props.cols[0].value)"
             :icon="Icon.DETAILS"
           />
           <!-- Edit Btn -->
@@ -263,7 +207,7 @@ async function onDelete(id: string): Promise<void> {
             dense
             class="q-ml-xs"
             color="orange-9"
-            @click="onUpdate(props.cols[0].value)"
+            @click="onOpenOperationDialog(Operation.UPDATE, props.cols[0].value)"
             :icon="Icon.EDIT"
           />
           <!-- Delete Btn -->
@@ -274,7 +218,7 @@ async function onDelete(id: string): Promise<void> {
             dense
             class="q-ml-xs"
             color="negative"
-            @click="onDelete(props.cols[0].value)"
+            @click="onOpenDeleteDialog(props.cols[0].value)"
             :icon="Icon.DELETE"
           />
         </QTd>
@@ -282,24 +226,5 @@ async function onDelete(id: string): Promise<void> {
     </template>
   </QTable>
 
-  <!-- Fullscreen Dialog -->
-  <DataTableDialog @on-dialog-close="closeDialog()">
-    <ItemInspect v-if="dataTableStore.operation === Operation.INSPECT" :table="table" />
-
-    <ItemCreate
-      v-else-if="dataTableStore.operation === Operation.CREATE"
-      :table="table"
-      @on-create-confirmed="closeDialog()"
-    />
-
-    <ItemUpdate
-      v-else-if="dataTableStore.operation === Operation.UPDATE"
-      :table="table"
-      @on-update-confirmed="closeDialog()"
-    />
-
-    <ItemReport v-else-if="dataTableStore.operation === Operation.REPORT" :table="table" />
-
-    <div v-else>Selected operation is not supported</div>
-  </DataTableDialog>
+  <OperationDialog @on-close-dialog="updateRows()" />
 </template>

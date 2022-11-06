@@ -21,6 +21,7 @@ onMounted(async () => {
   settingsStore.setShowDebugMessages(initialSettings.showDebugMessagesValue)
   settingsStore.setSaveInfoMessages(initialSettings.saveInfoMessagesValue)
   $q.dark.set(initialSettings.darkModeValue)
+  // @todo - Should $reset() all the stores here?
 })
 
 /**

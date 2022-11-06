@@ -8,12 +8,10 @@ import { TableHelper } from '@/services/TableHelper'
 import { DB } from '@/services/LocalDatabase'
 import useDataItemStore from '@/stores/data-item'
 
-/**
- * Component for displaying inputs for the updating an existing data item.
- * @param table
- */
+// Props & Emits
 const props = defineProps<{ table: AppTable }>()
 const emits = defineEmits<{ (eventName: 'on-update-confirmed'): void }>()
+
 const { log } = useLogger()
 const { confirmDialog, dismissDialog } = useSimpleDialogs()
 const dataItemStore = useDataItemStore()
@@ -67,11 +65,5 @@ async function confirmUpdateDialog(): Promise<void> {
     <component :is="comp" :table="table" />
   </div>
 
-  <QBtn
-    class="q-mt-lg"
-    color="primary"
-    :icon="Icon.SAVE"
-    :label="`Update ${TableHelper.getLabelSingular(props.table)}`"
-    @click="onUpdate()"
-  />
+  <QBtn color="positive" :icon="Icon.SAVE" label="Update" @click="onUpdate()" />
 </template>

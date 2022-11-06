@@ -45,7 +45,13 @@ export type ReportDataset = {
   data: any[]
 }
 
-export type DataTab = {
+export type RouteMeta = {
+  layout: string
+  table?: AppTable
+  tabs?: RouteTab[]
+}
+
+export type RouteTab = {
   name: string
   icon: Icon
   table: AppTable

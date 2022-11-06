@@ -8,8 +8,10 @@ import { TableHelper } from '@/services/TableHelper'
 import { DB } from '@/services/LocalDatabase'
 import useDataItemStore from '@/stores/data-item'
 
+// Props & Emits
 const props = defineProps<{ table: AppTable }>()
 const emits = defineEmits<{ (eventName: 'on-create-confirmed'): void }>()
+
 const { log } = useLogger()
 const { confirmDialog, dismissDialog } = useSimpleDialogs()
 const dataItemStore = useDataItemStore()
@@ -59,11 +61,5 @@ function confirmCreateDialog(): void {
     <component :is="comp" :table="table" />
   </div>
 
-  <QBtn
-    class="q-mt-lg"
-    color="primary"
-    :icon="Icon.SAVE"
-    :label="`Create ${TableHelper.getLabelSingular(props.table)}`"
-    @click="onCreate()"
-  />
+  <QBtn color="positive" :icon="Icon.SAVE" label="Create" @click="onCreate()" />
 </template>

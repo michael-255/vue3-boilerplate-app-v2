@@ -7,11 +7,9 @@ import { TableHelper } from '@/services/TableHelper'
 import useDataItemStore from '@/stores/data-item'
 import { isoToDisplayDate } from '@/utils/common'
 
-/**
- * Component allows you to view the values in each of its internal (Exact) fields.
- * @param table
- */
+// Props & Emits
 const props = defineProps<{ table: AppTable }>()
+
 const { log } = useLogger()
 const dataItemStore = useDataItemStore()
 const inspectionValues: Ref<DatabaseObject[]> = ref([])

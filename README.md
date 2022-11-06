@@ -2,7 +2,6 @@
 
 ## Todos
 
-- [x] Build `Measurements` route
 - [ ] Create `ActiveView` route for a simple `ActivityTimer` (can expand on in later apps)
 
 - [ ] Organize `Composables` (use) with components in `~/src/components/...`
