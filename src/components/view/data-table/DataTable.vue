@@ -34,7 +34,6 @@ onMounted(async () => {
     dataTableStore.columnOptions = cols.filter((col: DataTableProps) => !col.required)
     dataTableStore.visibleColumns = TableHelper.getVisibleColumns(props.table)
     dataTableStore.itemLabel = TableHelper.getLabelSingular(props.table)
-    operationDialogStore.table = props.table
     await updateRows()
   } catch (error) {
     log.error('DataTable:onMounted', error)
@@ -53,7 +52,7 @@ async function onOpenOperationDialog(operation: Operation, id?: string): Promise
     if (id) {
       dataItemStore.setSelectedItem(await DB.getFirstByField(props.table, Field.ID, id))
     }
-    operationDialogStore.openDialog(operation)
+    operationDialogStore.openDialog(props.table, operation)
   } catch (error) {
     log.error(`onOpenOperationDialog:${operation}`, error)
   }

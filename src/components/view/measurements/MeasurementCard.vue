@@ -33,7 +33,7 @@ async function onReportDialog(): Promise<void> {
     dataItemStore.setSelectedItem(
       await DB.getFirstByField(AppTable.MEASUREMENTS, Field.ID, props.measurementCard?.id)
     )
-    operationDialogStore.openDialog(Operation.REPORT)
+    operationDialogStore.openDialog(AppTable.MEASUREMENTS, Operation.REPORT)
   } catch (error) {
     log.error('onReportDialog', error)
   }

@@ -24,7 +24,7 @@ async function onCloseDialog(): Promise<void> {
   try {
     dataItemStore.$reset()
     reportStore.$reset()
-    operationDialogStore.closeDialog()
+    operationDialogStore.$reset()
     emits('on-close-dialog')
   } catch (error) {
     log.error('OperationDialog:onCloseDialog', error)

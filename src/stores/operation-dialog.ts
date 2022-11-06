@@ -13,16 +13,11 @@ const useOperationDialogStore: StoreDefinition = defineStore({
   }),
 
   actions: {
-    openDialog(operation: Operation): void {
+    openDialog(table: AppTable, operation: Operation): void {
       this.operation = operation
-      this.title = `${this.operation} ${TableHelper.getLabelSingular(this.table as AppTable)}`
+      this.table = table
+      this.title = `${this.operation} ${TableHelper.getLabelSingular(table)}`
       this.isActive = true
-    },
-
-    closeDialog(): void {
-      this.operation = Operation.NOOP
-      this.title = ''
-      this.isActive = false
     },
   },
 })
