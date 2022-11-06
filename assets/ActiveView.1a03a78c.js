@@ -1,1 +1,0 @@
-import{o as r,H as s}from"./index.23f285b9.js";const a=(e,t)=>{const c=e.__vccOpts||e;for(const[o,n]of t)c[o]=n;return c},_={};function f(e,t){return r(),s("div",null,"Active Page")}const l=a(_,[["render",f]]);export{l as default};
