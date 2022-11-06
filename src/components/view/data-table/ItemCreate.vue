@@ -8,10 +8,6 @@ import { TableHelper } from '@/services/TableHelper'
 import { DB } from '@/services/LocalDatabase'
 import useDataItemStore from '@/stores/data-item'
 
-/**
- * Component for displaying inputs for the creation of new data items.
- * @param table
- */
 const props = defineProps<{ table: AppTable }>()
 const emits = defineEmits<{ (eventName: 'on-create-confirmed'): void }>()
 const { log } = useLogger()

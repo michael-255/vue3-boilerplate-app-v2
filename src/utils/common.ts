@@ -74,10 +74,10 @@ export function truncateString(
  * @param date ISO string
  * @returns Example: Sun Jun 6 2022 1:30:45 PM EDT
  */
-export function isoToDisplayDate(date: string): string {
+export function isoToDisplayDate(date: string): string | undefined {
   const luxonDate = DateTime.fromISO(date).toFormat('ccc LLL d yyyy ttt')
   if (!luxonDate || luxonDate === 'Invalid DateTime') {
-    return '-'
+    return undefined
   }
   return luxonDate
 }

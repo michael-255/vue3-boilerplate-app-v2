@@ -58,8 +58,8 @@ export class Measurement extends Activity {
       title: parent?.name,
       labels: records.map(() => ''),
       datasets: datasets,
-      firstDate: isoToDisplayDate(records[0]?.createdDate),
-      lastDate: isoToDisplayDate(records[records.length - 1]?.createdDate),
+      firstDate: isoToDisplayDate(records[0]?.createdDate) || '-',
+      lastDate: isoToDisplayDate(records[records.length - 1]?.createdDate) || '-',
     }
   }
 

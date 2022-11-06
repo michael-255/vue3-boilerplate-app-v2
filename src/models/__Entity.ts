@@ -1,8 +1,7 @@
 import type { DataTableProps } from '@/constants/types-interfaces'
 import { defineAsyncComponent } from 'vue'
 import { Field } from '@/constants/core/data-enums'
-import { isoToDisplayDate, truncateString } from '@/utils/common'
-import { validate } from 'uuid'
+import { isoToDisplayDate } from '@/utils/common'
 
 export interface IEntity {
   id: string
@@ -53,7 +52,7 @@ export class Entity {
         sortable: true,
         required: false,
         field: (row: any) => row[Field.CREATED_DATE],
-        format: (val: string) => isoToDisplayDate(val),
+        format: (val: string) => isoToDisplayDate(val) || '-',
       },
     ]
   }

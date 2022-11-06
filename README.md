@@ -2,14 +2,7 @@
 
 ## Todos
 
-- [ ] Build `Measurements` route
-
-  - [x] Clear input after saving
-  - [x] Reload data after saving
-  - [ ] Confirm dialog when saving
-  - [ ] Show `log.info(...)` after saving
-
-- [ ] Rename some view list components to `*Container`
+- [x] Build `Measurements` route
 - [ ] Create `ActiveView` route for a simple `ActivityTimer` (can expand on in later apps)
 
 - [ ] Organize `Composables` (use) with components in `~/src/components/...`
