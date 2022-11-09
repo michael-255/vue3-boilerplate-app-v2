@@ -24,9 +24,6 @@ const dataItemStore = useDataItemStore()
 const operationDialogStore = useOperationDialogStore()
 const searchFilter: Ref<string> = ref('')
 
-/**
- * Sets the page-table store up and loads the table rows.
- */
 onMounted(async () => {
   try {
     const cols = TableHelper.getColumns(props.table)
@@ -40,9 +37,6 @@ onMounted(async () => {
   }
 })
 
-/**
- * Loads the latest data into the data table rows.
- */
 async function updateRows(): Promise<void> {
   dataTableStore.rows = await DB.getAll(props.table)
 }
