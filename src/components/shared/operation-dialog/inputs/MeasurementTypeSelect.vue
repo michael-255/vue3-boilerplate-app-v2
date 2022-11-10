@@ -4,26 +4,32 @@ import { QSelect } from 'quasar'
 import { MeasurementType } from '@/constants/core/data-enums'
 import { Field } from '@/constants/core/data-enums'
 import { isDefined } from '@/utils/validators'
-import useDataItemStore from '@/stores/data-item'
+import { useLogger } from '@/use/useLogger'
+import useOperationDialogStore from '@/stores/operation-dialog'
 
-const dataItemStore = useDataItemStore()
+const { log } = useLogger()
+const operationDialogStore = useOperationDialogStore()
 const inputRef: Ref<any> = ref(null)
 const options: Ref<any[]> = ref([])
 
 onMounted(async () => {
-  options.value = Object.values(MeasurementType)
-  dataItemStore.temporary[Field.MEASUREMENT_TYPE] = options.value[0]
-  dataItemStore.validate[Field.MEASUREMENT_TYPE] = true
+  try {
+    options.value = Object.values(MeasurementType)
+    operationDialogStore.item.temporary[Field.MEASUREMENT_TYPE] = options.value[0]
+    operationDialogStore.item.validate[Field.MEASUREMENT_TYPE] = true
+  } catch (error) {
+    log.error('MeasurementTypeSelect:onMounted', error)
+  }
 })
 
 function validateInput(): void {
-  dataItemStore.validate[Field.MEASUREMENT_TYPE] = !!inputRef?.value?.validate()
+  operationDialogStore.item.validate[Field.MEASUREMENT_TYPE] = !!inputRef?.value?.validate()
 }
 </script>
 
 <template>
   <QSelect
-    v-model="dataItemStore.temporary[Field.MEASUREMENT_TYPE]"
+    v-model="operationDialogStore.item.temporary[Field.MEASUREMENT_TYPE]"
     ref="inputRef"
     label="Type"
     :options="options"

@@ -6,6 +6,7 @@ import { useLogger } from '@/use/useLogger'
 import { DB } from '@/services/LocalDatabase'
 import useSettingsStore from '@/stores/settings'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import OperationDialog from '@/components/shared/OperationDialog.vue'
 
 const $q = useQuasar()
 const { log } = useLogger()
@@ -15,13 +16,15 @@ const layout: Ref<any> = ref(null)
 
 onMounted(async () => {
   // Should initialize app settings here.
+  /**
+   * @todo - Should $reset() all the stores here?
+   */
   const initialSettings = await DB.initDatabaseSettings()
   settingsStore.setDarkMode(initialSettings.darkModeValue)
   settingsStore.setShowConsoleLogs(initialSettings.showConsoleLogsValue)
   settingsStore.setShowDebugMessages(initialSettings.showDebugMessagesValue)
   settingsStore.setSaveInfoMessages(initialSettings.saveInfoMessagesValue)
   $q.dark.set(initialSettings.darkModeValue)
-  // @todo - Should $reset() all the stores here?
 })
 
 /**
@@ -50,4 +53,6 @@ watch(
   <component :is="layout">
     <RouterView />
   </component>
+
+  <OperationDialog />
 </template>

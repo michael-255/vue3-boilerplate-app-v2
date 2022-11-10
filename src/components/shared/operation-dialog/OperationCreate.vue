@@ -1,31 +1,28 @@
 <script setup lang="ts">
-import type { AppTable } from '@/constants/core/data-enums'
 import { Icon } from '@/constants/ui/icon-enums'
 import { NotifyColor } from '@/constants/ui/color-enums'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import { useLogger } from '@/use/useLogger'
 import { TableHelper } from '@/services/TableHelper'
 import { DB } from '@/services/LocalDatabase'
-import useDataItemStore from '@/stores/data-item'
-
-// Props & Emits
-const props = defineProps<{ table: AppTable }>()
-const emits = defineEmits<{ (eventName: 'on-create-confirmed'): void }>()
+import { useOperationDialog } from '@/use/useOperationDialog'
+import useOperationDialogStore from '@/stores/operation-dialog'
 
 const { log } = useLogger()
 const { confirmDialog, dismissDialog } = useSimpleDialogs()
-const dataItemStore = useDataItemStore()
+const { onCloseOperationDialog } = useOperationDialog()
+const operationDialogStore = useOperationDialogStore()
 
 function onCreate() {
   try {
-    const fields = TableHelper.getFields(props.table)
-    if (!dataItemStore.areItemFieldsValid(fields)) {
+    const fields = TableHelper.getFields(operationDialogStore.dialog.table)
+    if (!operationDialogStore.areItemFieldsValid(fields)) {
       validationFailedDialog()
     } else {
       confirmCreateDialog()
     }
   } catch (error) {
-    log.error('ItemCreate:onCreate', error)
+    log.error('OperationCreate:onCreate', error)
   }
 }
 
@@ -41,15 +38,17 @@ function validationFailedDialog(): void {
 function confirmCreateDialog(): void {
   confirmDialog(
     'Create',
-    `Are you sure you want to create this ${TableHelper.getLabelSingular(props.table)}?`,
+    `Are you sure you want to create this ${TableHelper.getLabelSingular(
+      operationDialogStore.dialog.table
+    )}?`,
     Icon.SAVE,
     NotifyColor.INFO,
     async () => {
       try {
-        await DB.callCreate(props.table, dataItemStore.temporary)
-        emits('on-create-confirmed')
+        await DB.callCreate(operationDialogStore.dialog.table, operationDialogStore.item.temporary)
+        onCloseOperationDialog()
       } catch (error) {
-        log.error('ItemCreate:confirmCreateDialog', error)
+        log.error('OperationCreate:confirmCreateDialog', error)
       }
     }
   )
@@ -57,8 +56,8 @@ function confirmCreateDialog(): void {
 </script>
 
 <template>
-  <div v-for="(comp, i) in TableHelper.getComponents(table)" :key="i">
-    <component :is="comp" :table="table" />
+  <div v-for="(comp, i) in TableHelper.getComponents(operationDialogStore.dialog.table)" :key="i">
+    <component :is="comp" />
   </div>
 
   <QBtn color="positive" :icon="Icon.SAVE" label="Create" @click="onCreate()" />

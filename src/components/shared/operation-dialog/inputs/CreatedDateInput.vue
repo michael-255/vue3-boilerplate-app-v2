@@ -4,25 +4,30 @@ import { QInput, QDate, QBtn, QTime, QPopupProxy } from 'quasar'
 import { isoToDisplayDate } from '@/utils/common'
 import { Icon } from '@/constants/ui/icon-enums'
 import { isDate } from '@/utils/validators'
-import useDataItemStore from '@/stores/data-item'
+import { useLogger } from '@/use/useLogger'
+import useOperationDialogStore from '@/stores/operation-dialog'
 
-const dataItemStore = useDataItemStore()
+const { log } = useLogger()
+const operationDialogStore = useOperationDialogStore()
 const inputRef: Ref<any> = ref(null)
 const displayedDate: Ref<string> = ref('')
 const dateTimePicker: Ref<string> = ref('')
 
-// Setup
-if (dataItemStore.selected?.createdDate) {
-  updateDates(dataItemStore.selected.createdDate)
-} else {
-  updateDates()
+try {
+  if (operationDialogStore.item.selected?.createdDate) {
+    updateDates(operationDialogStore.item.selected.createdDate)
+  } else {
+    updateDates()
+  }
+  operationDialogStore.item.validate.createdDate = true
+} catch (error) {
+  log.error('CreatedDateInput:Setup', error)
 }
-dataItemStore.validate.createdDate = true
 
 function updateDates(date: string = new Date().toISOString()): void {
-  dataItemStore.temporary.createdDate = new Date(date).toISOString()
+  operationDialogStore.item.temporary.createdDate = new Date(date).toISOString()
   displayedDate.value = isoToDisplayDate(date) || ''
-  dataItemStore.validate.createdDate = true
+  operationDialogStore.item.validate.createdDate = true
 }
 
 /**
@@ -35,7 +40,7 @@ function onPickerDateTime(): void {
 }
 
 function validateInput(): void {
-  dataItemStore.validate.createdDate = !!inputRef?.value?.validate()
+  operationDialogStore.item.validate.createdDate = !!inputRef?.value?.validate()
 }
 </script>
 

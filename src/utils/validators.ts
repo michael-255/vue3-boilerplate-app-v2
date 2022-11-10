@@ -19,6 +19,9 @@ export function isUndefined(value: any): boolean {
 export function isDefined(value: any): boolean {
   return !isUndefined(value)
 }
+export function isPositiveNumber(num: number): boolean {
+  return typeof num === 'number' && isFinite(num) && num > 0 && num < 999999999999999 // 15 digits
+}
 
 export function isNonNegitiveNumber(num: number): boolean {
   return typeof num === 'number' && isFinite(num) && num >= 0 && num < 1000000000 // 9 zeros

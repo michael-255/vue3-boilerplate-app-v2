@@ -4,31 +4,30 @@ import { Icon } from '@/constants/ui/icon-enums'
 import { NotifyColor } from '@/constants/ui/color-enums'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import { ref, type Ref } from 'vue'
-import { isNonNegitiveNumber } from '@/utils/validators'
+import { isPositiveNumber } from '@/utils/validators'
 import { DB } from '@/services/LocalDatabase'
 import { AppTable } from '@/constants/core/data-enums'
 import { uuid } from '@/utils/common'
 import { useLogger } from '@/use/useLogger'
-import useDataItemStore from '@/stores/data-item'
+import { useOperationDialog } from '@/use/useOperationDialog'
 import useTakeMeasurementsStore from '@/stores/take-measurements'
+import useOperationDialogStore from '@/stores/operation-dialog'
 
 const props = defineProps<{
   parentId: string
   measurementType: string
+  name: string
 }>()
 
 const { log } = useLogger()
 const { confirmDialog } = useSimpleDialogs()
+const { onCloseOperationDialog } = useOperationDialog()
 const takeMeasurementsStore = useTakeMeasurementsStore()
-const dataItemStore = useDataItemStore()
+const operationDialogStore = useOperationDialogStore()
 const inputRef: Ref<any> = ref(null)
 const inputNumber: Ref<number | null> = ref(null)
 
 async function onSave(): Promise<void> {
-  confirmSaveDialog()
-}
-
-function confirmSaveDialog(): void {
   confirmDialog(
     'Save',
     `Are you sure you want to save this measurement?`,
@@ -36,28 +35,26 @@ function confirmSaveDialog(): void {
     NotifyColor.INFO,
     async () => {
       try {
-        // Temporary Measurement Record
-        dataItemStore.temporary.id = uuid()
-        dataItemStore.temporary.createdDate = new Date().toISOString()
-        dataItemStore.temporary.parentId = props.parentId
-        dataItemStore.temporary.measurementValue = Number(inputNumber.value)
+        operationDialogStore.item.temporary.id = uuid()
+        operationDialogStore.item.temporary.createdDate = new Date().toISOString()
+        operationDialogStore.item.temporary.parentId = props.parentId
+        operationDialogStore.item.temporary.measurementValue = Number(inputNumber.value)
 
         await DB.callCreate(AppTable.MEASUREMENT_RECORDS, {
-          id: dataItemStore.temporary.id,
-          createdDate: dataItemStore.temporary.createdDate,
-          parentId: dataItemStore.temporary.parentId,
-          measurementValue: dataItemStore.temporary.measurementValue,
+          id: operationDialogStore.item.temporary.id,
+          createdDate: operationDialogStore.item.temporary.createdDate,
+          parentId: operationDialogStore.item.temporary.parentId,
+          measurementValue: operationDialogStore.item.temporary.measurementValue,
+        })
+
+        log.info(`Saved ${props.name} (${Number(inputNumber.value)} ${props.measurementType})`, {
+          name: 'SaveMeasurement:Info',
         })
 
         takeMeasurementsStore.measurementCards = await DB.getMeasurementCards() // Reload cards
-        log.info(`Saved measurement (${Number(inputNumber.value)} ${props.measurementType})`, {
-          name: 'SaveMeasurement:Info',
-        })
-        // Clear old data from input and temporary store
-        inputNumber.value = null
-        dataItemStore.$reset()
+        onCloseOperationDialog()
       } catch (error) {
-        log.error('SaveMeasurement:confirmSaveDialog', error)
+        log.error('SaveMeasurementInput:onSave', error)
       }
     }
   )
@@ -73,7 +70,7 @@ function validateInput(): boolean {
     type="number"
     ref="inputRef"
     class="q-mt-md"
-    :rules="[(val: number) => isNonNegitiveNumber(Number(val)) || 'Non-negative number required']"
+    :rules="[(val: number) => isPositiveNumber(Number(val)) || 'Positive number required']"
     v-model="inputNumber"
     dense
     outlined

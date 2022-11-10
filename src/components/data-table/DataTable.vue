@@ -2,26 +2,23 @@
 import { QSelect, QInput, QIcon } from 'quasar'
 import { Icon } from '@/constants/ui/icon-enums'
 import { NotifyColor } from '@/constants/ui/color-enums'
-import { type AppTable, Operation, Field } from '@/constants/core/data-enums'
+import { type AppTable, Operation } from '@/constants/core/data-enums'
 import { type Ref, ref, onMounted } from 'vue'
 import type { DataTableProps } from '@/constants/types-interfaces'
 import { DB } from '@/services/LocalDatabase'
 import { useLogger } from '@/use/useLogger'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import { TableHelper } from '@/services/TableHelper'
+import { useOperationDialog } from '@/use/useOperationDialog'
 import useDataTableStore from '@/stores/data-table'
-import useDataItemStore from '@/stores/data-item'
-import useOperationDialogStore from '@/stores/operation-dialog'
-import OperationDialog from '@/components/shared/OperationDialog.vue'
 
 // Props & Emits
 const props = defineProps<{ table: AppTable }>()
 
 const { log } = useLogger()
 const { confirmDialog } = useSimpleDialogs()
+const { onOpenOperationDialog } = useOperationDialog()
 const dataTableStore = useDataTableStore()
-const dataItemStore = useDataItemStore()
-const operationDialogStore = useOperationDialogStore()
 const searchFilter: Ref<string> = ref('')
 
 onMounted(async () => {
@@ -30,7 +27,6 @@ onMounted(async () => {
     dataTableStore.columns = cols
     dataTableStore.columnOptions = cols.filter((col: DataTableProps) => !col.required)
     dataTableStore.visibleColumns = TableHelper.getVisibleColumns(props.table)
-    dataTableStore.itemLabel = TableHelper.getLabelSingular(props.table)
     await updateRows()
   } catch (error) {
     log.error('DataTable:onMounted', error)
@@ -39,17 +35,6 @@ onMounted(async () => {
 
 async function updateRows(): Promise<void> {
   dataTableStore.rows = await DB.getAll(props.table)
-}
-
-async function onOpenOperationDialog(operation: Operation, id?: string): Promise<void> {
-  try {
-    if (id) {
-      dataItemStore.setSelectedItem(await DB.getFirstByField(props.table, Field.ID, id))
-    }
-    operationDialogStore.openDialog(props.table, operation)
-  } catch (error) {
-    log.error(`onOpenOperationDialog:${operation}`, error)
-  }
 }
 
 async function onOpenClearDialog(): Promise<void> {
@@ -124,7 +109,7 @@ async function onOpenDeleteDialog(id: string): Promise<void> {
           color="positive"
           label="Create"
           class="q-mr-sm q-mb-sm"
-          @click="onOpenOperationDialog(Operation.CREATE)"
+          @click="onOpenOperationDialog(table, Operation.CREATE)"
         />
         <!-- Clear Btn -->
         <QBtn
@@ -178,7 +163,7 @@ async function onOpenDeleteDialog(id: string): Promise<void> {
             dense
             class="q-ml-xs"
             color="accent"
-            @click="onOpenOperationDialog(Operation.REPORT, props.cols[0].value)"
+            @click="onOpenOperationDialog(table, Operation.REPORT, props.cols[0].value)"
             :icon="Icon.REPORT"
           />
           <!-- Details Btn -->
@@ -189,7 +174,7 @@ async function onOpenDeleteDialog(id: string): Promise<void> {
             dense
             class="q-ml-xs"
             color="primary"
-            @click="onOpenOperationDialog(Operation.INSPECT, props.cols[0].value)"
+            @click="onOpenOperationDialog(table, Operation.INSPECT, props.cols[0].value)"
             :icon="Icon.DETAILS"
           />
           <!-- Edit Btn -->
@@ -200,7 +185,7 @@ async function onOpenDeleteDialog(id: string): Promise<void> {
             dense
             class="q-ml-xs"
             color="orange-9"
-            @click="onOpenOperationDialog(Operation.UPDATE, props.cols[0].value)"
+            @click="onOpenOperationDialog(table, Operation.UPDATE, props.cols[0].value)"
             :icon="Icon.EDIT"
           />
           <!-- Delete Btn -->
@@ -218,6 +203,4 @@ async function onOpenDeleteDialog(id: string): Promise<void> {
       </QTr>
     </template>
   </QTable>
-
-  <OperationDialog @on-close-dialog="updateRows()" />
 </template>

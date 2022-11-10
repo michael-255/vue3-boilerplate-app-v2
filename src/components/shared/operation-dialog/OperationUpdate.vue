@@ -1,25 +1,22 @@
 <script setup lang="ts">
-import type { AppTable } from '@/constants/core/data-enums'
 import { Icon } from '@/constants/ui/icon-enums'
 import { NotifyColor } from '@/constants/ui/color-enums'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
-import { useLogger } from '@/use/useLogger'
 import { TableHelper } from '@/services/TableHelper'
 import { DB } from '@/services/LocalDatabase'
-import useDataItemStore from '@/stores/data-item'
-
-// Props & Emits
-const props = defineProps<{ table: AppTable }>()
-const emits = defineEmits<{ (eventName: 'on-update-confirmed'): void }>()
+import { useLogger } from '@/use/useLogger'
+import { useOperationDialog } from '@/use/useOperationDialog'
+import useOperationDialogStore from '@/stores/operation-dialog'
 
 const { log } = useLogger()
 const { confirmDialog, dismissDialog } = useSimpleDialogs()
-const dataItemStore = useDataItemStore()
+const { onCloseOperationDialog } = useOperationDialog()
+const operationDialogStore = useOperationDialogStore()
 
 function onUpdate() {
   try {
-    const fields = TableHelper.getFields(props.table)
-    if (!dataItemStore.areItemFieldsValid(fields)) {
+    const fields = TableHelper.getFields(operationDialogStore.dialog.table)
+    if (!operationDialogStore.areItemFieldsValid(fields)) {
       validationFailedDialog()
     } else {
       confirmUpdateDialog()
@@ -41,17 +38,19 @@ function validationFailedDialog(): void {
 async function confirmUpdateDialog(): Promise<void> {
   confirmDialog(
     'Update',
-    `Are you sure you want to update this ${TableHelper.getLabelSingular(props.table)}?`,
+    `Are you sure you want to update this ${TableHelper.getLabelSingular(
+      operationDialogStore.dialog.table
+    )}?`,
     Icon.SAVE,
     NotifyColor.INFO,
     async () => {
       try {
         await DB.callUpdate(
-          props.table,
-          dataItemStore.selected.id,
-          JSON.parse(JSON.stringify(dataItemStore.temporary))
+          operationDialogStore.dialog.table,
+          operationDialogStore.item.selected.id,
+          JSON.parse(JSON.stringify(operationDialogStore.item.temporary))
         )
-        emits('on-update-confirmed')
+        onCloseOperationDialog()
       } catch (error) {
         log.error('ItemUpdate:confirmUpdateDialog', error)
       }
@@ -61,8 +60,8 @@ async function confirmUpdateDialog(): Promise<void> {
 </script>
 
 <template>
-  <div v-for="(comp, i) in TableHelper.getComponents(table)" :key="i">
-    <component :is="comp" :table="table" />
+  <div v-for="(comp, i) in TableHelper.getComponents(operationDialogStore.dialog.table)" :key="i">
+    <component :is="comp" />
   </div>
 
   <QBtn color="positive" :icon="Icon.SAVE" label="Update" @click="onUpdate()" />

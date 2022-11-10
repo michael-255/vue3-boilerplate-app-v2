@@ -1,30 +1,27 @@
 <script setup lang="ts">
 import type { DatabaseObject, DataTableProps } from '@/constants/types-interfaces'
 import { type Ref, ref, onMounted } from 'vue'
-import { Field, type AppTable } from '@/constants/core/data-enums'
-import { useLogger } from '@/use/useLogger'
+import { Field } from '@/constants/core/data-enums'
 import { TableHelper } from '@/services/TableHelper'
-import useDataItemStore from '@/stores/data-item'
 import { isoToDisplayDate } from '@/utils/common'
-
-// Props & Emits
-const props = defineProps<{ table: AppTable }>()
+import { useLogger } from '@/use/useLogger'
+import useOperationDialogStore from '@/stores/operation-dialog'
 
 const { log } = useLogger()
-const dataItemStore = useDataItemStore()
+const operationDialogStore = useOperationDialogStore()
 const inspectionValues: Ref<DatabaseObject[]> = ref([])
 
 onMounted(async () => {
   try {
-    const currentTableFields = TableHelper.getFields(props.table)
-    const currentTableColumnProps = TableHelper.getColumns(props.table)
+    const currentTableFields = TableHelper.getFields(operationDialogStore.dialog.table)
+    const currentTableColumnProps = TableHelper.getColumns(operationDialogStore.dialog.table)
 
     currentTableFields.forEach((field: Field) => {
       const label =
         currentTableColumnProps.find((props: DataTableProps) => props.name === field)?.label ||
         'ERROR'
 
-      let value = dataItemStore.selected[field] || '-'
+      let value = operationDialogStore.item.selected[field] || '-'
 
       // Add readable date after iso date
       if (field === Field.CREATED_DATE && value !== '-') {
@@ -34,7 +31,7 @@ onMounted(async () => {
       inspectionValues.value.push({ label, value })
     })
   } catch (error) {
-    log.error('ItemInspect:Setup', error)
+    log.error('OperationInspect:onMounted', error)
   }
 })
 </script>

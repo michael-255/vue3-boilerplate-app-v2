@@ -2,14 +2,6 @@
 
 ## Todos
 
-- [ ] Find a better way to do the `OperationDialog` (make it a global component)
-
-  - [ ] Need an `operation.ts` store and `useOperation.ts` composable to pair with `OperationDialog`
-  - [ ] Move `OperationDialog` to the `App.vue` component (only one instance)
-  - [ ] The composable should be able to perform all interactions with the dialog (pass in function)
-
----
-
 - [ ] `Commenting` Clean up and comment the app (reasons why you did certain things that way)
 - [ ] `Tests` Rebuild tests for all files
 - [ ] Go through post cloning task list (double check)

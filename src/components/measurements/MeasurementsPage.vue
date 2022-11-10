@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QPage } from 'quasar'
-import MeasurementsList from './MeasurementsList.vue'
+import MeasurementsList from '@/components/measurements/MeasurementsList.vue'
 </script>
 
 <template>
