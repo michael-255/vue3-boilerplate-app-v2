@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { QPage } from 'quasar'
-import MeasurementsList from '@/components/measurements/MeasurementsList.vue'
+import TakeMeasurementsList from '@/components/take-measurements/TakeMeasurementsList.vue'
 </script>
 
 <template>
   <QPage padding>
     <div class="row q-col-gutter-md justify-start">
-      <MeasurementsList />
+      <TakeMeasurementsList />
     </div>
   </QPage>
 </template>

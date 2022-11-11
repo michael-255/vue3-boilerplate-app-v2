@@ -3,7 +3,7 @@ import { onMounted } from 'vue'
 import { DB } from '@/services/LocalDatabase'
 import { useLogger } from '@/use/useLogger'
 import useTakeMeasurementsStore from '@/stores/take-measurements'
-import MeasurementCard from '@/components/measurements/MeasurementCard.vue'
+import TakeMeasurementCard from '@/components/take-measurements/TakeMeasurementCard.vue'
 
 const { log } = useLogger()
 const takeMeasurementsStore = useTakeMeasurementsStore()
@@ -23,6 +23,6 @@ onMounted(async () => {
     :key="measurementCard.id"
     class="col-md-4 col-sm-6 col-xs-12"
   >
-    <MeasurementCard :measurementCard="measurementCard" />
+    <TakeMeasurementCard :measurementCard="measurementCard" />
   </div>
 </template>
