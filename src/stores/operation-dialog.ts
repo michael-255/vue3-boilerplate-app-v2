@@ -1,10 +1,9 @@
 import { defineStore, type StoreDefinition } from 'pinia'
-import type { DatabaseObject } from '@/constants/types-interfaces'
+import type { DatabaseObject, ReportChart, ChartDataset } from '@/constants/types-interfaces'
 import type { LocalDatabase } from '@/services/LocalDatabase'
 import { AppTable, Field, Operation } from '@/constants/core/data-enums'
 import { TableHelper } from '@/services/TableHelper'
 import useDataTableStore from './data-table'
-import useReportStore from './report'
 
 const useOperationDialogStore: StoreDefinition = defineStore({
   id: 'operation-dialog',
@@ -17,7 +16,7 @@ const useOperationDialogStore: StoreDefinition = defineStore({
     selectedItem: Object.values(Field).reduce((o, field) => ({ ...o, [field]: null }), {}),
     temporaryItem: Object.values(Field).reduce((o, field) => ({ ...o, [field]: null }), {}),
     validateItem: Object.values(Field).reduce((o, field) => ({ ...o, [field]: null }), {}),
-    reportCharts: [], // @todo
+    reportCharts: [] as ReportChart[],
   }),
 
   actions: {
@@ -33,15 +32,43 @@ const useOperationDialogStore: StoreDefinition = defineStore({
 
     async closeDialog(database: LocalDatabase): Promise<void> {
       const dataTableStore = useDataTableStore()
-      const reportStore = useReportStore()
 
       if (dataTableStore.selectedTab !== '') {
         // DataTable tab is in use, so update the table rows
         dataTableStore.rows = await database.getAll(this.table as AppTable)
       }
 
-      reportStore.$reset()
       this.$reset() // Also closes the dialog
+    },
+
+    addReportChart(
+      title: string = '',
+      firstRecordDate: string = '-',
+      lastRecordDate: string = '-',
+      chartLabels: string[] = [],
+      chartDatasets: ChartDataset[] = []
+    ): void {
+      this.reportCharts.push({
+        options: {
+          responsive: true,
+          radius: 3,
+          plugins: {
+            title: {
+              display: true,
+              text: title,
+            },
+            legend: {
+              display: true,
+            },
+          },
+        },
+        chartData: {
+          labels: chartLabels,
+          datasets: chartDatasets,
+        },
+        firstRecordDate,
+        lastRecordDate,
+      })
     },
   },
 

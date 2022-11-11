@@ -24,30 +24,8 @@ export type DataTableProps = {
   format: (val: any) => any
 }
 
-/**
- * The actions you can perform on a table row.
- */
-export type TableActions = {
-  getRows?: () => Promise<any[]>
-  createRow?: (x: DatabaseObject) => any
-  updateRow?: (x: DatabaseObject) => any
-  generateReport?: (id: string) => any
-}
-
-export type ReportChartData = {
-  labels: any[]
-  datasets: ReportDataset[]
-}
-
-export type ReportDataset = {
-  label: string
-  borderColor: string
-  data: any[]
-}
-
 export type RouteMeta = {
   layout: string
-  table?: AppTable
   tabs?: RouteTab[]
 }
 
@@ -55,4 +33,28 @@ export type RouteTab = {
   name: string
   icon: Icon
   table: AppTable
+}
+
+export type ReportChart = {
+  options: ChartOptions
+  firstRecordDate: string
+  lastRecordDate: string
+  chartData: ChartData
+}
+
+export type ChartOptions = {
+  responsive: boolean
+  radius: number
+  plugins: { [x: string]: any }
+}
+
+export type ChartData = {
+  labels: string[]
+  datasets: ChartDataset[]
+}
+
+export type ChartDataset = {
+  label: string
+  borderColor: string
+  data: number[]
 }

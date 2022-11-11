@@ -2,13 +2,8 @@
 
 ## Todos
 
-- [ ] Upgrading the reports (graphs & charts) dialog!
-
-  - [ ] Have root level `reportCharts` array in `operation-dialog` store
-  - [ ] Each `reportChart` contains the record dates, options, and chart data
-  - [ ] Create `types` for charts in `types-interfaces.ts`
-  - [ ] Update report components to load each chart from the array
-  - [ ] Change take measurement components to report an `all-time` chart and `previous-year` chart
+- [ ] Change take measurement component names to "Take Measurement"
+- [ ] Change take measurement components to report an `all-time` chart and `previous-year` chart
 
 - [ ] `Commenting` Clean up and comment the app (reasons why you did certain things that way)
 - [ ] `Tests` Rebuild tests for all files

@@ -1,15 +1,14 @@
 <script setup lang="ts">
+import { QBanner } from 'quasar'
 import { onMounted } from 'vue'
 import { LineChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
 import { DB } from '@/services/LocalDatabase'
 import { useLogger } from '@/use/useLogger'
 import useOperationDialogStore from '@/stores/operation-dialog'
-import useReportStore from '@/stores/report'
 
 const { log } = useLogger()
 const operationDialogStore = useOperationDialogStore()
-const reportStore = useReportStore()
 Chart.register(...registerables)
 
 onMounted(async () => {
@@ -19,16 +18,13 @@ onMounted(async () => {
       operationDialogStore.selectedItem.id
     )
 
-    reportStore.options.plugins.title = {
-      text: generatedReport?.title,
-      display: true,
-    }
-    reportStore.chartData = {
-      labels: generatedReport?.labels,
-      datasets: generatedReport?.datasets,
-    }
-    reportStore.firstDate = generatedReport?.firstDate
-    reportStore.lastDate = generatedReport?.lastDate
+    operationDialogStore.addReportChart(
+      generatedReport?.title,
+      generatedReport?.firstRecordDate,
+      generatedReport?.lastRecordDate,
+      generatedReport?.chartLabels,
+      generatedReport?.chartDatasets
+    )
   } catch (error) {
     log.error('OperationReport:onMounted', error)
   }
@@ -36,15 +32,21 @@ onMounted(async () => {
 </script>
 
 <template>
-  <LineChart :options="reportStore.options" :chartData="reportStore.chartData" />
-  <!-- Dates below report -->
-  <div class="q-mb-sm">
-    <div class="text-subtitle1 text-weight-bold">First Record Date</div>
-    <div>{{ reportStore.firstDate || '-' }}</div>
-  </div>
+  <div v-for="(chart, i) in operationDialogStore.reportCharts" :key="i">
+    <LineChart :options="chart.options" :chartData="chart.chartData" />
+    <!-- Dates below reports -->
+    <QBanner class="bg-primary">
+      <div class="row justify-start">
+        <div class="col-sm-6 col-xs-12">
+          <div class="text-weight-bold text-white">First Record Date</div>
+          <div class="text-caption text-white q-mb-sm">{{ chart.firstRecordDate }}</div>
+        </div>
 
-  <div class="q-mb-sm">
-    <div class="text-subtitle1 text-weight-bold">Last Record Date</div>
-    <div>{{ reportStore.lastDate || '-' }}</div>
+        <div class="col-sm-6 col-xs-12">
+          <div class="text-weight-bold text-white">Last Record Date</div>
+          <div class="text-caption text-white">{{ chart.lastRecordDate }}</div>
+        </div>
+      </div>
+    </QBanner>
   </div>
 </template>

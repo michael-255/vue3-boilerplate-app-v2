@@ -56,10 +56,10 @@ export class Measurement extends Activity {
 
     return {
       title: parent?.name,
-      labels: records.map(() => ''),
-      datasets: datasets,
-      firstDate: isoToDisplayDate(records[0]?.createdDate) || '-',
-      lastDate: isoToDisplayDate(records[records.length - 1]?.createdDate) || '-',
+      firstRecordDate: isoToDisplayDate(records[0]?.createdDate),
+      lastRecordDate: isoToDisplayDate(records[records.length - 1]?.createdDate),
+      chartLabels: records.map(() => ''),
+      chartDatasets: datasets,
     }
   }
 
