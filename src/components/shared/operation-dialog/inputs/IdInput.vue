@@ -12,27 +12,27 @@ const operationDialogStore = useOperationDialogStore()
 const inputRef: Ref<any> = ref(null)
 
 try {
-  operationDialogStore.item.temporary.id = operationDialogStore.item.selected?.id
-    ? operationDialogStore.item.selected.id
+  operationDialogStore.temporaryItem.id = operationDialogStore.selected?.id
+    ? operationDialogStore.selectedItem.id
     : uuid()
-  operationDialogStore.item.validate.id = true
+  operationDialogStore.validateItem.id = true
 } catch (error) {
   log.error('IdInput:Setup', error)
 }
 
 function generateId(): void {
-  operationDialogStore.item.temporary.id = uuid()
-  operationDialogStore.item.validate.id = true
+  operationDialogStore.temporaryItem.id = uuid()
+  operationDialogStore.validateItem.id = true
 }
 
 function validateInput(): void {
-  operationDialogStore.item.validate.id = !!inputRef?.value?.validate()
+  operationDialogStore.validateItem.id = !!inputRef?.value?.validate()
 }
 </script>
 
 <template>
   <QInput
-    v-model="operationDialogStore.item.temporary.id"
+    v-model="operationDialogStore.temporaryItem.id"
     ref="inputRef"
     label="Id"
     :rules="[(val: string) => isId(val) || 'Id must be between 1 and 40 characters']"

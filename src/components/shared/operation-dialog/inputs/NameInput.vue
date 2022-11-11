@@ -10,22 +10,22 @@ const operationDialogStore = useOperationDialogStore()
 const inputRef: Ref<any> = ref(null)
 
 try {
-  operationDialogStore.item.temporary.name = operationDialogStore.item.selected?.name
-    ? operationDialogStore.item.selected.name
+  operationDialogStore.temporaryItem.name = operationDialogStore.selected?.name
+    ? operationDialogStore.selectedItem.name
     : 'Example Name'
-  operationDialogStore.item.validate.name = true
+  operationDialogStore.validateItem.name = true
 } catch (error) {
   log.error('NameInput:Setup', error)
 }
 
 function validateInput(): void {
-  operationDialogStore.item.validate.name = !!inputRef?.value?.validate()
+  operationDialogStore.validateItem.name = !!inputRef?.value?.validate()
 }
 </script>
 
 <template>
   <QInput
-    v-model="operationDialogStore.item.temporary.name"
+    v-model="operationDialogStore.temporaryItem.name"
     ref="inputRef"
     label="Name"
     :rules="[(val: string) => isShortText(val) || 'Name must be between 1 and 40 characters']"

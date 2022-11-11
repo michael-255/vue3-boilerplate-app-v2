@@ -18,7 +18,7 @@ const options: Ref<any[]> = ref([])
  */
 onMounted(async () => {
   try {
-    const parentTable = TableHelper.getParentTable(operationDialogStore.dialog.table)
+    const parentTable = TableHelper.getParentTable(operationDialogStore.table)
 
     // Parent table must exist to continue
     if (parentTable) {
@@ -37,24 +37,24 @@ onMounted(async () => {
 
       // Set the current option
       // must do this first so it can be null if parent was deleted versus being the first option
-      if (operationDialogStore.item.selected?.parentId) {
+      if (operationDialogStore.selected?.parentId) {
         const parent = options.value?.find(
-          (opt) => opt.value === operationDialogStore.item.selected.parentId
+          (opt) => opt.value === operationDialogStore.selectedItem.parentId
         )?.value
 
         if (parent) {
-          operationDialogStore.item.temporary.parentId = parent
-          operationDialogStore.item.validate.parentId = true
+          operationDialogStore.temporaryItem.parentId = parent
+          operationDialogStore.validateItem.parentId = true
         } else {
-          operationDialogStore.item.temporary.parentId = null
-          operationDialogStore.item.validate.parentId = false
+          operationDialogStore.temporaryItem.parentId = null
+          operationDialogStore.validateItem.parentId = false
         }
       } else if (options.value?.length > 0) {
-        operationDialogStore.item.temporary.parentId = options.value[0].value
-        operationDialogStore.item.validate.parentId = true
+        operationDialogStore.temporaryItem.parentId = options.value[0].value
+        operationDialogStore.validateItem.parentId = true
       } else {
-        operationDialogStore.item.temporary.parentId = null
-        operationDialogStore.item.validate.parentId = false
+        operationDialogStore.temporaryItem.parentId = null
+        operationDialogStore.validateItem.parentId = false
       }
     } else {
       log.error('No parent table to make selection', { name: 'ParentIdSelect:onMounted' })
@@ -65,13 +65,13 @@ onMounted(async () => {
 })
 
 function validateInput(): void {
-  operationDialogStore.item.validate.parentId = !!inputRef?.value?.validate()
+  operationDialogStore.validateItem.parentId = !!inputRef?.value?.validate()
 }
 </script>
 
 <template>
   <QSelect
-    v-model="operationDialogStore.item.temporary.parentId"
+    v-model="operationDialogStore.temporaryItem.parentId"
     ref="inputRef"
     label="Parent"
     :options="options"

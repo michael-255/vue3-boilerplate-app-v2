@@ -9,7 +9,6 @@ import { DB } from '@/services/LocalDatabase'
 import { AppTable } from '@/constants/core/data-enums'
 import { uuid } from '@/utils/common'
 import { useLogger } from '@/use/useLogger'
-import { useOperationDialog } from '@/use/useOperationDialog'
 import useTakeMeasurementsStore from '@/stores/take-measurements'
 import useOperationDialogStore from '@/stores/operation-dialog'
 
@@ -21,7 +20,6 @@ const props = defineProps<{
 
 const { log } = useLogger()
 const { confirmDialog } = useSimpleDialogs()
-const { onCloseOperationDialog } = useOperationDialog()
 const takeMeasurementsStore = useTakeMeasurementsStore()
 const operationDialogStore = useOperationDialogStore()
 const inputRef: Ref<any> = ref(null)
@@ -35,16 +33,16 @@ async function onSave(): Promise<void> {
     NotifyColor.INFO,
     async () => {
       try {
-        operationDialogStore.item.temporary.id = uuid()
-        operationDialogStore.item.temporary.createdDate = new Date().toISOString()
-        operationDialogStore.item.temporary.parentId = props.parentId
-        operationDialogStore.item.temporary.measurementValue = Number(inputNumber.value)
+        operationDialogStore.temporaryItem.id = uuid()
+        operationDialogStore.temporaryItem.createdDate = new Date().toISOString()
+        operationDialogStore.temporaryItem.parentId = props.parentId
+        operationDialogStore.temporaryItem.measurementValue = Number(inputNumber.value)
 
         await DB.callCreate(AppTable.MEASUREMENT_RECORDS, {
-          id: operationDialogStore.item.temporary.id,
-          createdDate: operationDialogStore.item.temporary.createdDate,
-          parentId: operationDialogStore.item.temporary.parentId,
-          measurementValue: operationDialogStore.item.temporary.measurementValue,
+          id: operationDialogStore.temporaryItem.id,
+          createdDate: operationDialogStore.temporaryItem.createdDate,
+          parentId: operationDialogStore.temporaryItem.parentId,
+          measurementValue: operationDialogStore.temporaryItem.measurementValue,
         })
 
         log.info(`Saved ${props.name} (${Number(inputNumber.value)} ${props.measurementType})`, {
@@ -52,7 +50,7 @@ async function onSave(): Promise<void> {
         })
 
         takeMeasurementsStore.measurementCards = await DB.getMeasurementCards() // Reload cards
-        onCloseOperationDialog()
+        operationDialogStore.closeDialog(DB)
       } catch (error) {
         log.error('SaveMeasurementInput:onSave', error)
       }

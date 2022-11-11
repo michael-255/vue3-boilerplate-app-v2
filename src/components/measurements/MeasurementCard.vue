@@ -8,7 +8,6 @@ import { onUpdated, ref } from 'vue'
 import { AppTable, Field, Operation } from '@/constants/core/data-enums'
 import { useLogger } from '@/use/useLogger'
 import { DB } from '@/services/LocalDatabase'
-import { useOperationDialog } from '@/use/useOperationDialog'
 import useOperationDialogStore from '@/stores/operation-dialog'
 import SaveMeasurementInput from './inputs/SaveMeasurementInput.vue'
 
@@ -18,7 +17,6 @@ const props = defineProps<{
 }>()
 
 const { log } = useLogger()
-const { onOpenOperationDialog } = useOperationDialog()
 const operationDialogStore = useOperationDialogStore()
 
 // These ensure a live update of the time since the last record
@@ -31,11 +29,12 @@ onUpdated(() => {
 
 async function onReportDialog(): Promise<void> {
   try {
-    // Needed for reports
-    operationDialogStore.setSelectedItem(
-      await DB.getFirstByField(AppTable.MEASUREMENTS, Field.ID, props.measurementCard?.id)
+    const selectedItem = await DB.getFirstByField(
+      AppTable.MEASUREMENTS,
+      Field.ID,
+      props.measurementCard?.id
     )
-    onOpenOperationDialog(AppTable.MEASUREMENTS, Operation.REPORT)
+    operationDialogStore.openDialog(AppTable.MEASUREMENTS, Operation.REPORT, selectedItem)
   } catch (error) {
     log.error('onReportDialog', error)
   }

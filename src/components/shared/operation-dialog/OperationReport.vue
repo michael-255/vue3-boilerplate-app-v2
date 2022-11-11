@@ -15,8 +15,8 @@ Chart.register(...registerables)
 onMounted(async () => {
   try {
     const generatedReport = await DB.callReport(
-      operationDialogStore.dialog.table,
-      operationDialogStore.item.selected.id
+      operationDialogStore.table,
+      operationDialogStore.selectedItem.id
     )
 
     reportStore.options.plugins.title = {

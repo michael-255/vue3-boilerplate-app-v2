@@ -14,20 +14,20 @@ const displayedDate: Ref<string> = ref('')
 const dateTimePicker: Ref<string> = ref('')
 
 try {
-  if (operationDialogStore.item.selected?.createdDate) {
-    updateDates(operationDialogStore.item.selected.createdDate)
+  if (operationDialogStore.selected?.createdDate) {
+    updateDates(operationDialogStore.selectedItem.createdDate)
   } else {
     updateDates()
   }
-  operationDialogStore.item.validate.createdDate = true
+  operationDialogStore.validateItem.createdDate = true
 } catch (error) {
   log.error('CreatedDateInput:Setup', error)
 }
 
 function updateDates(date: string = new Date().toISOString()): void {
-  operationDialogStore.item.temporary.createdDate = new Date(date).toISOString()
+  operationDialogStore.temporaryItem.createdDate = new Date(date).toISOString()
   displayedDate.value = isoToDisplayDate(date) || ''
-  operationDialogStore.item.validate.createdDate = true
+  operationDialogStore.validateItem.createdDate = true
 }
 
 /**
@@ -40,7 +40,7 @@ function onPickerDateTime(): void {
 }
 
 function validateInput(): void {
-  operationDialogStore.item.validate.createdDate = !!inputRef?.value?.validate()
+  operationDialogStore.validateItem.createdDate = !!inputRef?.value?.validate()
 }
 </script>
 

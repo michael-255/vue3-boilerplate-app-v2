@@ -2,14 +2,14 @@
 import { QSelect, QInput, QIcon } from 'quasar'
 import { Icon } from '@/constants/ui/icon-enums'
 import { NotifyColor } from '@/constants/ui/color-enums'
-import { type AppTable, Operation } from '@/constants/core/data-enums'
+import { type AppTable, Operation, Field } from '@/constants/core/data-enums'
 import { type Ref, ref, onMounted } from 'vue'
 import type { DataTableProps } from '@/constants/types-interfaces'
 import { DB } from '@/services/LocalDatabase'
 import { useLogger } from '@/use/useLogger'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import { TableHelper } from '@/services/TableHelper'
-import { useOperationDialog } from '@/use/useOperationDialog'
+import useOperationDialogStore from '@/stores/operation-dialog'
 import useDataTableStore from '@/stores/data-table'
 
 // Props & Emits
@@ -17,7 +17,7 @@ const props = defineProps<{ table: AppTable }>()
 
 const { log } = useLogger()
 const { confirmDialog } = useSimpleDialogs()
-const { onOpenOperationDialog } = useOperationDialog()
+const operationDialogStore = useOperationDialogStore()
 const dataTableStore = useDataTableStore()
 const searchFilter: Ref<string> = ref('')
 
@@ -37,7 +37,16 @@ async function updateRows(): Promise<void> {
   dataTableStore.rows = await DB.getAll(props.table)
 }
 
-async function onOpenClearDialog(): Promise<void> {
+async function onDialogWithSelectedItem(operation: Operation, id: string): Promise<void> {
+  try {
+    const selectedItem = await DB.getFirstByField(props.table, Field.ID, id)
+    operationDialogStore.openDialog(props.table, operation, selectedItem)
+  } catch (error) {
+    log.error('DataTable:onDialogWithSelectedItem', error)
+  }
+}
+
+async function onClear(): Promise<void> {
   confirmDialog(
     'Clear',
     `Permanently delete all ${TableHelper.getLabelPlural(props.table)}?`,
@@ -48,13 +57,13 @@ async function onOpenClearDialog(): Promise<void> {
         await DB.clear(props.table)
         await updateRows()
       } catch (error) {
-        log.error('DataTable:onOpenClearDialog', error)
+        log.error('DataTable:onClear', error)
       }
     }
   )
 }
 
-async function onOpenDeleteDialog(id: string): Promise<void> {
+async function onDelete(id: string): Promise<void> {
   confirmDialog(
     'Delete',
     `Permanently delete "${id}" from ${TableHelper.getLabelPlural(props.table)}?`,
@@ -65,7 +74,7 @@ async function onOpenDeleteDialog(id: string): Promise<void> {
         await DB.deleteById(props.table, id)
         await updateRows()
       } catch (error) {
-        log.error('DataTable:onOpenDeleteDialog', error)
+        log.error('DataTable:onDelete', error)
       }
     }
   )
@@ -109,7 +118,7 @@ async function onOpenDeleteDialog(id: string): Promise<void> {
           color="positive"
           label="Create"
           class="q-mr-sm q-mb-sm"
-          @click="onOpenOperationDialog(table, Operation.CREATE)"
+          @click="operationDialogStore.openDialog(table, Operation.CREATE)"
         />
         <!-- Clear Btn -->
         <QBtn
@@ -117,7 +126,7 @@ async function onOpenDeleteDialog(id: string): Promise<void> {
           :disable="!dataTableStore.rows.length"
           color="negative"
           label="Clear"
-          @click="onOpenClearDialog()"
+          @click="onClear()"
           class="q-mb-sm"
         />
       </div>
@@ -163,10 +172,10 @@ async function onOpenDeleteDialog(id: string): Promise<void> {
             dense
             class="q-ml-xs"
             color="accent"
-            @click="onOpenOperationDialog(table, Operation.REPORT, props.cols[0].value)"
+            @click="onDialogWithSelectedItem(Operation.REPORT, props.cols[0].value)"
             :icon="Icon.REPORT"
           />
-          <!-- Details Btn -->
+          <!-- Inspect Btn -->
           <QBtn
             v-if="TableHelper.getOperations(table).includes(Operation.INSPECT)"
             flat
@@ -174,10 +183,10 @@ async function onOpenDeleteDialog(id: string): Promise<void> {
             dense
             class="q-ml-xs"
             color="primary"
-            @click="onOpenOperationDialog(table, Operation.INSPECT, props.cols[0].value)"
+            @click="onDialogWithSelectedItem(Operation.INSPECT, props.cols[0].value)"
             :icon="Icon.DETAILS"
           />
-          <!-- Edit Btn -->
+          <!-- Update Btn -->
           <QBtn
             v-if="TableHelper.getOperations(table).includes(Operation.UPDATE)"
             flat
@@ -185,7 +194,7 @@ async function onOpenDeleteDialog(id: string): Promise<void> {
             dense
             class="q-ml-xs"
             color="orange-9"
-            @click="onOpenOperationDialog(table, Operation.UPDATE, props.cols[0].value)"
+            @click="onDialogWithSelectedItem(Operation.UPDATE, props.cols[0].value)"
             :icon="Icon.EDIT"
           />
           <!-- Delete Btn -->
@@ -196,7 +205,7 @@ async function onOpenDeleteDialog(id: string): Promise<void> {
             dense
             class="q-ml-xs"
             color="negative"
-            @click="onOpenDeleteDialog(props.cols[0].value)"
+            @click="onDelete(props.cols[0].value)"
             :icon="Icon.DELETE"
           />
         </QTd>

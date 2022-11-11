@@ -5,17 +5,15 @@ import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import { TableHelper } from '@/services/TableHelper'
 import { DB } from '@/services/LocalDatabase'
 import { useLogger } from '@/use/useLogger'
-import { useOperationDialog } from '@/use/useOperationDialog'
 import useOperationDialogStore from '@/stores/operation-dialog'
 
 const { log } = useLogger()
 const { confirmDialog, dismissDialog } = useSimpleDialogs()
-const { onCloseOperationDialog } = useOperationDialog()
 const operationDialogStore = useOperationDialogStore()
 
 function onUpdate() {
   try {
-    const fields = TableHelper.getFields(operationDialogStore.dialog.table)
+    const fields = TableHelper.getFields(operationDialogStore.table)
     if (!operationDialogStore.areItemFieldsValid(fields)) {
       validationFailedDialog()
     } else {
@@ -39,18 +37,18 @@ async function confirmUpdateDialog(): Promise<void> {
   confirmDialog(
     'Update',
     `Are you sure you want to update this ${TableHelper.getLabelSingular(
-      operationDialogStore.dialog.table
+      operationDialogStore.table
     )}?`,
     Icon.SAVE,
     NotifyColor.INFO,
     async () => {
       try {
         await DB.callUpdate(
-          operationDialogStore.dialog.table,
-          operationDialogStore.item.selected.id,
-          JSON.parse(JSON.stringify(operationDialogStore.item.temporary))
+          operationDialogStore.table,
+          operationDialogStore.selectedItem.id,
+          JSON.parse(JSON.stringify(operationDialogStore.temporaryItem))
         )
-        onCloseOperationDialog()
+        operationDialogStore.closeDialog(DB)
       } catch (error) {
         log.error('ItemUpdate:confirmUpdateDialog', error)
       }
@@ -60,7 +58,7 @@ async function confirmUpdateDialog(): Promise<void> {
 </script>
 
 <template>
-  <div v-for="(comp, i) in TableHelper.getComponents(operationDialogStore.dialog.table)" :key="i">
+  <div v-for="(comp, i) in TableHelper.getComponents(operationDialogStore.table)" :key="i">
     <component :is="comp" />
   </div>
 

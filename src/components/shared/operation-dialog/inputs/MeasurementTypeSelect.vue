@@ -15,21 +15,24 @@ const options: Ref<any[]> = ref([])
 onMounted(async () => {
   try {
     options.value = Object.values(MeasurementType)
-    operationDialogStore.item.temporary[Field.MEASUREMENT_TYPE] = options.value[0]
-    operationDialogStore.item.validate[Field.MEASUREMENT_TYPE] = true
+    /**
+     * @todo - use Field types like this throughout the app
+     */
+    operationDialogStore.temporaryItem[Field.MEASUREMENT_TYPE] = options.value[0]
+    operationDialogStore.validateItem[Field.MEASUREMENT_TYPE] = true
   } catch (error) {
     log.error('MeasurementTypeSelect:onMounted', error)
   }
 })
 
 function validateInput(): void {
-  operationDialogStore.item.validate[Field.MEASUREMENT_TYPE] = !!inputRef?.value?.validate()
+  operationDialogStore.validateItem[Field.MEASUREMENT_TYPE] = !!inputRef?.value?.validate()
 }
 </script>
 
 <template>
   <QSelect
-    v-model="operationDialogStore.item.temporary[Field.MEASUREMENT_TYPE]"
+    v-model="operationDialogStore.temporaryItem[Field.MEASUREMENT_TYPE]"
     ref="inputRef"
     label="Type"
     :options="options"

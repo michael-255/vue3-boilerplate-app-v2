@@ -13,15 +13,15 @@ const inspectionValues: Ref<DatabaseObject[]> = ref([])
 
 onMounted(async () => {
   try {
-    const currentTableFields = TableHelper.getFields(operationDialogStore.dialog.table)
-    const currentTableColumnProps = TableHelper.getColumns(operationDialogStore.dialog.table)
+    const currentTableFields = TableHelper.getFields(operationDialogStore.table)
+    const currentTableColumnProps = TableHelper.getColumns(operationDialogStore.table)
 
     currentTableFields.forEach((field: Field) => {
       const label =
         currentTableColumnProps.find((props: DataTableProps) => props.name === field)?.label ||
         'ERROR'
 
-      let value = operationDialogStore.item.selected[field] || '-'
+      let value = operationDialogStore.selectedItem[field] || '-'
 
       // Add readable date after iso date
       if (field === Field.CREATED_DATE && value !== '-') {

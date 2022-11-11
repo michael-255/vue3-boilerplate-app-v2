@@ -10,23 +10,23 @@ const operationDialogStore = useOperationDialogStore()
 const inputRef: Ref<any> = ref(null)
 
 try {
-  operationDialogStore.item.temporary.measurementValue = operationDialogStore.item.selected
+  operationDialogStore.temporaryItem.measurementValue = operationDialogStore.selected
     ?.measurementValue
-    ? operationDialogStore.item.selected.measurementValue
+    ? operationDialogStore.selectedItem.measurementValue
     : 1
-  operationDialogStore.item.validate.measurementValue = true
+  operationDialogStore.validateItem.measurementValue = true
 } catch (error) {
   log.error('MeasurementValueInput:Setup', error)
 }
 
 function validateInput(): void {
-  operationDialogStore.item.validate.measurementValue = !!inputRef?.value?.validate()
+  operationDialogStore.validateItem.measurementValue = !!inputRef?.value?.validate()
 }
 </script>
 
 <template>
   <QInput
-    v-model.number="operationDialogStore.item.temporary.measurementValue"
+    v-model.number="operationDialogStore.temporaryItem.measurementValue"
     ref="inputRef"
     label="Value"
     :rules="[(val: number) => isNonNegitiveNumber(val) || 'Non-negative number not exceeding 1,000,000,000 is required']"
