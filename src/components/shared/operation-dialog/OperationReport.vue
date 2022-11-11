@@ -6,6 +6,7 @@ import { Chart, registerables } from 'chart.js'
 import { DB } from '@/services/LocalDatabase'
 import { useLogger } from '@/use/useLogger'
 import useOperationDialogStore from '@/stores/operation-dialog'
+import type { GeneratedReport } from '@/constants/types-interfaces'
 
 const { log } = useLogger()
 const operationDialogStore = useOperationDialogStore()
@@ -13,18 +14,20 @@ Chart.register(...registerables)
 
 onMounted(async () => {
   try {
-    const generatedReport = await DB.callReport(
+    const generatedReports = await DB.callReport(
       operationDialogStore.table,
       operationDialogStore.selectedItem.id
     )
 
-    operationDialogStore.addReportChart(
-      generatedReport?.title,
-      generatedReport?.firstRecordDate,
-      generatedReport?.lastRecordDate,
-      generatedReport?.chartLabels,
-      generatedReport?.chartDatasets
-    )
+    generatedReports.forEach((report: GeneratedReport) => {
+      operationDialogStore.addReportChart(
+        report?.title,
+        report?.firstRecordDate,
+        report?.lastRecordDate,
+        report?.chartLabels,
+        report?.chartDatasets
+      )
+    })
   } catch (error) {
     log.error('OperationReport:onMounted', error)
   }

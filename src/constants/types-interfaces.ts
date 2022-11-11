@@ -35,6 +35,14 @@ export type RouteTab = {
   table: AppTable
 }
 
+export type GeneratedReport = {
+  title: string
+  firstRecordDate: string
+  lastRecordDate: string
+  chartLabels: string[]
+  chartDatasets: ChartDataset[]
+}
+
 export type ReportChart = {
   options: ChartOptions
   firstRecordDate: string

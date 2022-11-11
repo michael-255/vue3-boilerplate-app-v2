@@ -2,8 +2,6 @@
 
 ## Todos
 
-- [ ] Change take measurement components to report an `all-time` chart and `previous-year` chart
-
 - [ ] `Commenting` Clean up and comment the app (reasons why you did certain things that way)
 - [ ] `Tests` Rebuild tests for all files
 - [ ] Go through post cloning task list (double check)

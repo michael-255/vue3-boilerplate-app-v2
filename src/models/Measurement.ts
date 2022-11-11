@@ -1,5 +1,10 @@
 import { Activity, type IActivity } from '@/models/__Activity'
-import type { DataTableProps, DatabaseObject } from '@/constants/types-interfaces'
+import type {
+  DataTableProps,
+  DatabaseObject,
+  ReportChart,
+  GeneratedReport,
+} from '@/constants/types-interfaces'
 import type { LocalDatabase } from '@/services/LocalDatabase'
 import type { MeasurementRecord } from '@/models/MeasurementRecord'
 import { AppTable, Operation, type MeasurementType } from '@/constants/core/data-enums'
@@ -32,7 +37,7 @@ export class Measurement extends Activity {
    * @param database
    * @param id
    */
-  static async report(database: LocalDatabase, id: string): Promise<any> {
+  static async report(database: LocalDatabase, id: string): Promise<GeneratedReport[]> {
     const records = (await database.getAllByField(
       AppTable.MEASUREMENT_RECORDS,
       Field.PARENT_ID,
@@ -54,13 +59,17 @@ export class Measurement extends Activity {
       data: measurementValues,
     })
 
-    return {
-      title: parent?.name,
-      firstRecordDate: isoToDisplayDate(records[0]?.createdDate),
-      lastRecordDate: isoToDisplayDate(records[records.length - 1]?.createdDate),
+    const generatedReports = [] as GeneratedReport[]
+
+    generatedReports.push({
+      title: parent?.name ? `${parent.name} (All Records)` : '',
+      firstRecordDate: isoToDisplayDate(records[0]?.createdDate) || '-',
+      lastRecordDate: isoToDisplayDate(records[records.length - 1]?.createdDate) || '-',
       chartLabels: records.map(() => ''),
       chartDatasets: datasets,
-    }
+    })
+
+    return generatedReports
   }
 
   static async update(
