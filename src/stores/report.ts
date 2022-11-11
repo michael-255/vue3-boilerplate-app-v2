@@ -7,6 +7,13 @@ const useReportStore: StoreDefinition = defineStore({
   id: 'report',
 
   state: () => ({
+    firstDate: '-',
+    lastDate: '-',
+    chartData: {
+      labels: [],
+      datasets: [],
+    },
+    reportCharts: [], // @todo - For multiple charts!
     options: {
       responsive: true,
       radius: 3,
@@ -20,13 +27,38 @@ const useReportStore: StoreDefinition = defineStore({
         },
       },
     },
-    chartData: {
-      labels: [],
-      datasets: [],
-    },
-    firstDate: '-',
-    lastDate: '-',
   }),
+
+  actions: {
+    createChart() {
+      /**
+       * @todo - Each chart would be one of these...
+       */
+      const reportCharts = [
+        {
+          firstRecordedDate: '-',
+          lastRecordedDate: '-',
+          options: {
+            responsive: true,
+            radius: 3,
+            plugins: {
+              title: {
+                display: true,
+                text: '',
+              },
+              legend: {
+                display: true,
+              },
+            },
+          },
+          chartData: {
+            labels: [],
+            datasets: [],
+          },
+        },
+      ]
+    },
+  },
 })
 
 export default useReportStore

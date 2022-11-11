@@ -17,6 +17,7 @@ const useOperationDialogStore: StoreDefinition = defineStore({
     selectedItem: Object.values(Field).reduce((o, field) => ({ ...o, [field]: null }), {}),
     temporaryItem: Object.values(Field).reduce((o, field) => ({ ...o, [field]: null }), {}),
     validateItem: Object.values(Field).reduce((o, field) => ({ ...o, [field]: null }), {}),
+    reportCharts: [], // @todo
   }),
 
   actions: {
