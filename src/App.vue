@@ -3,15 +3,15 @@ import { useQuasar } from 'quasar'
 import { RouterView, useRoute } from 'vue-router'
 import { onMounted, type Ref, ref, watch, markRaw } from 'vue'
 import { useLogger } from '@/use/useLogger'
-import { DB } from '@/services/LocalDatabase'
+import { DB } from './services/LocalDatabase'
 import useSettingsStore from '@/stores/settings'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import OperationDialog from '@/components/shared/OperationDialog.vue'
 
-const $q = useQuasar()
 const { log } = useLogger()
 const route = useRoute()
 const settingsStore = useSettingsStore()
+const $q = useQuasar()
 const layout: Ref<any> = ref(null)
 
 onMounted(async () => {
@@ -19,12 +19,8 @@ onMounted(async () => {
   /**
    * @todo - Should $reset() all the stores here?
    */
-  const initialSettings = await DB.initDatabaseSettings()
-  settingsStore.setDarkMode(initialSettings.darkModeValue)
-  settingsStore.setShowConsoleLogs(initialSettings.showConsoleLogsValue)
-  settingsStore.setShowDebugMessages(initialSettings.showDebugMessagesValue)
-  settingsStore.setSaveInfoMessages(initialSettings.saveInfoMessagesValue)
-  $q.dark.set(initialSettings.darkModeValue)
+  await settingsStore.initSettings(DB)
+  $q.dark.set(settingsStore.darkMode)
 })
 
 /**

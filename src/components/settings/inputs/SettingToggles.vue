@@ -14,7 +14,7 @@ const darkMode = computed({
   },
   async set(bool: boolean) {
     await DB.updateById(AppTable.SETTINGS, SettingKey.DARK_MODE, { settingValue: bool })
-    settingsStore.setDarkMode(bool)
+    settingsStore.darkMode = !!bool
     $q.dark.set(bool)
   },
 })
@@ -25,7 +25,7 @@ const showConsoleLogs = computed({
   },
   async set(bool: boolean) {
     await DB.updateById(AppTable.SETTINGS, SettingKey.SHOW_CONSOLE_LOGS, { settingValue: bool })
-    settingsStore.setShowConsoleLogs(bool)
+    settingsStore.showConsoleLogs = !!bool
   },
 })
 
@@ -35,7 +35,7 @@ const showDebugMessages = computed({
   },
   async set(bool: boolean) {
     await DB.updateById(AppTable.SETTINGS, SettingKey.SHOW_DEBUG_MESSAGES, { settingValue: bool })
-    settingsStore.setShowDebugMessages(bool)
+    settingsStore.showDebugMessages = !!bool
   },
 })
 
@@ -45,7 +45,7 @@ const saveInfoMessages = computed({
   },
   async set(bool: boolean) {
     await DB.updateById(AppTable.SETTINGS, SettingKey.SAVE_INFO_MESSAGES, { settingValue: bool })
-    settingsStore.setSaveInfoMessages(bool)
+    settingsStore.saveInfoMessages = !!bool
   },
 })
 </script>

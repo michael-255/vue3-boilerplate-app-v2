@@ -82,39 +82,6 @@ export class LocalDatabase {
     return (await this.dexieWrapper.table(table).bulkGet(ids)).filter(Boolean)
   }
 
-  /**
-   *
-   */
-  async getMeasurementCards(): Promise<DatabaseObject[]> {
-    // Measurements
-    const measurements = (await this.getAll(AppTable.MEASUREMENTS)).sort((a: any, b: any) => {
-      return a.name.localeCompare(b.name)
-    }) as Measurement[]
-
-    // Measurement Card Objects
-    const measurementCards = await Promise.all(
-      // Recent Measurement Records
-      measurements.map(async (measurement: Measurement) => {
-        // Get most recent Measurement Record (if any)
-        const measurementRecord = (await this.getNewestByField(
-          AppTable.MEASUREMENT_RECORDS,
-          Field.PARENT_ID,
-          measurement.id
-        )) as MeasurementRecord
-
-        return {
-          id: measurement.id,
-          name: measurement.name,
-          measurementType: measurement.measurementType,
-          previousCreatedDate: measurementRecord?.createdDate,
-          previousMeasurementValue: measurementRecord?.measurementValue,
-        }
-      })
-    )
-
-    return measurementCards
-  }
-
   //
   // Creates, Updates, Deletes
   //
@@ -190,81 +157,6 @@ export class LocalDatabase {
    */
   async deleteDatabase(): Promise<void> {
     return await this.dexieWrapper.delete()
-  }
-
-  //
-  // Initializers
-  //
-
-  /**
-   * Initializes setting keys in the settings table with default values.
-   */
-  async initDatabaseSettings(): Promise<DatabaseObject> {
-    const settings = (await this.getAll(AppTable.SETTINGS)) as Setting[]
-
-    let darkModeValue = settings.find(
-      (setting: DatabaseObject) => setting[Field.ID] === SettingKey.DARK_MODE
-    )?.settingValue
-
-    let showConsoleLogsValue = settings.find(
-      (setting: DatabaseObject) => setting[Field.ID] === SettingKey.SHOW_CONSOLE_LOGS
-    )?.settingValue
-
-    let showDebugMessagesValue = settings.find(
-      (setting: DatabaseObject) => setting[Field.ID] === SettingKey.SHOW_DEBUG_MESSAGES
-    )?.settingValue
-
-    let saveInfoMessagesValue = settings.find(
-      (setting: DatabaseObject) => setting[Field.ID] === SettingKey.SAVE_INFO_MESSAGES
-    )?.settingValue
-
-    // Create the Setting records with a default value if it doesn't exist
-    if (darkModeValue === undefined) {
-      darkModeValue = true // default
-
-      await this.add(AppTable.SETTINGS, {
-        id: SettingKey.DARK_MODE,
-        createdDate: new Date().toISOString(),
-        settingValue: darkModeValue,
-      })
-    }
-
-    if (showConsoleLogsValue === undefined) {
-      showConsoleLogsValue = false // default
-
-      await this.add(AppTable.SETTINGS, {
-        id: SettingKey.SHOW_CONSOLE_LOGS,
-        createdDate: new Date().toISOString(),
-        settingValue: showConsoleLogsValue,
-      })
-    }
-
-    if (showDebugMessagesValue === undefined) {
-      showDebugMessagesValue = false // default
-
-      await this.add(AppTable.SETTINGS, {
-        id: SettingKey.SHOW_DEBUG_MESSAGES,
-        createdDate: new Date().toISOString(),
-        settingValue: showDebugMessagesValue,
-      })
-    }
-
-    if (saveInfoMessagesValue === undefined) {
-      saveInfoMessagesValue = false // default
-
-      await this.add(AppTable.SETTINGS, {
-        id: SettingKey.SAVE_INFO_MESSAGES,
-        createdDate: new Date().toISOString(),
-        settingValue: saveInfoMessagesValue,
-      })
-    }
-
-    return {
-      darkModeValue,
-      showConsoleLogsValue,
-      showDebugMessagesValue,
-      saveInfoMessagesValue,
-    }
   }
 
   //
