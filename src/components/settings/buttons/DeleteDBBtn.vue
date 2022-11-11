@@ -21,9 +21,6 @@ async function onDeleteDB(): Promise<void> {
     async (): Promise<void> => {
       try {
         await DB.deleteDatabase()
-        /**
-         * @todo - $reset() all stores?
-         */
         reloadMessageDialog()
       } catch (error) {
         log.error('onDeleteDB', error)

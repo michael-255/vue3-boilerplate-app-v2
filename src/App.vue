@@ -16,9 +16,6 @@ const layout: Ref<any> = ref(null)
 
 onMounted(async () => {
   // Should initialize app settings here.
-  /**
-   * @todo - Should $reset() all the stores here?
-   */
   await settingsStore.initSettings(DB)
   $q.dark.set(settingsStore.darkMode)
 })

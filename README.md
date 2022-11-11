@@ -2,6 +2,7 @@
 
 ## Todos
 
+- [ ] Do the Fields `@todo` task
 - [ ] `Commenting` Clean up and comment the app (reasons why you did certain things that way)
 - [ ] `Tests` Rebuild tests for all files
 - [ ] Go through post cloning task list (double check)

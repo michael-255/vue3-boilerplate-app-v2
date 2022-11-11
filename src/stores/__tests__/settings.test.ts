@@ -16,7 +16,6 @@ export {}
 //   })
 
 //   /**
-//    * @todo
 //    * Figure out how to test settings with interal DB calls.
 //    */
 //   test('settings store has functions', () => {
