@@ -1,6 +1,6 @@
 import type { IndexableType } from 'dexie'
-import type { DatabaseObject, SettingValue } from '@/constants/types-interfaces'
-import { AppTable, Field, SettingKey } from '@/constants/core/data-enums'
+import type { DatabaseObject } from '@/constants/types-interfaces'
+import { AppTable, Field } from '@/constants/core/data-enums'
 import { AppString } from '@/constants/ui/string-enums'
 import { DexieWrapper } from './__DexieWrapper'
 import { Log } from '@/models/__Log'

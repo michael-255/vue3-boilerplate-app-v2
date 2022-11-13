@@ -11,8 +11,7 @@
   - [x] Model: `__Record`
   - [x] Model: `Measurement`
   - [x] Model: `MeasurementRecord`
-  - [ ] Services: `PrettyLogger`
-  - [ ] Services: `TableHelper`
+  - [x] Services: `PrettyLogger`
   - [ ] Services: `LocalDatabase`
   - [ ] Stores: `data-table`
   - [ ] Stores: `main-menu`
