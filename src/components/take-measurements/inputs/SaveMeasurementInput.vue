@@ -4,9 +4,9 @@ import { Icon } from '@/constants/ui/icon-enums'
 import { NotifyColor } from '@/constants/ui/color-enums'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import { ref, type Ref } from 'vue'
-import { isPositiveNumber } from '@/utils/validators'
+import { isPercentNumber, isPositiveNumber } from '@/utils/validators'
 import { DB } from '@/services/LocalDatabase'
-import { AppTable } from '@/constants/core/data-enums'
+import { AppTable, MeasurementType } from '@/constants/core/data-enums'
 import { uuid } from '@/utils/common'
 import { useLogger } from '@/use/useLogger'
 import useTakeMeasurementsStore from '@/stores/take-measurements'
@@ -24,6 +24,19 @@ const takeMeasurementsStore = useTakeMeasurementsStore()
 const operationDialogStore = useOperationDialogStore()
 const inputRef: Ref<any> = ref(null)
 const inputNumber: Ref<number | null> = ref(null)
+const rules: Ref<any[]> = ref([])
+
+try {
+  if (props.measurementType === MeasurementType.PERCENT) {
+    rules.value.push(
+      (val: number) => isPercentNumber(Number(val)) || 'Value between 0 and 100 required'
+    )
+  } else {
+    rules.value.push((val: number) => isPositiveNumber(Number(val)) || 'Positive number required')
+  }
+} catch (error) {
+  log.error('SaveMeasurementInput:Setup', error)
+}
 
 async function onSave(): Promise<void> {
   confirmDialog(
@@ -51,6 +64,7 @@ async function onSave(): Promise<void> {
 
         await takeMeasurementsStore.updateMeasurementCards(DB) // Reload cards
         operationDialogStore.closeDialog(DB)
+        inputNumber.value = null
       } catch (error) {
         log.error('SaveMeasurementInput:onSave', error)
       }
@@ -68,7 +82,7 @@ function validateInput(): boolean {
     type="number"
     ref="inputRef"
     class="q-mt-md"
-    :rules="[(val: number) => isPositiveNumber(Number(val)) || 'Positive number required']"
+    :rules="rules"
     v-model="inputNumber"
     dense
     outlined
