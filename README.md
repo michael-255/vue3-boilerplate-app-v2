@@ -21,8 +21,6 @@
   - [ ] Utils: `common`
   - [ ] Utils: `validators`
 
-- [ ] Run linter and correct errors
-- [ ] Check all files for unused imports
 - [ ] Go through post cloning task list (double check)
 
 ## Post Cloning Steps
