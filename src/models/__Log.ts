@@ -1,6 +1,5 @@
 import { Activity, type IActivity } from '@/models/__Activity'
 import type { DataTableProps } from '@/constants/types-interfaces'
-import type { LocalDatabase } from '@/services/LocalDatabase'
 import { AppTable, Operation, type Severity } from '@/constants/core/data-enums'
 import { Field } from '@/constants/core/data-enums'
 import { truncateString, uuid } from '@/utils/common'

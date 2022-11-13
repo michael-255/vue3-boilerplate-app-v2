@@ -4,13 +4,13 @@
 
 - [ ] `Tests` Rebuild tests for all files
 
-  - [ ] Model: `__Entity`
-  - [ ] Model: `__Log`
-  - [ ] Model: `__Setting`
-  - [ ] Model: `__Activity`
-  - [ ] Model: `__Record`
-  - [ ] Model: `Measurement`
-  - [ ] Model: `MeasurementRecord`
+  - [x] Model: `__Entity`
+  - [x] Model: `__Log`
+  - [x] Model: `__Setting`
+  - [x] Model: `__Activity`
+  - [x] Model: `__Record`
+  - [x] Model: `Measurement`
+  - [x] Model: `MeasurementRecord`
   - [ ] Services: `PrettyLogger`
   - [ ] Services: `TableHelper`
   - [ ] Services: `LocalDatabase`
@@ -22,6 +22,8 @@
   - [ ] Utils: `common`
   - [ ] Utils: `validators`
 
+- [ ] Run linter and correct errors
+- [ ] Check all files for unused imports
 - [ ] Go through post cloning task list (double check)
 
 ## Post Cloning Steps

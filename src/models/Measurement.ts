@@ -1,10 +1,5 @@
 import { Activity, type IActivity } from '@/models/__Activity'
-import type {
-  DataTableProps,
-  DatabaseObject,
-  ReportChart,
-  GeneratedReport,
-} from '@/constants/types-interfaces'
+import type { DataTableProps, DatabaseObject, GeneratedReport } from '@/constants/types-interfaces'
 import type { LocalDatabase } from '@/services/LocalDatabase'
 import type { MeasurementRecord } from '@/models/MeasurementRecord'
 import { AppTable, Operation, type MeasurementType } from '@/constants/core/data-enums'

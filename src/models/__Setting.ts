@@ -1,6 +1,5 @@
 import { Entity, type IEntity } from '@/models/__Entity'
 import type { DataTableProps, SettingValue } from '@/constants/types-interfaces'
-import type { LocalDatabase } from '@/services/LocalDatabase'
 import { Field } from '@/constants/core/data-enums'
 import { AppTable, Operation } from '@/constants/core/data-enums'
 
