@@ -2,7 +2,6 @@
 import { onMounted, ref, type Ref } from 'vue'
 import { QSelect } from 'quasar'
 import { MeasurementType } from '@/constants/core/data-enums'
-import { Field } from '@/constants/core/data-enums'
 import { isDefined } from '@/utils/validators'
 import { useLogger } from '@/use/useLogger'
 import useOperationDialogStore from '@/stores/operation-dialog'
@@ -15,24 +14,21 @@ const options: Ref<any[]> = ref([])
 onMounted(async () => {
   try {
     options.value = Object.values(MeasurementType)
-    /**
-     * @todo - use Field types like this throughout the app
-     */
-    operationDialogStore.temporaryItem[Field.MEASUREMENT_TYPE] = options.value[0]
-    operationDialogStore.validateItem[Field.MEASUREMENT_TYPE] = true
+    operationDialogStore.temporaryItem.measurementType = options.value[0]
+    operationDialogStore.validateItem.measurementType = true
   } catch (error) {
     log.error('MeasurementTypeSelect:onMounted', error)
   }
 })
 
 function validateInput(): void {
-  operationDialogStore.validateItem[Field.MEASUREMENT_TYPE] = !!inputRef?.value?.validate()
+  operationDialogStore.validateItem.measurementType = !!inputRef?.value?.validate()
 }
 </script>
 
 <template>
   <QSelect
-    v-model="operationDialogStore.temporaryItem[Field.MEASUREMENT_TYPE]"
+    v-model="operationDialogStore.temporaryItem.measurementType"
     ref="inputRef"
     label="Type"
     :options="options"

@@ -5,7 +5,7 @@ import type { LocalDatabase } from '@/services/LocalDatabase'
 import { defineStore, type StoreDefinition } from 'pinia'
 
 /**
- * App settings state.
+ * Manages state for all app settings.
  */
 const useSettingsStore: StoreDefinition = defineStore({
   id: 'settings',
@@ -19,6 +19,10 @@ const useSettingsStore: StoreDefinition = defineStore({
   }),
 
   actions: {
+    /**
+     * Call this to check the DB for settings and/or initialize the default settings state.
+     * @param database
+     */
     async initSettings(database: LocalDatabase): Promise<void> {
       const settings = (await database.getAll(AppTable.SETTINGS)) as Setting[]
 

@@ -2,7 +2,7 @@ import type { AppTable, Field } from '@/constants/core/data-enums'
 import type { Icon } from '@/constants/ui/icon-enums'
 
 /**
- * Generic type for an object the string based keys storing any value.
+ * Generic type for an object with string based keys storing any value.
  */
 export type DatabaseObject = { [x: string]: any }
 
@@ -24,17 +24,26 @@ export type DataTableProps = {
   format: (val: any) => any
 }
 
+/**
+ * Current Vue Router Meta data.
+ */
 export type RouteMeta = {
   layout: string
   tabs?: RouteTab[]
 }
 
+/**
+ * Tabs for the Vue Router Meta tabs field.
+ */
 export type RouteTab = {
   name: string
   icon: Icon
   table: AppTable
 }
 
+/**
+ * For record reports.
+ */
 export type GeneratedReport = {
   title: string
   firstRecordDate: string

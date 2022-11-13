@@ -4,7 +4,7 @@ import { Icon } from '@/constants/ui/icon-enums'
 </script>
 
 <template>
-  <!-- Temporary as part fo the Boilerplate App -->
+  <!-- Temporary example as part of the Boilerplate App -->
   <QPage padding>
     <div class="row justify-center">
       <div class="col-12">

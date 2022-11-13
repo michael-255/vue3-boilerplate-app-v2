@@ -1,6 +1,5 @@
 /**
- * These represent the available tables in Dexie for the app and provide the name they are
- * referenced by.
+ * Represents available Dexie tables for the app and the name they are referenced by.
  */
 export enum AppTable {
   MEASUREMENTS = 'measurements',
@@ -35,8 +34,8 @@ export enum Field {
 }
 
 /**
- * These are the operations that are supported within the app. Each table may only support a subset
- * of these operations.
+ * These are the operations that are supported within the app. Each table may support a subset of
+ * these operations.
  */
 export enum Operation {
   NOOP = 'No Operation',
@@ -70,7 +69,7 @@ export enum Severity {
 }
 
 /**
- * Unit type for the Measurement.
+ * Measurment unit type.
  */
 export enum MeasurementType {
   LBS = 'Lbs',

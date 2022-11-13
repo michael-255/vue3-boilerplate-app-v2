@@ -164,7 +164,7 @@ export class LocalDatabase {
   //
 
   /**
-   * @todo
+   * Calls the model create method.
    * @param table
    * @param data
    * @returns
@@ -179,7 +179,7 @@ export class LocalDatabase {
   }
 
   /**
-   * @todo
+   * Call the model update method.
    * @param table
    * @param originalId
    * @param props
@@ -195,7 +195,7 @@ export class LocalDatabase {
   }
 
   /**
-   * @todo
+   * Calls the model report method
    * @param table
    * @param id
    * @returns

@@ -2,7 +2,7 @@ import type { RouteTab } from '@/constants/types-interfaces'
 import { defineStore, type StoreDefinition } from 'pinia'
 
 /**
- * Tracks state for the DataTable components.
+ * Tracks state for the DataTable and DataTabs components.
  */
 const useDataTableStore: StoreDefinition = defineStore({
   id: 'data-table',

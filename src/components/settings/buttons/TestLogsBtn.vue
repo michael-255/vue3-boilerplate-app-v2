@@ -6,7 +6,7 @@ import { useLogger } from '@/use/useLogger'
 const { log } = useLogger()
 
 /**
- * Generates example logs that can be examined on the Logs table and the console (if DEBUG = true).
+ * Generates example logs that can be examined on the Logs table and the console.
  */
 function generateTestLogs(): void {
   log.debug('This is a Debug Log (not saved)', {

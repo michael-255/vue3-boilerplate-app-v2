@@ -13,9 +13,6 @@ const { confirmDialog } = useSimpleDialogs()
 const settingsStore = useSettingsStore()
 const $q = useQuasar()
 
-/**
- * Removes all data from all databases defined in the AppTable enum.
- */
 async function onClearAll(): Promise<void> {
   confirmDialog(
     'Clear All',
@@ -28,7 +25,7 @@ async function onClearAll(): Promise<void> {
         await settingsStore.initSettings(DB)
         $q.dark.set(settingsStore.darkMode)
       } catch (error) {
-        log.error('onClearAll', error)
+        log.error('ClearAllBtn:onClearAll', error)
       }
     }
   )

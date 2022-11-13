@@ -13,9 +13,6 @@ import defaultMeasurements from '@/constants/data/default-measurements'
 const { log } = useLogger()
 const { confirmDialog } = useSimpleDialogs()
 
-/**
- * Confirm if you want to load defaults into your tables.
- */
 function onDefaults(): void {
   confirmDialog(
     'Load Defaults',
@@ -26,7 +23,7 @@ function onDefaults(): void {
       try {
         await loadDefaults()
       } catch (error) {
-        log.error('onDefaults', error)
+        log.error('DefaultsBtn:onDefaults', error)
       }
     }
   )

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, type Ref } from 'vue'
 import { QInput } from 'quasar'
-import { isNonNegitiveNumber } from '@/utils/validators'
+import { isPositiveNumber } from '@/utils/validators'
 import { useLogger } from '@/use/useLogger'
 import useOperationDialogStore from '@/stores/operation-dialog'
 
@@ -29,7 +29,7 @@ function validateInput(): void {
     v-model.number="operationDialogStore.temporaryItem.measurementValue"
     ref="inputRef"
     label="Value"
-    :rules="[(val: number) => isNonNegitiveNumber(val) || 'Non-negative number not exceeding 1,000,000,000 is required']"
+    :rules="[(val: number) => isPositiveNumber(val) || 'Positive number required']"
     dense
     outlined
     type="number"

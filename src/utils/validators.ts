@@ -24,7 +24,7 @@ export function isPositiveNumber(num: number): boolean {
 }
 
 export function isNonNegitiveNumber(num: number): boolean {
-  return typeof num === 'number' && isFinite(num) && num >= 0 && num < 1000000000 // 9 zeros
+  return typeof num === 'number' && isFinite(num) && num >= 0 && num < 999999999999999 // 15 digits
 }
 
 export function isOptionalNonNegitiveNumber(num: number | undefined): boolean {

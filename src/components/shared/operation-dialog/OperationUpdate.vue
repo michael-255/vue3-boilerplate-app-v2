@@ -20,7 +20,7 @@ function onUpdate() {
       confirmUpdateDialog()
     }
   } catch (error) {
-    log.error('ItemUpdate:onUpdate', error)
+    log.error('OperationUpdate:onUpdate', error)
   }
 }
 
@@ -50,7 +50,7 @@ async function confirmUpdateDialog(): Promise<void> {
         )
         operationDialogStore.closeDialog(DB)
       } catch (error) {
-        log.error('ItemUpdate:confirmUpdateDialog', error)
+        log.error('OperationUpdate:confirmUpdateDialog', error)
       }
     }
   )

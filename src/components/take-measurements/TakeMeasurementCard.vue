@@ -36,7 +36,7 @@ async function onReportDialog(): Promise<void> {
     )
     operationDialogStore.openDialog(AppTable.MEASUREMENTS, Operation.REPORT, selectedItem)
   } catch (error) {
-    log.error('onReportDialog', error)
+    log.error('TakeMeasurementCard:onReportDialog', error)
   }
 }
 </script>

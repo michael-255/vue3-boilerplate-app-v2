@@ -12,7 +12,7 @@ onMounted(async () => {
   try {
     await takeMeasurementsStore.updateMeasurementCards(DB)
   } catch (error) {
-    log.error('MeasurementsList:onMounted', error)
+    log.error('TakeMeasurementsList:onMounted', error)
   }
 })
 </script>

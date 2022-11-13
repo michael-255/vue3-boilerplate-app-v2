@@ -23,7 +23,7 @@ async function onDeleteDB(): Promise<void> {
         await DB.deleteDatabase()
         reloadMessageDialog()
       } catch (error) {
-        log.error('onDeleteDB', error)
+        log.error('DeleteDBBtn:onDeleteDB', error)
       }
     }
   )

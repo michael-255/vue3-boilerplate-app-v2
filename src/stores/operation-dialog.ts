@@ -5,6 +5,9 @@ import { AppTable, Field, Operation } from '@/constants/core/data-enums'
 import { TableHelper } from '@/services/TableHelper'
 import useDataTableStore from './data-table'
 
+/**
+ * Manages state for the fullscreen operation dialog components.
+ */
 const useOperationDialogStore: StoreDefinition = defineStore({
   id: 'operation-dialog',
 
@@ -41,6 +44,14 @@ const useOperationDialogStore: StoreDefinition = defineStore({
       this.$reset() // Also closes the dialog
     },
 
+    /**
+     * Pushes a report with all of the needed fields onto the state reportCharts array.
+     * @param title
+     * @param firstRecordDate
+     * @param lastRecordDate
+     * @param chartLabels
+     * @param chartDatasets
+     */
     addReportChart(
       title: string = '',
       firstRecordDate: string = '-',

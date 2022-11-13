@@ -57,7 +57,7 @@ onMounted(async () => {
         operationDialogStore.validateItem.parentId = false
       }
     } else {
-      log.error('No parent table to make selection', { name: 'ParentIdSelect:onMounted' })
+      log.error('No parent table to make selection', { name: 'ParentIdSelect:MissingParentTable' })
     }
   } catch (error) {
     log.error('ParentIdSelect:onMounted', error)

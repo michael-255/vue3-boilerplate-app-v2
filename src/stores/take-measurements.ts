@@ -6,7 +6,7 @@ import type { LocalDatabase } from '@/services/LocalDatabase'
 import { AppTable, Field } from '@/constants/core/data-enums'
 
 /**
- * Stores the measurements and the most recent record data.
+ * Stores the measurements and the most recent measurement record data.
  */
 const useTakeMeasurementsStore: StoreDefinition = defineStore({
   id: 'take-measurements',
