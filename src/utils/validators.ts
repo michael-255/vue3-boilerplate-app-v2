@@ -19,6 +19,11 @@ export function isUndefined(value: any): boolean {
 export function isDefined(value: any): boolean {
   return !isUndefined(value)
 }
+
+export function isPercentNumber(num: number): boolean {
+  return typeof num === 'number' && isFinite(num) && num >= 0 && num <= 100
+}
+
 export function isPositiveNumber(num: number): boolean {
   return typeof num === 'number' && isFinite(num) && num > 0 && num < 999999999999999 // 15 digits
 }
