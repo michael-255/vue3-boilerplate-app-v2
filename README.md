@@ -3,6 +3,25 @@
 ## Todos
 
 - [ ] `Tests` Rebuild tests for all files
+
+  - [ ] Model: `__Entity`
+  - [ ] Model: `__Log`
+  - [ ] Model: `__Setting`
+  - [ ] Model: `__Activity`
+  - [ ] Model: `__Record`
+  - [ ] Model: `Measurement`
+  - [ ] Model: `MeasurementRecord`
+  - [ ] Services: `PrettyLogger`
+  - [ ] Services: `TableHelper`
+  - [ ] Services: `LocalDatabase`
+  - [ ] Stores: `data-table`
+  - [ ] Stores: `main-menu`
+  - [ ] Stores: `operation-dialog`
+  - [ ] Stores: `settings`
+  - [ ] Stores: `take-measurements`
+  - [ ] Utils: `common`
+  - [ ] Utils: `validators`
+
 - [ ] Go through post cloning task list (double check)
 
 ## Post Cloning Steps
