@@ -12,7 +12,7 @@
   - [x] Model: `Measurement`
   - [x] Model: `MeasurementRecord`
   - [x] Services: `PrettyLogger`
-  - [ ] Services: `LocalDatabase`
+  - [x] Services: `LocalDatabase`
   - [ ] Stores: `data-table`
   - [ ] Stores: `main-menu`
   - [ ] Stores: `operation-dialog`
