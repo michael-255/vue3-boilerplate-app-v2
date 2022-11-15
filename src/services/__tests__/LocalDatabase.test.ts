@@ -25,7 +25,7 @@ const dexieWrapperMock = {
   delete: vi.fn(),
 }
 
-describe('LocalDatabase', () => {
+describe('LocalDatabase service', () => {
   let database: any
   const testTable = 'testTable'
   const testField = 'id'

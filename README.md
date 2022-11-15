@@ -4,20 +4,6 @@
 
 - [ ] `Tests` Rebuild tests for all files
 
-  - [x] Model: `__Entity`
-  - [x] Model: `__Log`
-  - [x] Model: `__Setting`
-  - [x] Model: `__Activity`
-  - [x] Model: `__Record`
-  - [x] Model: `Measurement`
-  - [x] Model: `MeasurementRecord`
-  - [x] Services: `PrettyLogger`
-  - [x] Services: `LocalDatabase`
-  - [ ] Stores: `data-table`
-  - [ ] Stores: `main-menu`
-  - [ ] Stores: `operation-dialog`
-  - [ ] Stores: `settings`
-  - [ ] Stores: `take-measurements`
   - [ ] Utils: `common`
   - [ ] Utils: `validators`
 

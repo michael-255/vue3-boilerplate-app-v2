@@ -1,15 +1,16 @@
-export {}
-// import { describe, test, expect, beforeEach } from 'vitest'
-// import { setActivePinia, createPinia } from 'pinia'
-// import useMainMenuStore from '@/stores/main-menu'
+import { describe, test, expect, beforeEach } from 'vitest'
+import { setActivePinia, createPinia } from 'pinia'
+import useMainMenuStore from '@/stores/main-menu'
 
-// describe('useMainMenuStore', () => {
-//   beforeEach(() => {
-//     setActivePinia(createPinia())
-//   })
+describe('main-menu store', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+  })
 
-//   test('expected properties are on the store', () => {
-//     const mainMenuKeys = Object.keys(useMainMenuStore())
-//     expect(mainMenuKeys.includes('drawer')).toBe(true)
-//   })
-// })
+  test('should have expected properties', () => {
+    const store = useMainMenuStore()
+    const keys = Object.keys(store)
+    expect(store.$id).toBe('main-menu')
+    expect(keys.includes('drawer')).toBe(true)
+  })
+})
