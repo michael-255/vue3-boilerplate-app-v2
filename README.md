@@ -1,8 +1,7 @@
 # Vue 3 Boilerplate App V2
 
-## Todos
-
-- [ ] Go through post cloning task list (double check)
+This Vue 3 and Vite boilerplate project can be used as a springboard to develop other small
+projects. Read through this README to have a better understanding of how this project is setup.
 
 ## Post Cloning Steps
 

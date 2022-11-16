@@ -1,7 +1,7 @@
 {
   "name": "vue3-boilerplate-app-v2",
   "description": "Vue 3 Boilerplate App to help springboard development of smaller projects.",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "author": "Michael Joy",
   "license": "MIT",
   "private": true,
