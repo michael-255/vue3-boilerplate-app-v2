@@ -1,6 +1,6 @@
 # Vue 3 Boilerplate App V2
 
-This Vue 3 and Vite boilerplate project can be used as a springboard to develop other small
+This Vue 3 Typescript project can be used as a template to help you get started developing smaller
 projects. Read through this README to have a better understanding of how this project is setup.
 
 ## Post Cloning Steps
@@ -20,7 +20,7 @@ projects. Read through this README to have a better understanding of how this pr
 
 - [ ] Update `GitHub` repository settings
 
-  - [ ] Add a short Description
+  - [ ] Add a Description
   - [ ] Add the GitHub Pages website
   - [ ] Add Topics
   - [ ] Update the `Include in the home page` section
@@ -31,7 +31,7 @@ projects. Read through this README to have a better understanding of how this pr
 
 - [ ] Update `README.md`
 
-  - [ ] Change main heading at the top of page to your project name
+  - [ ] Change README main heading to your project name
   - [ ] Add detailed project description
   - [ ] Remove unneeded sections (even this one)
 
@@ -110,7 +110,7 @@ you'll need to copy over based on your selections.
 
 <https://quasar.dev/start/vite-plugin>
 
-These following files will need to be updated based on the configurator tool.
+The following files will need to be updated based on the configurator tool.
 
 - `mains.ts`
 - `vite.config.ts`
@@ -145,7 +145,7 @@ Please note the setup of the following when using this project.
 - `.gitignore`
 - `.eslintrc.cjs`
 - `.prettierignore`
-- `.prettierre.json`
+- `.prettierrc.json`
 - `/.vscode/extensions.json`
 
 ## Additional Notes
