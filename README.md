@@ -31,6 +31,7 @@ projects. Read through this README to have a better understanding of how this pr
 
 - [ ] Update `README.md`
 
+  - [ ] Change main heading at the top of page to your project name
   - [ ] Add detailed project description
   - [ ] Remove unneeded sections (even this one)
 
