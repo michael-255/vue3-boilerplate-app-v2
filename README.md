@@ -2,11 +2,6 @@
 
 ## Todos
 
-- [ ] `Tests` Rebuild tests for all files
-
-  - [ ] Utils: `common`
-  - [ ] Utils: `validators`
-
 - [ ] Go through post cloning task list (double check)
 
 ## Post Cloning Steps

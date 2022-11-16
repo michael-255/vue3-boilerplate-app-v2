@@ -1,117 +1,131 @@
-export {}
-// import { describe, test, expect } from 'vitest'
-// import * as val from '@/utils/validators'
+import { describe, test, expect } from 'vitest'
+import * as validators from '@/utils/validators'
 
-// describe('ValidationRegex', () => {
-//   test('should return correct boolean result', () => {
-//     expect(val.ValidationRegex.Date.test(new Date().toISOString())).toBe(true)
-//     expect(val.ValidationRegex.ShortText.test('test')).toBe(true)
-//     expect(val.ValidationRegex.LongText.test('test')).toBe(true)
-//   })
-// })
+describe('ValidationRegex util', () => {
+  test('should return correct boolean result', () => {
+    expect(validators.ValidationRegex.Date.test(new Date().toISOString())).toBe(true)
+    expect(validators.ValidationRegex.ShortText.test('test')).toBe(true)
+    expect(validators.ValidationRegex.LongText.test('test')).toBe(true)
+  })
+})
 
-// describe('isObject', () => {
-//   test('should return correct boolean result', () => {
-//     expect(val.isObject({})).toBe(true)
-//     expect(val.isObject('')).toBe(false)
-//     expect(val.isObject(1)).toBe(false)
-//     expect(val.isObject([])).toBe(false)
-//   })
-// })
+describe('isObject util', () => {
+  test('should return correct boolean result', () => {
+    expect(validators.isObject({})).toBe(true)
+    expect(validators.isObject('')).toBe(false)
+    expect(validators.isObject(1)).toBe(false)
+    expect(validators.isObject([])).toBe(false)
+  })
+})
 
-// describe('isBoolean', () => {
-//   test('should return correct boolean result', () => {
-//     expect(val.isBoolean(true)).toBe(true)
-//     expect(val.isBoolean(false)).toBe(true)
-//     expect(val.isBoolean('')).toBe(false)
-//     expect(val.isBoolean(1)).toBe(false)
-//     expect(val.isBoolean([])).toBe(false)
-//     expect(val.isBoolean({})).toBe(false)
-//   })
-// })
+describe('isBoolean util', () => {
+  test('should return correct boolean result', () => {
+    expect(validators.isBoolean(true)).toBe(true)
+    expect(validators.isBoolean(false)).toBe(true)
+    expect(validators.isBoolean('')).toBe(false)
+    expect(validators.isBoolean(1)).toBe(false)
+    expect(validators.isBoolean([])).toBe(false)
+    expect(validators.isBoolean({})).toBe(false)
+  })
+})
 
-// describe('isUndefined', () => {
-//   test('should return correct boolean result', () => {
-//     expect(val.isUndefined(null)).toBe(true)
-//     expect(val.isUndefined(undefined)).toBe(true)
-//     expect(val.isUndefined('')).toBe(true)
-//     expect(val.isUndefined({})).toBe(false)
-//     expect(val.isUndefined([])).toBe(false)
-//     expect(val.isUndefined(1)).toBe(false)
-//   })
-// })
+describe('isUndefined util', () => {
+  test('should return correct boolean result', () => {
+    expect(validators.isUndefined(null)).toBe(true)
+    expect(validators.isUndefined(undefined)).toBe(true)
+    expect(validators.isUndefined('')).toBe(true)
+    expect(validators.isUndefined({})).toBe(false)
+    expect(validators.isUndefined([])).toBe(false)
+    expect(validators.isUndefined(1)).toBe(false)
+  })
+})
 
-// describe('isDefined', () => {
-//   test('should return correct boolean result', () => {
-//     expect(val.isDefined(null)).toBe(false)
-//     expect(val.isDefined(undefined)).toBe(false)
-//     expect(val.isDefined('')).toBe(false)
-//     expect(val.isDefined({})).toBe(true)
-//     expect(val.isDefined([])).toBe(true)
-//     expect(val.isDefined(1)).toBe(true)
-//   })
-// })
+describe('isDefined util', () => {
+  test('should return correct boolean result', () => {
+    expect(validators.isDefined(null)).toBe(false)
+    expect(validators.isDefined(undefined)).toBe(false)
+    expect(validators.isDefined('')).toBe(false)
+    expect(validators.isDefined({})).toBe(true)
+    expect(validators.isDefined([])).toBe(true)
+    expect(validators.isDefined(1)).toBe(true)
+  })
+})
 
-// describe('isPositiveNumber', () => {
-//   test('should return correct boolean result', () => {
-//     expect(val.isPositiveNumber(0)).toBe(false)
-//     expect(val.isPositiveNumber(-1)).toBe(false)
-//     expect(val.isPositiveNumber(999999999)).toBe(true)
-//     expect(val.isPositiveNumber(1000000000)).toBe(false)
-//   })
-// })
+describe('isPercentNumber util', () => {
+  test('should return correct boolean result', () => {
+    expect(validators.isPercentNumber(0)).toBe(true)
+    expect(validators.isPercentNumber(100)).toBe(true)
+    expect(validators.isPercentNumber(-1)).toBe(false)
+    expect(validators.isPercentNumber(101)).toBe(false)
+  })
+})
 
-// describe('isOptionalPositiveNumber', () => {
-//   test('should return correct boolean result', () => {
-//     expect(val.isOptionalPositiveNumber(undefined)).toBe(true)
-//     expect(val.isOptionalPositiveNumber(0)).toBe(false)
-//     expect(val.isOptionalPositiveNumber(-1)).toBe(false)
-//     expect(val.isOptionalPositiveNumber(999999999)).toBe(true)
-//     expect(val.isOptionalPositiveNumber(1000000000)).toBe(false)
-//   })
-// })
+describe('isPositiveNumber util', () => {
+  test('should return correct boolean result', () => {
+    expect(validators.isPositiveNumber(0)).toBe(false)
+    expect(validators.isPositiveNumber(-1)).toBe(false)
+    expect(validators.isPositiveNumber(999999999)).toBe(true)
+  })
+})
 
-// describe('isId', () => {
-//   test('should return correct boolean result', () => {
-//     expect(val.isId('')).toBe(false)
-//     expect(val.isId('X')).toBe(true)
-//     expect(val.isId('abcdefghijklmnopqrstuvwxyz0123456789TEST')).toBe(true)
-//     expect(val.isId('abcdefghijklmnopqrstuvwxyz0123456789TESTX')).toBe(false)
-//   })
-// })
+describe('isNonNegitiveNumber util', () => {
+  test('should return correct boolean result', () => {
+    expect(validators.isNonNegitiveNumber(0)).toBe(true)
+    expect(validators.isNonNegitiveNumber(-1)).toBe(false)
+    expect(validators.isNonNegitiveNumber(999999999)).toBe(true)
+  })
+})
 
-// describe('isDate', () => {
-//   test('should return correct boolean result', () => {
-//     expect(val.isDate('')).toBe(false)
-//     expect(val.isDate(new Date().toISOString())).toBe(true)
-//   })
-// })
+describe('isOptionalNonNegitiveNumber util', () => {
+  test('should return correct boolean result', () => {
+    expect(validators.isOptionalNonNegitiveNumber(undefined)).toBe(true)
+    expect(validators.isOptionalNonNegitiveNumber(0)).toBe(true)
+    expect(validators.isOptionalNonNegitiveNumber(-1)).toBe(false)
+    expect(validators.isOptionalNonNegitiveNumber(999999999)).toBe(true)
+  })
+})
 
-// describe('isOptionalDate', () => {
-//   test('should return correct boolean result', () => {
-//     expect(val.isOptionalDate('')).toBe(true)
-//     expect(val.isOptionalDate(new Date().toISOString())).toBe(true)
-//   })
-// })
+describe('isId util', () => {
+  test('should return correct boolean result', () => {
+    expect(validators.isId('')).toBe(false)
+    expect(validators.isId('X')).toBe(true)
+    expect(validators.isId('abcdefghijklmnopqrstuvwxyz0123456789TEST')).toBe(true)
+    expect(validators.isId('abcdefghijklmnopqrstuvwxyz0123456789TESTX')).toBe(false)
+  })
+})
 
-// describe('isShortText', () => {
-//   test('should return correct boolean result', () => {
-//     const str40 = Array(20).fill('X').toString() + 'X'
-//     const str41 = Array(21).fill('X').toString()
-//     expect(val.isShortText('')).toBe(false)
-//     expect(val.isShortText('X')).toBe(true)
-//     expect(val.isShortText(str40)).toBe(true)
-//     expect(val.isShortText(str41)).toBe(false)
-//   })
-// })
+describe('isDate util', () => {
+  test('should return correct boolean result', () => {
+    expect(validators.isDate('')).toBe(false)
+    expect(validators.isDate(new Date().toISOString())).toBe(true)
+  })
+})
 
-// describe('isOptionalLongText', () => {
-//   test('should return correct boolean result', () => {
-//     const str500 = Array(250).fill('X').toString() + 'X'
-//     const str501 = Array(251).fill('X').toString()
-//     expect(val.isOptionalLongText('')).toBe(true)
-//     expect(val.isOptionalLongText('X')).toBe(true)
-//     expect(val.isOptionalLongText(str500)).toBe(true)
-//     expect(val.isOptionalLongText(str501)).toBe(false)
-//   })
-// })
+describe('isOptionalDate util', () => {
+  test('should return correct boolean result', () => {
+    expect(validators.isOptionalDate('')).toBe(true)
+    expect(validators.isOptionalDate(new Date().toISOString())).toBe(true)
+  })
+})
+
+describe('isShortText util', () => {
+  test('should return correct boolean result', () => {
+    const str40 = Array(20).fill('X').toString() + 'X'
+    const str41 = Array(21).fill('X').toString()
+    expect(validators.isShortText('')).toBe(false)
+    expect(validators.isShortText('X')).toBe(true)
+    expect(validators.isShortText(str40)).toBe(true)
+    expect(validators.isShortText(str41)).toBe(false)
+  })
+})
+
+describe('isOptionalLongText util', () => {
+  test('should return correct boolean result', () => {
+    const str500 = Array(250).fill('X').toString() + 'X'
+    const str501 = Array(251).fill('X').toString()
+    expect(validators.isOptionalLongText('')).toBe(true)
+    expect(validators.isOptionalLongText('X')).toBe(true)
+    expect(validators.isOptionalLongText(str500)).toBe(true)
+    expect(validators.isOptionalLongText(str501)).toBe(false)
+  })
+})
