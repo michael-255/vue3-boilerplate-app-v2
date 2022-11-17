@@ -20,6 +20,10 @@ export function isDefined(value: any): boolean {
   return !isUndefined(value)
 }
 
+export function isDataInArray(array: any[]): boolean {
+  return Array.isArray(array) && array.length > 0
+}
+
 export function isPercentNumber(num: number): boolean {
   return typeof num === 'number' && isFinite(num) && num >= 0 && num <= 100
 }

@@ -51,6 +51,14 @@ describe('isDefined util', () => {
   })
 })
 
+describe('isDataInArray util', () => {
+  test('should return correct boolean result', () => {
+    expect(validators.isDataInArray([])).toBe(false)
+    expect(validators.isDataInArray([1])).toBe(true)
+    expect(validators.isDataInArray(['test'])).toBe(true)
+  })
+})
+
 describe('isPercentNumber util', () => {
   test('should return correct boolean result', () => {
     expect(validators.isPercentNumber(0)).toBe(true)

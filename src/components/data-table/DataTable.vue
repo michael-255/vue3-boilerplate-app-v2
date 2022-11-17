@@ -102,13 +102,13 @@ async function onDelete(id: string): Promise<void> {
         outlined
         dense
         options-dense
-        display-value="Columns"
+        display-value="Visible Columns"
         emit-value
         map-options
         :options="dataTableStore.columnOptions"
         option-value="name"
         options-cover
-        style="min-width: 150px"
+        style="min-width: 140px"
         class="q-mr-sm q-mb-sm"
       />
       <div>
