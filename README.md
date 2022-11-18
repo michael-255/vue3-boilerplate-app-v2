@@ -3,6 +3,52 @@
 This Vue 3 Typescript project can be used as a template to help you get started developing smaller
 projects. Read through this README to have a better understanding of how this project is setup.
 
+## Ideas & Todos
+
+Simplify tables so they use unclassed objects.
+
+```typescript
+enum AppTable = {
+  PARENT = 'Parent-Table',
+  RECORD = 'Record-Table',
+  ACTIVE = 'Active-Table',
+}
+
+const parent = {
+  type: 'Measurement',
+  id: 'test-123'
+  name: 'Body Weight',
+  description: 'Hello World!',
+  measurementUnit: 'Lbs'
+}
+
+const record = {
+  type: 'Measurement Record',
+  id: 'test-456'
+  parentId: 'test-123',
+  note: 'Good measurement!',
+  measurementValue: 155
+}
+
+const record = {
+  type: 'Weight Exercise Record',
+  id: 'test-789'
+  parentId: 'test-xxx',
+  note: 'Lifted a lot!',
+  weight: [215, 215, 215],
+  reps: [5, 5, 5],
+}
+
+const record = {
+  type: 'Cardio Exercise Record',
+  id: 'test-789'
+  parentId: 'test-xxx',
+  note: 'Lifted a lot!',
+  distance: [],
+  duration: [],
+}
+```
+
 ## Post Cloning Steps
 
 - [ ] Update `package.json`

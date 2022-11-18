@@ -10,7 +10,7 @@ const operationDialogStore = useOperationDialogStore()
 const inputRef: Ref<any> = ref(null)
 
 try {
-  operationDialogStore.temporaryItem.measurementValue = operationDialogStore.selected
+  operationDialogStore.temporaryItem.measurementValue = operationDialogStore.selectedItem
     ?.measurementValue
     ? operationDialogStore.selectedItem.measurementValue
     : 1
