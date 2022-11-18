@@ -14,7 +14,10 @@ const options: Ref<any[]> = ref([])
 onMounted(async () => {
   try {
     options.value = Object.values(MeasurementType)
-    operationDialogStore.temporaryItem.measurementType = options.value[0]
+    operationDialogStore.temporaryItem.measurementType = operationDialogStore.selectedItem
+      .measurementType
+      ? operationDialogStore.selectedItem.measurementType
+      : options.value[0]
     operationDialogStore.validateItem.measurementType = true
   } catch (error) {
     log.error('MeasurementTypeSelect:onMounted', error)

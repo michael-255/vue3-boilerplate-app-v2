@@ -62,5 +62,5 @@ async function confirmUpdateDialog(): Promise<void> {
     <component :is="comp" />
   </div>
 
-  <QBtn color="positive" :icon="Icon.SAVE" label="Update" @click="onUpdate()" />
+  <QBtn class="q-mt-md" color="positive" :icon="Icon.SAVE" label="Update" @click="onUpdate()" />
 </template>

@@ -14,7 +14,7 @@ const displayedDate: Ref<string> = ref('')
 const dateTimePicker: Ref<string> = ref('')
 
 try {
-  if (operationDialogStore.selected?.createdDate) {
+  if (operationDialogStore.selectedItem?.createdDate) {
     updateDates(operationDialogStore.selectedItem.createdDate)
   } else {
     updateDates()

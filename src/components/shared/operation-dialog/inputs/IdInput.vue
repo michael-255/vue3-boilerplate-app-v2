@@ -12,7 +12,7 @@ const operationDialogStore = useOperationDialogStore()
 const inputRef: Ref<any> = ref(null)
 
 try {
-  operationDialogStore.temporaryItem.id = operationDialogStore.selected?.id
+  operationDialogStore.temporaryItem.id = operationDialogStore.selectedItem?.id
     ? operationDialogStore.selectedItem.id
     : uuid()
   operationDialogStore.validateItem.id = true

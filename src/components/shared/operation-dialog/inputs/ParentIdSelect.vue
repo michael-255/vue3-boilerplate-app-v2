@@ -37,7 +37,7 @@ onMounted(async () => {
 
       // Set the current option
       // must do this first so it can be null if parent was deleted versus being the first option
-      if (operationDialogStore.selected?.parentId) {
+      if (operationDialogStore.selectedItem?.parentId) {
         const parent = options.value?.find(
           (opt) => opt.value === operationDialogStore.selectedItem.parentId
         )?.value

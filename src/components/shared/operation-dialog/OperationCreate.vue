@@ -58,5 +58,5 @@ function confirmCreateDialog(): void {
     <component :is="comp" />
   </div>
 
-  <QBtn color="positive" :icon="Icon.SAVE" label="Create" @click="onCreate()" />
+  <QBtn class="q-mt-md" color="positive" :icon="Icon.SAVE" label="Create" @click="onCreate()" />
 </template>

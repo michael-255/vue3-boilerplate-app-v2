@@ -10,7 +10,7 @@ const operationDialogStore = useOperationDialogStore()
 const inputRef: Ref<any> = ref(null)
 
 try {
-  operationDialogStore.temporaryItem.name = operationDialogStore.selected?.name
+  operationDialogStore.temporaryItem.name = operationDialogStore.selectedItem?.name
     ? operationDialogStore.selectedItem.name
     : 'Example Name'
   operationDialogStore.validateItem.name = true
