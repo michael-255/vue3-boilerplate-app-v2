@@ -9,13 +9,68 @@ Simplify tables so they use unclassed objects.
 
 ```typescript
 enum AppTable = {
-  PARENT = 'Parent-Table',
-  RECORD = 'Record-Table',
-  ACTIVE = 'Active-Table',
+  PARENTS = 'parents-table',
+  RECORDS = 'records-table',
+  ACTIVE = 'active-table',
+}
+
+type CoreDatabaseObject = {
+  _type: string
+  id: string
+  createdDate: string
+}
+
+type ParentDatabaseObject = CoreDatabaseObject & {
+  name: string // required
+  description: string // required
+  settingValue?: SettingValue
+  measurementUnit?: number
+  ...
+}
+
+type RecordDatabaseObject = CoreDatabaseObject & {
+  parentId: string // required
+  note: string // required
+  measurementValue?: number
+  weight?: number[]
+  reps?: number[]
+  distance?: number[]
+  duration?: number[]
+  ...
+}
+
+const entityObject = {
+  _type: '',
+  id: '',
+  createdDate: '',
+}
+
+const parentObject = {
+  _type: '',
+  id: '',
+  createdDate: '',
+  name: '',
+  description: '',
+}
+
+const recordObject = {
+  _type: '',
+  id: '',
+  createdDate: '',
+  parentId: '',
+  note: '',
 }
 
 const parent = {
-  type: 'Measurement',
+  _type: 'Setting',
+  id: 'dark-mode', // must be the id for setting to ensure uniqueness
+  name: 'Dark Mode'
+  description: 'Setting for the app theme (dark/light)',
+  settingValue: true,
+}
+
+const parent = {
+  _type: 'Measurement',
   id: 'test-123'
   name: 'Body Weight',
   description: 'Hello World!',
@@ -23,7 +78,7 @@ const parent = {
 }
 
 const record = {
-  type: 'Measurement Record',
+  _type: 'Measurement Record',
   id: 'test-456'
   parentId: 'test-123',
   note: 'Good measurement!',
@@ -31,7 +86,7 @@ const record = {
 }
 
 const record = {
-  type: 'Weight Exercise Record',
+  _type: 'Weight Exercise Record',
   id: 'test-789'
   parentId: 'test-xxx',
   note: 'Lifted a lot!',
@@ -40,7 +95,7 @@ const record = {
 }
 
 const record = {
-  type: 'Cardio Exercise Record',
+  _type: 'Cardio Exercise Record',
   id: 'test-789'
   parentId: 'test-xxx',
   note: 'Lifted a lot!',
