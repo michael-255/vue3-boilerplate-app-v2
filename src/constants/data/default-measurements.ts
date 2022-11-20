@@ -1,5 +1,5 @@
 /**
- * Typicial measurements people may want to take.
+ * Typicial measurements people may want to use.
  * @see
  * Default export at bottom of file
  */
