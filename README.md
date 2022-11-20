@@ -39,28 +39,6 @@ type RecordDatabaseObject = CoreDatabaseObject & {
   ...
 }
 
-const entityObject = {
-  _type: '',
-  id: '',
-  createdDate: '',
-}
-
-const parentObject = {
-  _type: '',
-  id: '',
-  createdDate: '',
-  name: '',
-  description: '',
-}
-
-const recordObject = {
-  _type: '',
-  id: '',
-  createdDate: '',
-  parentId: '',
-  note: '',
-}
-
 const parent = {
   _type: 'Setting',
   id: 'dark-mode', // must be the id for setting to ensure uniqueness
@@ -102,6 +80,23 @@ const record = {
   distance: [],
   duration: [],
 }
+
+const useTriggersStore: StoreDefinition = defineStore({
+  id: 'triggers',
+
+  state: () => ({
+    validation: uuid(),
+  }),
+  actions: {
+    validation() {
+      this.validation = uuid()
+    }
+  }
+})
+
+const triggers = useTriggersStore()
+triggers.validation()
+
 ```
 
 ## Post Cloning Steps

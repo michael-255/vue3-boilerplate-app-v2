@@ -12,7 +12,7 @@ const inputRef: Ref<any> = ref(null)
 try {
   operationDialogStore.temporaryItem.name = operationDialogStore.selectedItem?.name
     ? operationDialogStore.selectedItem.name
-    : 'Example Name'
+    : 'Example'
   operationDialogStore.validateItem.name = true
 } catch (error) {
   log.error('NameInput:Setup', error)
