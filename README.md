@@ -1,5 +1,9 @@
 # Vue 3 Boilerplate App V2
 
+_Project Archived_
+
+Please use the following version as a template: https://github.com/michael-255/vue3-web-app-template-2023
+
 This Vue 3 Typescript project can be used as a template to help you get started developing smaller
 projects. Read through this README to have a better understanding of how this project is setup.
 
